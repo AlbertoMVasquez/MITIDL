@@ -5,6 +5,7 @@
 ; Load look up table of contribution function G for user-specified Ion
 ; and line. The table is an IDL SAVE file containing:
 ; G [erg cm^+3 sec^-1], log(Te [K]), log10(Ne [cm-3]), rad [Rsun],
+; as well as the photosphere Teff [K],
 ; and must be stored in:
 ; tomroot/tomography/MultiTom/Emissivity/LookUp_Tables/
 ;
