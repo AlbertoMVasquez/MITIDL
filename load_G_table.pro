@@ -20,7 +20,7 @@
 ;
 ;---------------------------------------------------------------------
 
-pro load_G,ion_label=ion_label,line_wavelength=line_wavelength
+pro load_G_table,ion_label=ion_label,line_wavelength=line_wavelength
   common G_table,G,T_e,N_e,r,photT
   common directories,tomroot
   
