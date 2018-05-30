@@ -30,7 +30,7 @@
 ;
 ;---------------------------------------------------------------------
 
-function emissivity,Te0=Te0,Ne0=Ne0,r0=r0,fip_factor=fip_factor,derivatives=derivatives
+function s_function,Te0=Te0,Ne0=Ne0,r0=r0,fip_factor=fip_factor,derivatives=derivatives
   common G_table,G,T_e,N_e,r,photT
 
   ; Set default fip_factor:
