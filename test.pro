@@ -20,6 +20,7 @@ pro test,Ne0=Ne0,Te0=Te0,r0=r0,fip_factor=fip_factor
 
   load_g_table,ion_label=ion_label,line_wavelength=line_wavelength
 
+  print
   print,'Input values of Ne [cm^-3], Te [K], rad [Rsun], fip_factor:'
   print,Ne0,Te0,r0,fip_factor
   print
@@ -28,6 +29,7 @@ pro test,Ne0=Ne0,Te0=Te0,r0=r0,fip_factor=fip_factor
   print
   print,'Emissivity [erg cm-3 sec-1 sr-1]:'
   print,s_function(Te0, Ne0, r0, fip_factor)
+  print
   
   return
 end
