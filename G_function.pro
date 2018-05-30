@@ -1,9 +1,33 @@
-function G_function, Te0, Ne0, r0 ; this is the ordering of the indexes in G table.
+;---------------------------------------------------------------------
+;
+; Brief description:
+;
+; This function returns:
+;
+;  - For lines: the contribution function G provided values for Ne, Te and r.
+;
+;  - For EUV bands: the temperature response function TRF provided values for Ne, Te.
+;
+; In both cases the routine tri-linearly interpolates G/TRF into (Ne,Te,r).
+;
+; INPUTS: values for Ne, Te, rad
+;
+; OUTPUTS:
+;
+; G [erg cm-3 sec-1 sr-1]
+; or
+; TRF [units?]
+;
+; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
+;
+;---------------------------------------------------------------------
+
+function G_function, Te0=Te0, Ne0=Ne0, r0=r0
   common G_table,G,T_e,N_e,r,photT
 
   goto,tri_linear_interpolator
-  
-  ; Simply assign closest value, I will next implement a 3-linear interpolator
+ 
+  ; Assign closest value from look-up table
   fTe = abs(Te0-T_e) & iTe = median(where(fTe eq min(fTe)))
   fNe = abs(Ne0-N_e) & iNe = median(where(fNe eq min(fNe)))
   fr  = abs(r0 -r  ) & ir  = median(where(fr  eq min(fr )))
@@ -16,14 +40,14 @@ function G_function, Te0, Ne0, r0 ; this is the ordering of the indexes in G tab
   
   tri_linear_interpolator:
   ; Tri-linear interpolator
-  ; Rename dimensions. X is Ne.
+  ; Rename dimensions: Ne->X, Te->Y, rad->Z
   xa = N_e & x0 = Ne0
   ya = T_e & y0 = Te0
   za = r   & z0 = r0
   ; Find the x-planes that surround x0
   ixA = max(where(xa le x0))
   if ixA eq -1 then begin
-     print,'Ne value is out of range' ; Let's talk if we need something better here.
+     print,'Ne value is out of range' ; we may need something better to treat this case.
      stop
   endif
   ixB=ixA+1
