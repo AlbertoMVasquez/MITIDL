@@ -14,7 +14,7 @@
 ;
 ; OUTPUTS:
 ;
-; G [erg cm-3 sec-1 sr-1]
+; G [erg cm+3 sec-1]
 ; or
 ; TRF [units?]
 ;

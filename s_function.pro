@@ -1,3 +1,4 @@
+;---------------------------------------------------------------------
 ;
 ; Brief description:
 ;
@@ -37,13 +38,10 @@ function s_function,Te0=Te0,Ne0=Ne0,r0=r0,fip_factor=fip_factor,derivatives=deri
   if not keyword_set(fip_factor) then fip_factor = 1.0 
 
   ; Tri-linearly interpolate G from the look-up table:
-  G0 = G_function(Te0,Ne0,r0)
+  G0 = G_function(Te0,Ne0,r0) ; [erg cm+3 sec-1]
 
   ; Compute emissivity assmuing isotropic emission:
   s0 = fip_factor * Ne0^2 * G0 / (4.*!pi) ; [erg cm-3 sec-1 sr-1]
 
   return,s0
-end
-
-  return
 end

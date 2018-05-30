@@ -29,11 +29,11 @@ pro load_G_table,ion_label=ion_label,line_wavelength=line_wavelength
 
   restore,data_dir+file_name
 
-  G     = emissivity ; erg cm^+3 sec^-1 ; Note: G(Te, Ne, r)
-  N_e   = 10.^dens   ; cm^-3
-  T_e   = 10.^temp   ; K
-  r     = rphot      ; Rsun
-  photT = radtemp    ; K
+  G     = emissivity ; [erg cm^+3 sec^-1] ; Note: G(Te, Ne, r)
+  N_e   = 10.^dens   ; [cm^-3]
+  T_e   = 10.^temp   ; [K]
+  r     = rphot      ; [Rsun]
+  photT = radtemp    ; [K]
 
   return
 end
