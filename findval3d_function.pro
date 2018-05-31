@@ -18,7 +18,7 @@ function findval3d_function, DATA_ARRAY, xa, ya, za, x0, y0, z0
   ; Find the x-planes that surround x0
   ixA = max(where(xa le x0))
   if ixA eq -1 then begin
-     print,'Ne value is out of range' ; we may need something better to treat this case.
+     print,'x0 value is out of range' ; we may need something better to treat this case.
      stop
   endif
   ixB=ixA+1
