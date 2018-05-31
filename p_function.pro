@@ -25,7 +25,6 @@
 ;---------------------------------------------------------------------
 
 function p_function, Te0, Ne0, Tem, Nem, SigTe, SigNe, q
-
   eps=1.e-8
   if abs(q-1.) le eps then begin
      print,'Ne-Te correlation can not be 1.'
