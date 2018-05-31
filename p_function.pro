@@ -33,7 +33,7 @@ function p_function, Te0, Ne0, Tem, Nem, SigTe, SigNe, q
   expT    = ((Te0-Tem)/SigTe)^2
   expN    = ((Ne0-Nem)/SigNe)^2
   expTN   = (Te0-Tem)*(Ne0-Nem)/(SigTe*SigNe)
-  p_value = (1./(2.*!pi*sigTe*sigNe*sqrt(1.-q))) * $
+  p_value = (1./(2.*!pi*sigTe*sigNe*sqrt(1.-q)))*$
             exp( - (1./2./(1.-q^2))*( expT + expN - 2.*q*expTN ) )  
   return,p_value
 end
