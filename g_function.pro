@@ -27,7 +27,7 @@ function g_function, Te0, Ne0, r0
 
   goto,tri_linear_interpolator
  
-  ; Assign closest value from look-up table
+  ; Rough 1st-approach: Assign closest value from look-up table
   fTe = abs(Te0-T_e) & iTe = median(where(fTe eq min(fTe)))
   fNe = abs(Ne0-N_e) & iNe = median(where(fNe eq min(fNe)))
   fr  = abs(r0 -r  ) & ir  = median(where(fr  eq min(fr )))
@@ -40,25 +40,13 @@ function g_function, Te0, Ne0, r0
   
   tri_linear_interpolator:
   ; Tri-linear interpolator
-  ; Rename dimensions: Ne->X, Te->Y, rad->Z
-  xa = N_e & x0 = Ne0
-  ya = T_e & y0 = Te0
+  ; Rename dimensions: Te->X, Ne->Y, rad->Z
+  DATA_ARRAY = G
+  xa = T_e & x0 = Te0
+  ya = N_e & y0 = Ne0
   za = r   & z0 = r0
-  ; Find the x-planes that surround x0
-  ixA = max(where(xa le x0))
-  if ixA eq -1 then begin
-     print,'Ne value is out of range' ; we may need something better to treat this case.
-     stop
-  endif
-  ixB=ixA+1
-  ; Define two 2D y-z arrays at x-planes that surround x0. 
-  DATA_ARRAY_xA = reform(G(*,ixA,*))
-  DATA_ARRAY_xB = reform(G(*,ixB,*))
-  ; Bi-linearly interpolate in xA and xB planes.   
-  G_xA = findval2D_function( DATA_ARRAY_xA ,ya ,za , y0, z0 )
-  G_xB = findval2D_function( DATA_ARRAY_xB ,ya ,za , y0, z0 )
-  ; Linearly interpolate the value og G along x, betwee xA and xB planes.
-  G_value = G_xA + (G_xB-G_xA)*(x0-xa(ixA))/(xa(ixB)-xa(ixA))
+
+  G_value = findval3D_function(DATA_ARRAY,xa,ya,za,x0,y0,z0)
 
   exit:
   return,G_value

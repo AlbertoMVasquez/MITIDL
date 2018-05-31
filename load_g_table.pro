@@ -9,6 +9,8 @@
 ; and must be stored in:
 ; tomroot/tomography/MultiTom/Emissivity/LookUp_Tables/
 ;
+; Note ORDER of dimensions: G(Te, Ne, r)
+;
 ; INPUTS:
 ; ion_label: a string specifying the ion, possible values are:
 ; 'fexiii', ....
@@ -28,12 +30,11 @@ pro load_g_table,ion_label=ion_label,line_wavelength=line_wavelength
   file_name = 'G_function_'+ion_label+'_'+line_wavelength+'.save'
 
   restore,data_dir+file_name
-
-  G     = emissivity ; [erg cm^+3 sec^-1] ; Note: G(Te, Ne, r)
-  N_e   = 10.^dens   ; [cm^-3]
-  T_e   = 10.^temp   ; [K]
-  r     = rphot      ; [Rsun]
-  photT = radtemp    ; [K]
+  G     = emissivity            ; [erg cm^+3 sec^-1]
+  T_e   = 10.^temp              ; [K]
+  N_e   = 10.^dens              ; [cm^-3]
+  r     = rphot                 ; [Rsun]
+  photT = radtemp               ; [K]
 
   return
 end
