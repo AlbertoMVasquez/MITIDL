@@ -25,10 +25,10 @@ pro test,Ne0=Ne0,Te0=Te0,r0=r0,fip_factor=fip_factor
   print,Ne0,Te0,r0,fip_factor
   print
   print,'G-function value [erg cm+3 sec-1]:'
-  print,g_function(Te0, Ne0, r0)
+  print,(g_function(Te0, Ne0, r0))(0)
   print
   print,'Emissivity [erg cm-3 sec-1 sr-1]:'
-  print,s_function(Te0, Ne0, r0, fip_factor)
+  print,(s_function(Te0, Ne0, r0, fip_factor))(0)
   print
 
   return
