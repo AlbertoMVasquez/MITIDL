@@ -5,7 +5,9 @@
 ; This function returns the trilinearly interpolated value of
 ; F(xa,ya,za) into the point (x0,y0,z0)
 ;
-; It also returns its 3 partial derivatives at that point.
+; It also returns its 3 partial derivatives computed from finite
+; diferences between the walls of the cell that contains the point
+; (x0,y0,z0).
 ;
 ; INPUTS:
 ; F:          3-dimensional array.

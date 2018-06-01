@@ -32,14 +32,6 @@
 
 function g_function, Te0, Ne0, r0
   common G_table,G,T_e,N_e,r,photT
-
-  ; Rename dimensions: Te->X, Ne->Y, rad->Z for 3-linear interpolator
-  DATA_ARRAY = G
-  xa = T_e & x0 = Te0
-  ya = N_e & y0 = Ne0
-  za = r   & z0 = r0
-
-  RESULT = findval3D_function(DATA_ARRAY,xa,ya,za,x0,y0,z0)
-
+  RESULT = findval3D_function(G,T_e,N_e,r,Te0,Ne0,r0)
   return, RESULT
 end
