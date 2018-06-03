@@ -8,7 +8,7 @@
 ;
 ;---------------------------------------------------------------------
 
-pro test,Ne0=Ne0,Te0=Te0,r0=r0,fip_factor=fip_factor
+pro test,Ne0=Ne0,Te0=Te0,r0=r0,fip_factor=fip_factor,line_wavelength=line_wavelength
   common constants,Rsun,kB,h,c
   common G_table,G,T_e,N_e,r,photT
   common directories,tomroot

@@ -16,7 +16,7 @@
 ; 'fexiii', ....
 ;
 ; line_wavelength: a string specifying the wavelength in A, possible
-; values are: '10747'.
+; values are: '10747', '10801'
 ;
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
 ;
