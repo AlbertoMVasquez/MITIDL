@@ -34,9 +34,10 @@
 ;
 ;---------------------------------------------------------------------
 
-function s_function,Te0,Ne0,r0,fip_factor,derivatives=derivatives
+function s_function, Te0, Ne0
   common G_table,G,T_e,N_e,r,photT
-
+  common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
+  
 ; Set default fip_factor:
   if not keyword_set(fip_factor) then fip_factor = 1.0 
 
