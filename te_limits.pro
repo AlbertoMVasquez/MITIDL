@@ -1,3 +1,4 @@
-FUNCTION Te_Limits
-   RETURN, [1.e6, 3.e6]
+FUNCTION te_limits, Ne0_Limits
+  common Ylimits,Y_Limits
+  RETURN, Y_Limits
 END

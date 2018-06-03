@@ -21,6 +21,8 @@
 
 function e_function, Ne0_Limits, Te0_Limits
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
-  RESULT = INT_2D('sxp_function',Ne0_Limits,'Te_Limits',96,/double)
+  common Ylimits,Y_Limits
+  Y_Limits = Te0_Limits
+  RESULT = INT_2D('sxp_function',Ne0_Limits,'te_limits',96,/double,order=0)
   return, RESULT
 end

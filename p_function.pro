@@ -24,7 +24,7 @@
 ;
 ;---------------------------------------------------------------------
 
-function p_function, Te0, Ne0
+function p_function, Ne0, Te0
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
 
   eps=1.e-8

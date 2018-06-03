@@ -34,7 +34,7 @@
 ;
 ;---------------------------------------------------------------------
 
-function s_function, Te0, Ne0
+function s_function, Ne0, Te0
   common G_table,G,T_e,N_e,r,photT
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   
@@ -43,7 +43,7 @@ function s_function, Te0, Ne0
 
 ; Tri-linearly interpolate G from the look-up table, and compute its
 ; derivatives:
-  RESULT_g = g_function(Te0,Ne0,r0) 
+  RESULT_g = g_function(Te0,Ne0) 
   G0     = RESULT_g(0) ; [erg cm+3 sec-1     ]
   dG_dTe = RESULT_g(1) ; [erg cm+3 sec-1 K-1 ]
   dG_dNe = RESULT_g(2) ; [erg cm+6 sec-1     ]

@@ -10,7 +10,7 @@
 
 function sxp_function, Ne0, Te0
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
-  s = (s_function(Te0,Ne0,r0,fip_factor))(0)
-  p =  p_function(Te0,Ne0,Tem,Nem,SigTe,SigNe,q)
+  s = (s_function(Ne0,Te0))(0)
+  p =  p_function(Ne0,Te0)
   return, s*p
 end
