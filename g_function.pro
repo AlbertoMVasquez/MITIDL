@@ -33,6 +33,14 @@
 function g_function, Te0, Ne0
   common G_table,G,T_e,N_e,r,photT
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
-  RESULT = findval3D_function(G,T_e,N_e,r,Te0,Ne0,r0)
+  common dimensions,NTe,NNe  
+  NTe = 1
+  NNe = 1
+  if (size(Te0))(0) eq 1 then NTe = (size(Te0))(1)
+  if (size(Ne0))(0) eq 1 then NNe = (size(Ne0))(1)
+  RESULT = dblarr(NTe,NNe,4)
+  for iTe=0,NTe-1 do $
+     for iNe=0,NNe-1 do $
+        RESULT[iTe,iNe,*] = findval3D_function(G,T_e,N_e,r,Te0[iTe],Ne0[iNe],r0)
   return, RESULT
 end

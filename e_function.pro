@@ -15,6 +15,12 @@
 ; or
 ; For EUV bands:
 ;
+; IMPORTANT NOTE: In its current implementation, this function
+; computes the 2D integral using the INT_2D.PRO routine, assuming
+; order=0, which means that the integration order is dy-dx, i.e the
+; independent variable is x (external integral), and the dependent
+; variable is y, where here x=Ne and y=Te.
+;
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
 ;
 ;---------------------------------------------------------------------
