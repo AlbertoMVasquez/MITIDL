@@ -59,6 +59,9 @@ pro test,Ne0=Ne0,Te0=Te0;,r0=r0,fip_factor=fip_factor,line_wavelength=line_wavel
   print,'e [erg sec-1 sr-1 K-1]:'
   print, e_function( Ne0_Limits , Te0_Limits )
   print
+  print,'e2[erg sec-1 sr-1 K-1]:'
+  print, e2_function( Ne0_Limits , Te0_Limits )
+  print
   
   return
 end
