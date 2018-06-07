@@ -40,6 +40,7 @@ function g_function, Te0, Ne0, emissionline=emissionline, euvband=euvband
   if (size(Te0))(0) eq 1 then NTe = (size(Te0))(1)
   if (size(Ne0))(0) eq 1 then NNe = (size(Ne0))(1)
   RESULT = dblarr(NTe,NNe,4)
+  
   if keyword_set(emissionline) then begin
   print,'Selected EMISSIONLINE in g_function.pro'
   for iTe=0,NTe-1 do begin
@@ -48,17 +49,23 @@ function g_function, Te0, Ne0, emissionline=emissionline, euvband=euvband
      endfor  
   endfor
 endif
+
+  
 if keyword_set(euvband) then begin
    for iNe=0,NNe-1 do begin
       print,'Selected EUVBAND in g_function.pro'
-      RESULT[*,iNe,0] = interpol(G, T_e, Te0)
-      dG_dTe = 0.
-      RESULT[*,iNe,1:3] = [dG_dTe,0.,0.]
-      ;; NEED TO COMPUTE dG_dTe above!
-      ;; Maybe EASIER to compute G(Te,Ne), and make a new routine to
-      ;; compute both derivatives...
+      dG_dTe       = deriv(T_e,G)
+      G_atTe0      = interpol( G    , T_e, Te0)
+      dG_dTe_atTe0 = interpol(dG_dTe, T_e, Te0)
+      RESULT[*,iNe,0] = G_atTe0
+      RESULT[*,iNe,1] = dG_dTe_atTe0
+      ; Note that dG_dNe and dG_dr are set to ZERO.
+      ; In a next version G will be a function of (Te,Ne), even if
+      ; very weakly dependent on Ne, will compute dG_dNe too.
    endfor
 endif
-  
+
+stop
+
   return, RESULT
 end

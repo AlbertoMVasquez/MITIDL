@@ -80,8 +80,9 @@ pro load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,emissionlin
         TRF[itemp]=TRF0
      endfor
      close,1
-; Note that TRF had sr^-1 incorporated, multiplying by 4pi below to put
-; in same units as for emissionlines.
+; Note that TRF look-up table includes sr^-1 in its units, multiplying
+; by 4pi below to put G in same units as for emissionlines. Emissivity
+; gets divided back by 4pi in s_function.pro.
      G     = TRF*4.*!pi            ; [PHOTON cm^+3 sec^-1]
      T_e   = 10.^logTe             ; [K]
   endif

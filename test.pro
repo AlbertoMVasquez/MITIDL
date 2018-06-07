@@ -57,6 +57,7 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline
   print,sxp_function(Ne0, Te0,emissionline=emissionline,euvband=euvband)
   print
 
+  ;-------------PROBLEM: e_function is not passing band/line option to s_function!!!
   Ne0_Limits = [min(N_e),max(N_e)]
   Te0_Limits = [min(T_e),max(T_e)]
   print,'e [erg sec-1 sr-1 K-1]:'

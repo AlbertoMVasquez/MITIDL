@@ -41,8 +41,9 @@ function s_function, Ne0, Te0, emissionline=emissionline, euvband=euvband
 ; Set default fip_factor:
   if not keyword_set(fip_factor) then fip_factor = 1.0 
 
-; Tri-linearly interpolate G from the look-up table, and compute its
+; Linearly interpolate G from the look-up table, and compute its
 ; derivatives:
+
   RESULT_g = g_function(Te0,Ne0,emissionline=emissionline,euvband=euvband)
 
   RESULT_s = dblarr(NTe,NNe,4)
