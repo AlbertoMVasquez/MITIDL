@@ -85,6 +85,13 @@ pro load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,emissionlin
 ; gets divided back by 4pi in s_function.pro.
      G     = TRF*4.*!pi            ; [PHOTON cm^+3 sec^-1]
      T_e   = 10.^logTe             ; [K]
+
+; Make a Ne 1D-array for posterior use in integrals. In a future
+; version G will trully be a function of both (Te,Ne), even if weakly
+; dependent on Ne.
+     NNe   = 50
+     logNe = 5. + (10.-5.) * findgen(NNe)/float(NNe-1)
+     N_e   = 10.^logNe
   endif
   
   return

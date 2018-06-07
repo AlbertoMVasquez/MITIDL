@@ -28,6 +28,7 @@
 function e_function, Ne0_Limits, Te0_Limits,emissionline=emissionline,euvband=euvband
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common Ylimits,Y_Limits
+  common type,emissionline_status,euvband_status
   Y_Limits = Te0_Limits
   RESULT = INT_2D('sxp_function',Ne0_Limits,'te_limits',96,/double,order=0)
   return, RESULT

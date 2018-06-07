@@ -28,6 +28,7 @@
 function e2_function, Ne0_Limits, Te0_Limits
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common Ylimits,Y_Limits
+  common type,emissionline_status,euvband_status
   Z1_Limits = (Ne0_Limits-Nem)/SigNe
    Y_Limits = (Te0_Limits-Tem)/SigTe
   RESULT = INT_2D('sxp2_function',Z1_Limits,'z2_limits',96,/double,order=0)

@@ -14,7 +14,8 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline
   common directories,tomroot
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common dimensions,NTe,NNe
-
+  common type,emissionline_status,euvband_status
+  
   r0=1.2
   fip_factor=1.
   Tem=1.75e6
@@ -40,24 +41,28 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline
   if (size(Te0))(0) eq 1 then NTe = (size(Te0))(1)
   if (size(Ne0))(0) eq 1 then NNe = (size(Ne0))(1)
 
+  emissionline_status = 0
+       euvband_status = 0
+  if keyword_set(emissionline) then emissionline_status = 1
+  if keyword_set(euvband     ) then      euvband_status = 1
+
   print
   print,'Input values of Ne [cm^-3], Te [K], rad [Rsun], fip_factor:'
   print,Ne0,Te0,r0,fip_factor
   print
-  print,'G-function value [erg cm+3 sec-1]:'
+  print,'G-function value [erg(/PH) cm+3 sec-1]:'
   print,(g_function(Te0, Ne0,euvband=euvband,emissionline=emissionline))(0)
   print
-  print,'s [erg cm-3 sec-1 sr-1]:'
+  print,'s [erg(/PH) cm-3 sec-1 sr-1]:'
   print,(s_function(Ne0, Te0,euvband=euvband,emissionline=emissionline))(0)
   print
   print,'p [cm+3 K-1]:'
   print,p_function(Ne0, Te0)
   print
-  print,'s*p [erg sec-1 sr-1 K-1]:'
+  print,'s*p [erg(/PH) sec-1 sr-1 K-1]:'
   print,sxp_function(Ne0, Te0,emissionline=emissionline,euvband=euvband)
   print
 
-  ;-------------PROBLEM: e_function is not passing band/line option to s_function!!!
   Ne0_Limits = [min(N_e),max(N_e)]
   Te0_Limits = [min(T_e),max(T_e)]
   print,'e [erg sec-1 sr-1 K-1]:'

@@ -38,6 +38,8 @@ function s_function, Ne0, Te0, emissionline=emissionline, euvband=euvband
   common G_table,G,T_e,N_e,r,photT
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common dimensions,NTe,NNe
+  common type,emissionline_status,euvband_status
+
 ; Set default fip_factor:
   if not keyword_set(fip_factor) then fip_factor = 1.0 
 
