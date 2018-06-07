@@ -13,9 +13,9 @@
 ;
 ;---------------------------------------------------------------------
 
-function sxp_function, Ne0, Te0
+function sxp_function, Ne0, Te0, emissionline=emissionline, euvband=euvband
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
-  s = reform( (s_function(Ne0,Te0))(*,0,0) );*0. + 1. ;ACTIVATE to make s=1.
+  s = reform( (s_function(Ne0,Te0,emissionline=emissionline,euvband=euvband))(*,0,0) );*0. + 1. ;ACTIVATE to make s=1.
   p =          p_function(Ne0,Te0)
   return, s*p
 end

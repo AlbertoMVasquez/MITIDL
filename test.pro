@@ -8,7 +8,7 @@
 ;
 ;---------------------------------------------------------------------
 
-pro test,Ne0=Ne0,Te0=Te0;,r0=r0,fip_factor=fip_factor,line_wavelength=line_wavelength
+pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline
   common constants,Rsun,kB,h,c
   common G_table,G,T_e,N_e,r,photT
   common directories,tomroot
@@ -30,8 +30,7 @@ pro test,Ne0=Ne0,Te0=Te0;,r0=r0,fip_factor=fip_factor,line_wavelength=line_wavel
   if not keyword_set(instrument_label) then instrument_label =    'aia' ; always use lowercase
   if not keyword_set(band_label)       then band_label       =    '171'
 
-; load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,/emissionline
-  load_g_table,instrument_label=instrument_label,band_label=band_label,/euvband
+  load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_label=instrument_label,band_label=band_label,emissionline=emissionline,euvband=euvband
 
   if not keyword_set(Ne0) then Ne0=2.5e8
   if not keyword_set(Te0) then Te0=1.5e6
@@ -46,23 +45,22 @@ pro test,Ne0=Ne0,Te0=Te0;,r0=r0,fip_factor=fip_factor,line_wavelength=line_wavel
   print,Ne0,Te0,r0,fip_factor
   print
   print,'G-function value [erg cm+3 sec-1]:'
-  print,(g_function(Te0, Ne0, /euvband))(0)
+  print,(g_function(Te0, Ne0,euvband=euvband,emissionline=emissionline))(0)
   print
-  stop
   print,'s [erg cm-3 sec-1 sr-1]:'
-  print,(s_function(Ne0, Te0))(0)
+  print,(s_function(Ne0, Te0,euvband=euvband,emissionline=emissionline))(0)
   print
   print,'p [cm+3 K-1]:'
   print,p_function(Ne0, Te0)
   print
   print,'s*p [erg sec-1 sr-1 K-1]:'
-  print,sxp_function(Ne0, Te0)
+  print,sxp_function(Ne0, Te0,emissionline=emissionline,euvband=euvband)
   print
 
   Ne0_Limits = [min(N_e),max(N_e)]
   Te0_Limits = [min(T_e),max(T_e)]
   print,'e [erg sec-1 sr-1 K-1]:'
-  print, e_function( Ne0_Limits , Te0_Limits )
+  print, e_function( Ne0_Limits , Te0_Limits, emissionline=emissionline ,euvband=euvband)
   print
   print,'e2[erg sec-1 sr-1 K-1]:'
   print, e2_function( Ne0_Limits , Te0_Limits )

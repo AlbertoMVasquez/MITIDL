@@ -25,7 +25,7 @@
 ;
 ;---------------------------------------------------------------------
 
-function e_function, Ne0_Limits, Te0_Limits
+function e_function, Ne0_Limits, Te0_Limits,emissionline=emissionline,euvband=euvband
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common Ylimits,Y_Limits
   Y_Limits = Te0_Limits
