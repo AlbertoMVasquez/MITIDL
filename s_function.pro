@@ -4,11 +4,11 @@
 ;
 ; This function returns:
 ;
-;  - For lines: the emissivity (s) provided values for Ne, Te and r,
-;               and the contribution function G.
-;
-;  - For EUV bands: the FBE (s) provided values for Ne, Te, and the
-;    temperature response TRF
+;  - For lines: the emissivity function (s) provided values for Ne, Te
+;    and r, and the contribution function G.
+;          
+;  - For EUV bands: the FBE function (s) provided values for Ne, Te,
+;    and the temperature response TRF.
 ;
 ; In both cases the routine tri-linearly interpolates G/TRF into
 ; (Ne,Te,r).
@@ -28,13 +28,13 @@
 ;
 ; For lines: Emissivity [erg cm-3 sec-1 sr-1]
 ; or
-; For EUV bands: FBE [units?]
+; For EUV bands: FBE    [erg cm-3 sec-1 sr-1]
 ;
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
 ;
 ;---------------------------------------------------------------------
 
-function s_function, Ne0, Te0
+function s_function, Ne0, Te0, emissionline=emissionline, euvband=euvband
   common G_table,G,T_e,N_e,r,photT
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common dimensions,NTe,NNe

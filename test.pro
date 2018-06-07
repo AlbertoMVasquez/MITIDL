@@ -24,12 +24,16 @@ pro test,Ne0=Ne0,Te0=Te0;,r0=r0,fip_factor=fip_factor,line_wavelength=line_wavel
   q=0.
   
   set_tomroot
-  if not keyword_set(ion_label)       then ion_label       = 'fexiii' ; always use lowercase
-  if not keyword_set(line_wavelength) then line_wavelength =  '10747' ; string with wavelength in A
-  if not keyword_set(fip_factor)      then fip_factor      =     1.0  ; Feldmand's Adundance Set value
-  load_g_table,ion_label=ion_label,line_wavelength=line_wavelength
-  
-  if not keyword_set(Ne0) then Ne0=1.5e8
+  if not keyword_set(ion_label)        then ion_label        = 'fexiii' ; always use lowercase
+  if not keyword_set(line_wavelength)  then line_wavelength  =  '10747' ; string with wavelength in A
+  if not keyword_set(fip_factor)       then fip_factor       =     1.0  ; Feldmand's Adundance Set value
+  if not keyword_set(instrument_label) then instrument_label =    'aia' ; always use lowercase
+  if not keyword_set(band_label)       then band_label       =    '171'
+
+; load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,/emissionline
+  load_g_table,instrument_label=instrument_label,band_label=band_label,/euvband
+
+  if not keyword_set(Ne0) then Ne0=2.5e8
   if not keyword_set(Te0) then Te0=1.5e6
 
   NTe = 1
@@ -42,8 +46,9 @@ pro test,Ne0=Ne0,Te0=Te0;,r0=r0,fip_factor=fip_factor,line_wavelength=line_wavel
   print,Ne0,Te0,r0,fip_factor
   print
   print,'G-function value [erg cm+3 sec-1]:'
-  print,(g_function(Te0, Ne0))(0)
+  print,(g_function(Te0, Ne0, /euvband))(0)
   print
+  stop
   print,'s [erg cm-3 sec-1 sr-1]:'
   print,(s_function(Ne0, Te0))(0)
   print

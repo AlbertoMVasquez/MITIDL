@@ -30,17 +30,33 @@
 ;
 ;---------------------------------------------------------------------
 
-function g_function, Te0, Ne0
+function g_function, Te0, Ne0, emissionline=emissionline, euvband=euvband
   common G_table,G,T_e,N_e,r,photT
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common dimensions,NTe,NNe  
+  
   NTe = 1
   NNe = 1
   if (size(Te0))(0) eq 1 then NTe = (size(Te0))(1)
   if (size(Ne0))(0) eq 1 then NNe = (size(Ne0))(1)
   RESULT = dblarr(NTe,NNe,4)
-  for iTe=0,NTe-1 do $
-     for iNe=0,NNe-1 do $
-        RESULT[iTe,iNe,*] = findval3D_function(G,T_e,N_e,r,Te0[iTe],Ne0[iNe],r0)
+if keyword_set(emissionline) then begin
+  for iTe=0,NTe-1 do begin
+     for iNe=0,NNe-1 do begin
+        RESULT[iTe,iNe,*] = findval3d_function(G,T_e,N_e,r,Te0[iTe],Ne0[iNe],r0)
+     endfor  
+  endfor
+endif
+if keyword_set(euvband) then begin
+   for iNe=0,NNe-1 do begin      
+      RESULT[*,iNe,0] = interpol(G, T_e, Te0)
+      dG_dTe = 0.
+      RESULT[*,iNe,1:3] = [dG_dTe,0.,0.]
+      ;; NEED TO COMPUTE dG_dTe above!
+      ;; Maybe EASIER to compute G(Te,Ne), and make a new routine to
+      ;; compute both derivatives...
+   endfor  
+endif
+  
   return, RESULT
 end
