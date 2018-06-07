@@ -8,7 +8,9 @@
 ;
 ;---------------------------------------------------------------------
 
-pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline
+pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
+         instrument_label=instrument_label,band_label=band_label,$
+         ion_label=ion_label,line_wavelength=line_wavelength
   common constants,Rsun,kB,h,c
   common G_table,G,T_e,N_e,r,photT
   common directories,tomroot
@@ -33,6 +35,8 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline
 
   load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_label=instrument_label,band_label=band_label,emissionline=emissionline,euvband=euvband
 
+  help,T_e,G
+  stop
   if not keyword_set(Ne0) then Ne0=2.5e8
   if not keyword_set(Te0) then Te0=1.5e6
 

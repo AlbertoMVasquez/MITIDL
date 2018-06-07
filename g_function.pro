@@ -24,7 +24,7 @@
 ;
 ; G [erg cm+3 sec-1]
 ; or
-; TRF [units?]
+; TRF [PHOTON cm^+3 sec^-1]
 ;
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
 ;

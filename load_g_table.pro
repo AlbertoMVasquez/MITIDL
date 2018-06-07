@@ -65,7 +65,7 @@ pro load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,emissionlin
      xstring = ''
      file_name = 'TRF_function_'+instrument_label+'_'+band_label+'.txt'
      openr,1,data_dir+file_name
-     for i=1,6 do readf,1,xstring
+     for i=1,8 do readf,1,xstring
      x=0.
      Ntemp=0
      readf,1,x,Ntemp,x,x,x,x
