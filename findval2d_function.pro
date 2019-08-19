@@ -26,6 +26,7 @@ iyB=iyA+1
 izB=izA+1
 if iyA eq n_elements(ya)-1 then iyB=iyA
 if izA eq n_elements(za)-1 then izB=izA
+if iyA lt 0. or iyA gt (size(DATA_ARRAY))(1)-1 then STOP
 D1=DATA_ARRAY(iyA,izA) 
 D2=DATA_ARRAY(iyB,izA) 
 D4=DATA_ARRAY(iyA,izB) 

@@ -10,7 +10,7 @@
 
 pro set_tomroot
   common directories,tomroot
-  tomroot = '/data1/tomography/'
+  tomroot = '/data1/tomography_dev/'
   return
 end
 

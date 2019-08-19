@@ -4,14 +4,14 @@
 ;
 ; Load look up table of:
 ;
-; for lines: contribution function G [erg    cm^+3 sec^-1]      for
+; Emission Lines: contribution function G [erg    cm^+3 sec^-1]      for
 ; user-specified ion and line.
 ;
-; for EUV bands: TRF      function G [photon cm^+3 sec^-1 sr-1] for
+; EUV Broadbands: TRF          function G [photon cm^+3 sec^-1 sr-1] for
 ; user-specified insrument and band.
 ;
-; NOTE THE DIFFERENT UNITS OF BOTH TABLES: PH<->ERG, and sr-1 in EUV
-; BANDS.
+; Note the different units of both tables: PH   in EUVBANDS, while ERG in EMISSIONLINES,
+;                              as well as: sr-1 in EUVBANDS.
 ;
 ; The table is an IDL SAVE file for lines and TXT file for EUV bands,
 ; containing:
@@ -25,7 +25,7 @@
 ; 1D arrays: TRF(Te), log(Te [K])
 ;
 ; Tables must be stored in:
-; tomroot/tomography/MultiTom/Emissivity/LookUp_Tables/
+; tomroot/MultiTom/Emissivity/LookUp_Tables/
 ;
 ; INPUTS:
 ;
@@ -38,6 +38,14 @@
 ; To select a EUV band set /euvband, and provide:
 ; instrument_label = 'aia', 'euvi', 'eit'
 ; band_label = '171', '193', '195', '211', '284', '335'.
+;
+; OUTPUTS:
+;
+; EMISSIONLINE: 1D arrays: N_e [cm^-3], T_e [K].
+;               2D array:  G(T_e,N_e) [ERG    cm^+3 sec^-1]
+;
+; EUVBANDS:     1D arrays: N_e [cm^-3], T_e [K].
+;               1D array:  G(T_e)     [PHOTON cm^+3 sec^-1]
 ;
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
 ;
@@ -54,7 +62,7 @@ pro load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,emissionlin
   if keyword_set(emissionline) then begin
      file_name = 'G_function_'+ion_label+'_'+line_wavelength+'.save'
      restore,data_dir+file_name
-     G     = emissivity            ; [erg cm^+3 sec^-1]
+     G     = emissivity            ; [ERG cm^+3 sec^-1]
      T_e   = 10.^temp              ; [K]
      N_e   = 10.^dens              ; [cm^-3]
      r     = rphot                 ; [Rsun]
@@ -81,8 +89,8 @@ pro load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,emissionlin
      endfor
      close,1
 ; Note that TRF look-up table includes sr^-1 in its units, multiplying
-; by 4pi below to put G in same units as for emissionlines. Emissivity
-; gets divided back by 4pi in s_function.pro.
+; by 4pi below to put G in same units as for emission lines. Emissivity
+; is divided back by 4*!pi in s_function.pro.
      G     = TRF*4.*!pi            ; [PHOTON cm^+3 sec^-1]
      T_e   = 10.^logTe             ; [K]
 

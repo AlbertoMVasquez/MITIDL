@@ -10,8 +10,8 @@
 ;  - For EUV bands: the FBE function (s) provided values for Ne, Te,
 ;    and the temperature response TRF.
 ;
-; In both cases the routine tri-linearly interpolates G/TRF into
-; (Ne,Te,r).
+; In both cases the routine tri-linearly interpolates G or TRF onto
+; the grid (Ne,Te,r).
 ;
 ; Derivatives ds/dTe, ds/dNe, ds/dr are also returned.
 ;

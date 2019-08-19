@@ -1,11 +1,10 @@
-;---------------------------------------------------------------------
-;
+;---------------------------------------------------------------------;
 ; Brief description:
 ;
 ; This function computes the emissivity e of a line/band in a voxel.
 ;
-; INPUTS: values for:
-; Ne0_Limits, Te0_Limits.
+; ARGUMENT: 
+; parameters: a 1D array of 6 elements: [Nem, fip_factor, Tem, SigTe, SigNe, q]
 ;
 ; OUTPUTS:
 ;
@@ -25,11 +24,18 @@
 ;
 ;---------------------------------------------------------------------
 
-function e_function, Ne0_Limits, Te0_Limits,emissionline=emissionline,euvband=euvband
-  common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
+function e_function, parameters, emissionline=emissionline,euvband=euvband
+ ;common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common Ylimits,Y_Limits
+  common NT_limits, Ne0_Limits, Te0_Limits
   common type,emissionline_status,euvband_status
-  Y_Limits = Te0_Limits
+  Y_Limits   = Te0_Limits
+  Nem        = parameters[0]
+  fip_factor = parameters[1]
+  Tem        = parameters[2]
+  SigTe      = parameters[3]
+  SigNe      = parameters[4]
+  q          = parameters[5]
   RESULT = INT_2D('sxp_function',Ne0_Limits,'te_limits',96,/double,order=0)
   return, RESULT
 end

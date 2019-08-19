@@ -1,3 +1,4 @@
+
 ;---------------------------------------------------------------------
 ;
 ; Brief description:
@@ -17,6 +18,8 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common dimensions,NTe,NNe
   common type,emissionline_status,euvband_status
+  common NT_limits, Ne0_Limits, Te0_Limits
+  common tomographic_measurements,y0,y,measurement_type
   
   r0=1.2
   fip_factor=1.
@@ -25,18 +28,19 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   SigTe=0.5e6
   SigNe=0.5e8
   q=0.
-  
+
   set_tomroot
   if not keyword_set(ion_label)        then ion_label        = 'fexiii' ; always use lowercase
-  if not keyword_set(line_wavelength)  then line_wavelength  =  '10747' ; string with wavelength in A
+  if not keyword_set(line_wavelength)  then line_wavelength  =  '10747' ; 5-character string with wavelength in A
   if not keyword_set(fip_factor)       then fip_factor       =     1.0  ; Feldmand's Adundance Set value
   if not keyword_set(instrument_label) then instrument_label =    'aia' ; always use lowercase
   if not keyword_set(band_label)       then band_label       =    '171'
 
   load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_label=instrument_label,band_label=band_label,emissionline=emissionline,euvband=euvband
 
-  help,T_e,G
+  help,T_e,N_e,G
   stop
+  
   if not keyword_set(Ne0) then Ne0=2.5e8
   if not keyword_set(Te0) then Te0=1.5e6
 
@@ -69,12 +73,20 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
 
   Ne0_Limits = [min(N_e),max(N_e)]
   Te0_Limits = [min(T_e),max(T_e)]
+  parameters = [Nem, fip_factor, Tem, SigTe, SigNe, q]
+  
   print,'e [erg sec-1 sr-1 K-1]:'
-  print, e_function( Ne0_Limits , Te0_Limits, emissionline=emissionline ,euvband=euvband)
+  print, e_function( parameters, emissionline=emissionline ,euvband=euvband)
   print
   print,'e2[erg sec-1 sr-1 K-1]:'
-  print, e2_function( Ne0_Limits , Te0_Limits )
+  print, e2_function( parameters )
   print
+
+  y0 = Nem * 1.1
+  y  = [9.8e-10 , 280.5]
+  measurement_type = [1,2]  
+  print, 'cost_function:'
+  print, cost_function( parameters )
   
   return
 end
