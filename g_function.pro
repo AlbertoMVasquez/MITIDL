@@ -21,37 +21,34 @@
 ;
 ; where f is:
 ;
-; G [erg cm+3 sec-1]
+; G   [ERG    cm^+3 sec^-1]
 ; or
 ; TRF [PHOTON cm^+3 sec^-1]
 ;
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
 ;
 ;---------------------------------------------------------------------
-
-function g_function, Te0, Ne0, emissionline=emissionline, euvband=euvband
-  common G_table,G,T_e,N_e,r,photT
+function g_function, Te0, Ne0
+  common G_table, G, T_e, N_e, r, photT
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
-  common dimensions,NTe,NNe  
-  common type,emissionline_status,euvband_status
-
+  common dimensions, NTe, NNe  
+  common tomographic_measurements, y0, y, measurement_type, i_measurement
   NTe = 1
   NNe = 1
   if (size(Te0))(0) eq 1 then NTe = (size(Te0))(1)
   if (size(Ne0))(0) eq 1 then NNe = (size(Ne0))(1)
   RESULT = dblarr(NTe,NNe,4)
-  
-  if keyword_set(emissionline) OR keyword_set(emissionline_status) then begin
- ;print,'Selected EMISSIONLINE in g_function.pro'
+  CASE measurement_type[i_measurement] OF
+  1: BEGIN
+  print,'Selected EMISSION LINE in g_function.pro'
   for iTe=0,NTe-1 do begin
      for iNe=0,NNe-1 do begin
         RESULT[iTe,iNe,*] = findval3d_function(G,T_e,N_e,r,Te0[iTe],Ne0[iNe],r0)
      endfor  
   endfor
-endif
-
-  
-if keyword_set(euvband) OR keyword_set(euvband_status) then begin
+  END
+  2: BEGIN
+  print,'Selected EUV BAND in g_function.pro'
    for iNe=0,NNe-1 do begin
      ;print,'Selected EUVBAND in g_function.pro'
       dG_dTe       = deriv(T_e,G)
@@ -63,9 +60,6 @@ if keyword_set(euvband) OR keyword_set(euvband_status) then begin
       ; In a next version G will be a function of (Te,Ne), even if
       ; very weakly dependent on Ne, will compute dG_dNe too.
    endfor
-endif
-
-; stop
-
+   END
   return, RESULT
 end

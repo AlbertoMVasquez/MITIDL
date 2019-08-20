@@ -23,12 +23,10 @@
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
 ;
 ;---------------------------------------------------------------------
-
-function e_function, parameters, emissionline=emissionline,euvband=euvband
- ;common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
-  common Ylimits,Y_Limits
+function e_function, parameters
+  common Ylimits, Y_Limits
   common NT_limits, Ne0_Limits, Te0_Limits
-  common type,emissionline_status,euvband_status
+  common tomographic_measurements, y0, y, measurement_type, i_measurement
   Y_Limits   = Te0_Limits
   Nem        = parameters[0]
   fip_factor = parameters[1]
@@ -36,6 +34,6 @@ function e_function, parameters, emissionline=emissionline,euvband=euvband
   SigTe      = parameters[3]
   SigNe      = parameters[4]
   q          = parameters[5]
-  RESULT = INT_2D('sxp_function',Ne0_Limits,'te_limits',96,/double,order=0)
+  RESULT = INT_2D('sp_function',Ne0_Limits,'te_limits',96,/double,order=0)
   return, RESULT
 end

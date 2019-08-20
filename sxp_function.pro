@@ -12,11 +12,11 @@
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
 ;
 ;---------------------------------------------------------------------
-
-function sxp_function, Ne0, Te0, emissionline=emissionline, euvband=euvband
+function sp_function, Ne0, Te0
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
-  common type,emissionline_status,euvband_status
-  s = reform( (s_function(Ne0,Te0,emissionline=emissionline,euvband=euvband))(*,0,0) );*0. + 1. ;ACTIVATE to make s=1.
+  common tomographic_measurements, y0, y, measurement_type, i_measurement
+  s = reform( (s_function(Ne0,Te0))(*,0,0) ) ;*0. + 1. ;ACTIVATE to make s=1.
   p =          p_function(Ne0,Te0)
-  return, s*p
+  RESULT = s*p
+  return, RESULT
 end

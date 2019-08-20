@@ -33,17 +33,17 @@
 ;
 ;---------------------------------------------------------------------
 
-function s_function, Ne0, Te0, emissionline=emissionline, euvband=euvband
-  common G_table,G,T_e,N_e,r,photT
+function s_function, Ne0, Te0
+  common G_table, G, T_e, N_e, r, photT
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
-  common dimensions,NTe,NNe
-  common type,emissionline_status,euvband_status
-
+  common dimensions, NTe, NNe
+  common tomographic_measurements, y0, y, measurement_type, i_measurement
+  
 ; Set default fip_factor:
   if not keyword_set(fip_factor) then fip_factor = 1.0 
 
 ; Linearly interpolate G from the look-up table, and compute its derivatives:
-  RESULT_g = g_function(Te0,Ne0,emissionline=emissionline,euvband=euvband)
+  RESULT_g = g_function(Te0,Ne0)
 
   RESULT_s = dblarr(NTe,NNe,4)
   for iTe=0,NTe-1 do begin
