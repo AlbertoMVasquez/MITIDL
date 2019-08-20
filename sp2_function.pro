@@ -13,7 +13,7 @@
 ;
 ;---------------------------------------------------------------------
 
-function sxp2_function, Z1, Z2
+function sp2_function, Z1, Z2
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   Ne0 = Nem + SigNe*Z1
   Te0 = Tem + SigTe*( q*Z1 + sqrt(1.-q^2)*Z2)

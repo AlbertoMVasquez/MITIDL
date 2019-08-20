@@ -49,9 +49,7 @@
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
 ;
 ;---------------------------------------------------------------------
-
-pro load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,emissionline=emissionline,$
-                 euvband=euvband,instrument_label=instrument_label,band_label=band_label
+pro load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_label=instrument_label,band_label=band_label
 
   common G_table, G, T_e, N_e, r, photT
   common directories, tomroot

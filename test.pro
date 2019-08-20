@@ -1,4 +1,3 @@
-
 ;---------------------------------------------------------------------
 ;
 ; Brief description:
@@ -65,7 +64,7 @@ pro test,Ne0=Ne0,Te0=Te0,measurement_type=measurement_type,i_measurement=i_measu
   print,p_function(Ne0, Te0)
   print
   print,'s*p [erg(/PH) sec-1 sr-1 K-1]:'
-  print,sxp_function(Ne0, Te0)
+  print,sp_function(Ne0, Te0)
   print
 
   Ne0_Limits = [min(N_e),max(N_e)]

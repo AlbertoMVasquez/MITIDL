@@ -24,12 +24,10 @@
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
 ;
 ;---------------------------------------------------------------------
-
 function e2_function, parameters
- ;common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common NT_limits, Ne0_Limits, Te0_Limits
-  common Ylimits,Y_Limits
-  common type,emissionline_status,euvband_status
+  common Ylimits, Y_Limits
+  common tomographic_measurements, y0, y, measurement_type, i_measurement
   Nem        = parameters[0]
   fip_factor = parameters[1]
   Tem        = parameters[2]
