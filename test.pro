@@ -8,7 +8,7 @@
 ;
 ;---------------------------------------------------------------------
 
-pro test,Ne0=Ne0,Te0=Te0,measurement_type=measurement_type,i_measurement=i_measurement,$
+pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
          instrument_label=instrument_label,band_label=band_label,$
          ion_label=ion_label,line_wavelength=line_wavelength
   
@@ -27,10 +27,12 @@ pro test,Ne0=Ne0,Te0=Te0,measurement_type=measurement_type,i_measurement=i_measu
   SigTe=0.5e6
   SigNe=0.5e8
   q=0.
-
+  measurement_type = [1,2]
+  if not keyword_set(euvband) AND not keyword_set(emissionline) then i_measurement = 0
+  
   set_tomroot
-  if not keyword_set(measurement_type) then measurement_type = [1,2]
-  if not keyword_set(i_measurement)    then i_measurement    = 0
+  if     keyword_set(emissionline)     then i_measurement    = 0
+  if     keyword_set(euvband)          then i_measurement    = 1
   if not keyword_set(ion_label)        then ion_label        = 'fexiii' ; always use lowercase
   if not keyword_set(line_wavelength)  then line_wavelength  =  '10747' ; 5-character string with wavelength in A
   if not keyword_set(fip_factor)       then fip_factor       =     1.0  ; Feldmand's Adundance Set value
@@ -74,10 +76,11 @@ pro test,Ne0=Ne0,Te0=Te0,measurement_type=measurement_type,i_measurement=i_measu
   print,'e [erg sec-1 sr-1 K-1]:'
   print, e_function(parameters)
   print
+stop
   print,'e2[erg sec-1 sr-1 K-1]:'
   print, e2_function(parameters)
   print
-
+stop
   y0 = Nem * 1.1
   y  = [9.8e-10 , 280.5]
   measurement_type = [1,2]  

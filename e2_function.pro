@@ -36,6 +36,6 @@ function e2_function, parameters
   q          = parameters[5]
   Z1_Limits  = (Ne0_Limits-Nem)/SigNe
    Y_Limits  = (Te0_Limits-Tem)/SigTe
-  RESULT = INT_2D('sxp2_function',Z1_Limits,'z2_limits',96,/double,order=0)
+  RESULT = INT_2D('sp2_function',Z1_Limits,'z2_limits',96,/double,order=0)
   return, RESULT
 end

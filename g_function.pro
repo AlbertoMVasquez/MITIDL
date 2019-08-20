@@ -60,6 +60,7 @@ function g_function, Te0, Ne0
       ; In a next version G will be a function of (Te,Ne), even if
       ; very weakly dependent on Ne, will compute dG_dNe too.
    endfor
-   END
+  END
+  ENDCASE
   return, RESULT
 end
