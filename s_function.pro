@@ -4,14 +4,13 @@
 ;
 ; This function returns:
 ;
-;  - For lines: the emissivity function (s) provided values for Ne, Te
-;    and r, and the contribution function G.
+;  - For lines: s is the line emissivity function evaluated at the
+;    provided values Ne0, Te0 and r0, using the provided function G.
 ;          
-;  - For EUV bands: the FBE function (s) provided values for Ne, Te,
-;    and the temperature response TRF.
+;  - For EUV bands: s is the FBE function evaluated at the
+;    provided values for Ne0 and Te0, using the provided function TRF.
 ;
-; In both cases the routine tri-linearly interpolates G or TRF onto
-; the grid (Ne,Te,r).
+; G and TRF are tri-linearly interpolated onto the grid (Ne,Te,r).
 ;
 ; Derivatives ds/dTe, ds/dNe, ds/dr are also returned.
 ;
@@ -24,7 +23,7 @@
 ;
 ; RESULT = [s0, ds_dTe, ds_dNe, ds_dr]
 ;
-; With s0 having the following units:
+; With the s0 value returned in the following units:
 ;
 ; For lines: Emissivity [erg cm-3 sec-1 sr-1]
 ; or
@@ -43,9 +42,7 @@ function s_function, Ne0, Te0, emissionline=emissionline, euvband=euvband
 ; Set default fip_factor:
   if not keyword_set(fip_factor) then fip_factor = 1.0 
 
-; Linearly interpolate G from the look-up table, and compute its
-; derivatives:
-
+; Linearly interpolate G from the look-up table, and compute its derivatives:
   RESULT_g = g_function(Te0,Ne0,emissionline=emissionline,euvband=euvband)
 
   RESULT_s = dblarr(NTe,NNe,4)

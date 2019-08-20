@@ -4,10 +4,9 @@
 ;
 ; This function returns:
 ;
-;  - For lines: the contribution function G provided values for Ne, Te and r.
+;  - For lines: the contribution function G provided values for Ne0, Te0 and r0.
 ;
-;  - For EUV bands: the temperature response function TRF provided
-;    values for Ne, Te.
+;  - For EUV bands: the temperature response function TRF provided values for Ne0 and Te0.
 ;
 ;  - For f=G/TRF, it also returns the derivatives:
 ;    df/dTe, df/dNe, df/dr, evaluated at (Te0,Ne0,r0)

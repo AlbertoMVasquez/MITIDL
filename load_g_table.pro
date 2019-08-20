@@ -13,15 +13,14 @@
 ; Note the different units of both tables: PH   in EUVBANDS, while ERG in EMISSIONLINES,
 ;                              as well as: sr-1 in EUVBANDS.
 ;
-; The table is an IDL SAVE file for lines and TXT file for EUV bands,
-; containing:
+; The table is an IDL SAVE file for lines and TXT file for EUV bands, containing:
 ;
-; for lines:
+; For lines:
 ; 3D array:  G(Te, Ne, r) 
-; 1D arrays: log(Te [K]), log10(Ne [cm-3]), rad [Rsun],
+; 1D arrays: log(Te [K]), log10(Ne [cm-3]), r [Rsun],
 ; scalar: photosphere Teff [K].
 ;
-; for EUV bands:
+; For EUV bands:
 ; 1D arrays: TRF(Te), log(Te [K])
 ;
 ; Tables must be stored in:
@@ -39,13 +38,13 @@
 ; instrument_label = 'aia', 'euvi', 'eit'
 ; band_label = '171', '193', '195', '211', '284', '335'.
 ;
-; OUTPUTS:
+; OUTPUT:
 ;
-; EMISSIONLINE: 1D arrays: N_e [cm^-3], T_e [K].
-;               2D array:  G(T_e,N_e) [ERG    cm^+3 sec^-1]
+; EMISSIONLINE: 1D arrays: N_e [cm^-3], T_e [K], r [Rsun]
+;               2D array:  G(T_e,N_e,r) [ERG    cm^+3 sec^-1]
 ;
 ; EUVBANDS:     1D arrays: N_e [cm^-3], T_e [K].
-;               1D array:  G(T_e)     [PHOTON cm^+3 sec^-1]
+;               1D array:  G(T_e)       [PHOTON cm^+3 sec^-1]
 ;
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
 ;
