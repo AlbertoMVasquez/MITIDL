@@ -20,13 +20,14 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   common NT_limits, Ne0_Limits, Te0_Limits
   common tomographic_measurements, y0, y, measurement_type, i_measurement
   
-  r0=1.2
-  fip_factor=1.
-  Tem=1.75e6
-  Nem=1.75e8
-  SigTe=0.5e6
-  SigNe=0.5e8
-  q=0.
+  r0         = 1.2    ; Rsun
+  fip_factor = 1.0    ; Note that [Fe] = [Fe]_Feldman * fip_factor
+  Tem        = 1.75e6 ; K
+  SigTe      = 0.50e6 ; K
+  Nem        = 1.75e8 ; cm^-3
+  SigNe      = 0.50e8 ; cm^-3
+  q          = 0.0
+
   measurement_type = [1,2]
   if not keyword_set(euvband) AND not keyword_set(emissionline) then i_measurement = 0
   
