@@ -26,7 +26,7 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   SigTe      = 0.50e6 ; K
   Nem        = 1.75e8 ; cm^-3
   SigNe      = 0.50e8 ; cm^-3
-  q          = 0.0
+  q          = .5
 
   measurement_type = [1,2]
   if not keyword_set(euvband) AND not keyword_set(emissionline) then i_measurement = 0
@@ -52,6 +52,8 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   if (size(Te0))(0) eq 1 then NTe = (size(Te0))(1)
   if (size(Ne0))(0) eq 1 then NNe = (size(Ne0))(1)
 
+  goto,ef
+  
   print
   print,'Input values of Ne [cm^-3], Te [K], rad [Rsun], fip_factor:'
   print,Ne0,Te0,r0,fip_factor
@@ -69,21 +71,26 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   print,sp_function(Ne0, Te0)
   print
 
+  ef:
+  
   Ne0_Limits = [min(N_e),max(N_e)]
   Te0_Limits = [min(T_e),max(T_e)]
   parameters = [Nem, fip_factor, Tem, SigTe, SigNe, q]
-  
+
   print,'e [erg sec-1 sr-1 K-1]:'
   print, e_function(parameters)
   print
 
+  
   print,'e2[erg sec-1 sr-1 K-1]:'
   print, e2_function(parameters)
   print
-stop
+
+
   y0 = Nem * 1.1
   y  = [9.8e-10 , 280.5]
   measurement_type = [1,2]  
+
   print, 'cost_function:'
   print, cost_function(parameters)
   

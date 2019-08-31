@@ -41,10 +41,10 @@ function s_function, Ne0, Te0
   
 ; Set default fip_factor:
   if not keyword_set(fip_factor) then fip_factor = 1.0 
-
+stop
 ; Linearly interpolate G from the look-up table, and compute its derivatives:
   RESULT_g = g_function(Te0,Ne0)
-
+stop
   RESULT_s = dblarr(NTe,NNe,4)
   for iTe=0,NTe-1 do begin
   for iNe=0,NNe-1 do begin
