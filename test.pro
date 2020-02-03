@@ -52,7 +52,7 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   if (size(Te0))(0) eq 1 then NTe = (size(Te0))(1)
   if (size(Ne0))(0) eq 1 then NNe = (size(Ne0))(1)
 
-  goto,ef
+; goto,ef
   
   print
   print,'Input values of Ne [cm^-3], Te [K], rad [Rsun], fip_factor:'
@@ -81,7 +81,6 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   print, e_function(parameters)
   print
 
-  
   print,'e2[erg sec-1 sr-1 K-1]:'
   print, e2_function(parameters)
   print

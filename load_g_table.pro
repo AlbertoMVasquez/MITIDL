@@ -17,14 +17,14 @@
 ;
 ; For lines:
 ; 3D array:  G(Te, Ne, r) 
-; 1D arrays: log(Te [K]), log10(Ne [cm-3]), r [Rsun],
+; 1D arrays: log10(Te [K]), log10(Ne [cm-3]), r [Rsun],
 ; scalar: photosphere Teff [K].
 ;
 ; For EUV bands:
-; 1D arrays: TRF(Te), log(Te [K])
+; 1D arrays: TRF(Te), log10(Te [K])
 ;
 ; Tables must be stored in:
-; tomroot/MultiTom/Emissivity/LookUp_Tables/
+; tomroot/MITIDL/Emissivity/LookUp_Tables/
 ;
 ; INPUTS:
 ;
@@ -54,7 +54,7 @@ pro load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_
   common directories, tomroot
   common tomographic_measurements, y0, y, measurement_type, i_measurement
   
-  data_dir  = tomroot+'MultiTom/Emissivity_LookUp_Tables/'
+  data_dir  = tomroot+'MITIDL/Emissivity_LookUp_Tables/'
 
   CASE measurement_type[i_measurement] OF
   1: BEGIN
