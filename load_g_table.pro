@@ -8,7 +8,7 @@
 ; user-specified ion and line.
 ;
 ; EUV Broadbands: TRF          function G [photon cm^+3 sec^-1 sr-1] for
-; user-specified insrument and band.
+; user-specified instrument and band.
 ;
 ; Note the different units of both tables: PH   in EUVBANDS, while ERG in EMISSIONLINES,
 ;                              as well as: sr-1 in EUVBANDS.
