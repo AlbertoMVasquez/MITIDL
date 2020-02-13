@@ -41,7 +41,7 @@
 ; OUTPUT:
 ;
 ; EMISSIONLINE: 1D arrays: N_e [cm^-3], T_e [K], r [Rsun]
-;               2D array:  G(T_e,N_e,r) [ERG    cm^+3 sec^-1]
+;               3D array:  G(T_e,N_e,r) [ERG    cm^+3 sec^-1]
 ;
 ; EUVBANDS:     1D arrays: N_e [cm^-3], T_e [K].
 ;               1D array:  G(T_e)       [PHOTON cm^+3 sec^-1]
