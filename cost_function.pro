@@ -25,11 +25,14 @@
 ; Value of the function for the given values of the inputs and the parameters.
 ;
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
-;
+;           V1.1 la versión 1.0 no andaba, varias cosas ... 
 ;---------------------------------------------------------------------
 function cost_function, parameters
   common NT_limits, Ne0_Limits, Te0_Limits
   common tomographic_measurements, y0, y, measurement_type, i_measurement
+  common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
+
+
   Nem        = parameters[0]
   fip_factor = parameters[1]
   Tem        = parameters[2]
@@ -38,16 +41,29 @@ function cost_function, parameters
   q          = parameters[5]
   M          = n_elements(y)
   ;--------------------------------SOME TESTS--------------------------------------------------------
-  for i_measurement = 0, M-1 do begin
-     if measurement_type[i_measurement] ne 1 AND measurement_type[i_measurement] ne 2 then begin
-        print,'Wrong measurement type for y-element #',i_measurement
-        STOP
-     endif
-     print, i_measurement, measurement_type[i_measurement], e_function(parameters), y[i_measurement]
-  endfor
+  ;for i_measurement = 0, M-1 do begin
+  ;   if measurement_type[i_measurement] ne 1 AND measurement_type[i_measurement] ne 2 then begin
+  ;      print,'Wrong measurement type for y-element #',i_measurement
+  ;      STOP
+  ;   endif
+  ;   print, i_measurement, measurement_type[i_measurement], e_function(parameters), y[i_measurement]
+  ;endfor
   ;--------------------------------------------------------------------------------------------------
   RESULT = (Nem-y0)^2
-  for i_measurement = 0, M-1 do $
-  RESULT = RESULT + (e_function(parameters) - y[i_measurement])^2
+  for k = 0, M-1 do begin   
+     i_measurement=i_mea_vec(k)  
+     ion_label = ion_label_vec(k)
+     line_wavelength=line_wavelength_vec(k)
+     instrument_label=instrument_label_vec(k)
+     band_label = band_label_vec (k)
+     if measurement_type[i_measurement] eq 1 then begin
+        load_g_table,ion_label=ion_label,line_wavelength=line_wavelength
+     endif
+     if measurement_type[i_measurement] eq 2 then begin
+        load_g_table,instrument_label=instrument_label,band_label=band_label
+     endif
+     RESULT = RESULT + (e_function(parameters) - y[k])^2
+  endfor
+
   return, RESULT
-end
+  end

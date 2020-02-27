@@ -19,7 +19,6 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   common dimensions, NTe, NNe
   common NT_limits, Ne0_Limits, Te0_Limits
   common tomographic_measurements, y0, y, measurement_type, i_measurement
-  common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   
   r0         = 1.2    ; Rsun
   fip_factor = 1.0    ; Note that [Fe] = [Fe]_Feldman * fip_factor
@@ -76,7 +75,7 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   
   Ne0_Limits = [min(N_e),max(N_e)]
   Te0_Limits = [min(T_e),max(T_e)]
-
+  stop
   parameters = [Nem, fip_factor, Tem, SigTe, SigNe, q]
 
   print,'e [erg sec-1 sr-1 K-1]:'
@@ -89,14 +88,8 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   
 
   y0 = Nem * 1.1
-  ;y  = [9.8e-10 , 280.5]
-  ;measurement_type = [1,2]
-  y = [9.8e-10 , 280.5, 1. , 1. ,1.]
-  i_mea_vec=[0,0,1,1,1]
-  ion_label_vec=       ['fexiii','fexiii','','','']
-  line_wavelength_vec= ['10747','10801'  ,'','','']
-  instrument_label_vec=['','','aia','aia','aia']
-  band_label_vec=      ['','','171','193','211']
+  y  = [9.8e-10 , 280.5]
+  measurement_type = [1,2]  
 
   print, 'cost_function:'
   print, cost_function(parameters)

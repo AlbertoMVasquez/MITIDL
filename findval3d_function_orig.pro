@@ -16,13 +16,13 @@
 ;
 ; OUTPUT:
 ;
-; RESULT = F
+; RESULT = [F, dF/dx, dF/dy, dF/dz]
 ;
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
-;           V1.1, elimino derivadas
+;
 ;---------------------------------------------------------------------
 
-function findval3d_function_fede, F, xa, ya, za, x0, y0, z0
+function findval3d_function, F, xa, ya, za, x0, y0, z0
 
 ; Find the x-indices that surround x0
   ixA = max(where(xa le x0))
@@ -85,6 +85,10 @@ function findval3d_function_fede, F, xa, ya, za, x0, y0, z0
 ; Assign one value to F
   F_value = F_value_x
 
+; Compute derivatives:
+  dF_dx = (D_xB - D_xA)/(xa(ixB)-xa(ixA))
+  dF_dy = (D_yB - D_yA)/(ya(iyB)-ya(iyA))
+  dF_dz = (D_zB - D_zA)/(za(izB)-za(izA))
 
-  return, F_value
+  return, [F_value, dF_dx, dF_dy, dF_dz]
 end

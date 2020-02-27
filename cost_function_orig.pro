@@ -27,7 +27,7 @@
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
 ;
 ;---------------------------------------------------------------------
-function cost_function_fede, parameters
+function cost_function, parameters
   common NT_limits, Ne0_Limits, Te0_Limits
   common tomographic_measurements, y0, y, measurement_type, i_measurement
   Nem        = parameters[0]
@@ -43,11 +43,11 @@ function cost_function_fede, parameters
         print,'Wrong measurement type for y-element #',i_measurement
         STOP
      endif
-     print, i_measurement, measurement_type[i_measurement], e_function_fede(parameters), y[i_measurement]
+     print, i_measurement, measurement_type[i_measurement], e_function(parameters), y[i_measurement]
   endfor
   ;--------------------------------------------------------------------------------------------------
   RESULT = (Nem-y0)^2
   for i_measurement = 0, M-1 do $
-  RESULT = RESULT + (e_function_fede(parameters) - y[i_measurement])^2
+  RESULT = RESULT + (e_function(parameters) - y[i_measurement])^2
   return, RESULT
 end
