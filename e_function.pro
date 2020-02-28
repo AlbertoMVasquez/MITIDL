@@ -21,19 +21,22 @@
 ; variable is y, where here x=Ne and y=Te.
 ;
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
-;
+;           v1.1, test that is the same dxdy-order than dydx-order
 ;---------------------------------------------------------------------
-function e_function, parameters
-  common Ylimits, Y_Limits
+function e_function, parameters,order=order
   common NT_limits, Ne0_Limits, Te0_Limits
   common tomographic_measurements, y0, y, measurement_type, i_measurement
-  Y_Limits   = Te0_Limits
+  
   Nem        = parameters[0]
   fip_factor = parameters[1]
   Tem        = parameters[2]
   SigTe      = parameters[3]
   SigNe      = parameters[4]
   q          = parameters[5]
-  RESULT = INT_2D('sp_function',Ne0_Limits,'te_limits',96,/double,order=0)
+  
+  if not keyword_set(order) then $
+     RESULT = INT_2D('sp_function',Ne0_Limits,'te_limits',96,/double,order=0) ; dydx-order
+  if     keyword_set(order) then $
+     RESULT = INT_2D('sp_function',Te0_Limits,'ne_limits',96,/double,order=1) ; dxdy-order 
   return, RESULT
 end
