@@ -92,6 +92,12 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   ;y  = [9.8e-10 , 280.5]
   ;measurement_type = [1,2]
   y = [9.8e-10 , 280.5, 1. , 1. ,1.]
+
+  ; DUMMY TEST 
+  y0=Nem
+  y = [9.8808411e-10,   4.9120305e-10,       197.88246,       585.35546,       373.01257]
+
+
   i_mea_vec=[0,0,1,1,1]
   ion_label_vec=       ['fexiii','fexiii','','','']
   line_wavelength_vec= ['10747','10801'  ,'','','']
