@@ -40,7 +40,7 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   if not keyword_set(fip_factor)       then fip_factor       =     1.0  ; Feldmand's Adundance Set value
   if not keyword_set(instrument_label) then instrument_label =    'aia' ; always use lowercase
   if not keyword_set(band_label)       then band_label       =    '171'
-
+  
   load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_label=instrument_label,band_label=band_label
 
   help,T_e,N_e,G
@@ -106,6 +106,28 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
 
   print, 'cost_function:'
   print, cost_function(parameters)
+  print
+
+  print,'grad_p'
+  print,transpose(grad_p(Ne0,Te0))
+  print
+
+  print,'s*grad_P_i:'
+  print,sgradp1_function(Ne0,Te0)
+  print,sgradp2_function(Ne0,Te0)
+  print,sgradp3_function(Ne0,Te0)
+  print,sgradp4_function(Ne0,Te0)
+  print,sgradp5_function(Ne0,Te0)
+  print
+
+  print,'grad_e'
+  print,grad_e_function(parameters)
+  print
+
+  print,'grad_cost_function'
+  print,grad_cost_function(parameters)
+
+
   
   return
 end

@@ -2,7 +2,7 @@
 ;
 ; Brief description:
 ;
-; Cost funtion to be minimazied in a each voxel of the tomographic grid.
+; Gradient of the Cost funtion to use in the minimization.
 ;
 ; Argument:
 ; parameters: a 1D array of 6 elements: [Nem, fip_factor, Tem, SigTe, SigNe, q]
@@ -22,40 +22,44 @@
 ;             of the cost function.
 ;
 ; OUTPUTS:
-; Value of the function for the given values of the inputs and the parameters.
+; Value of the gradient of the cost function for the given values 
+; of the inputs and the parameters.
 ;
-; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
-;           V1.1 la versión 1.0 no andaba, varias cosas ... 
+; History:  V1.0, Federico Nuevo, IAFE, March-2020.
+;      
 ;---------------------------------------------------------------------
-function cost_function, parameters
+function grad_cost_function, parameters
   common NT_limits, Ne0_Limits, Te0_Limits
   common tomographic_measurements, y0, y, measurement_type, i_measurement
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
 
-
+  RESULT     = parameters * 0d
   Nem        = parameters[0]
   fip_factor = parameters[1]
   Tem        = parameters[2]
   SigTe      = parameters[3]
   SigNe      = parameters[4]
   q          = parameters[5]
-  M          = n_elements(y)
   
-  RESULT = (Nem-y0)^2
-  for k = 0, M-1 do begin   
-     i_measurement=i_mea_vec(k)  
-     ion_label = ion_label_vec(k)
-     line_wavelength=line_wavelength_vec(k)
-     instrument_label=instrument_label_vec(k)
-     band_label = band_label_vec (k)
+  M          = n_elements(y)
+  for k = 0, M-1 do begin
+     
+     i_measurement   = i_mea_vec           (k)  
+     ion_label       = ion_label_vec       (k)
+     line_wavelength = line_wavelength_vec (k)
+     instrument_label= instrument_label_vec(k)
+     band_label      = band_label_vec      (k)
+     
      if measurement_type[i_measurement] eq 1 then begin
         load_g_table,ion_label=ion_label,line_wavelength=line_wavelength
      endif
      if measurement_type[i_measurement] eq 2 then begin
         load_g_table,instrument_label=instrument_label,band_label=band_label
      endif
-     RESULT = RESULT + (e_function(parameters) - y[k])^2
+     RESULT = RESULT + 2*(e_function(parameters) - y[k])*grad_e_function(parameters)
   endfor
+  result(0) = result(0) + 2*(Nem-y0)
+  
 
   return, RESULT
-  end
+end
