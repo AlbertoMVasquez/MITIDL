@@ -25,8 +25,9 @@
 ; TRF [PHOTON cm^+3 sec^-1]
 ;
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
-;           v1.1, elimino derivadas, saco interpol del loop,
-;           no es necesario que se haga NNe veces.
+;           v1.1, Federico A. Nuevo, IAFE, March-2020
+;           Elimino derivadas de G
+;           Saco interpol del loop, no es necesario que se haga NNe veces.
 ;
 ;---------------------------------------------------------------------
 function g_function, Te0, Ne0

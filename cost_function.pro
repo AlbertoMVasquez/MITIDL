@@ -25,7 +25,10 @@
 ; Value of the function for the given values of the inputs and the parameters.
 ;
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
-;           V1.1 la versión 1.0 no andaba, varias cosas ... 
+;           V2.0, Federico A. Nuevo, IAFE, March 2020
+;           El indice del loop pasa a ser k (i_meausurement es para
+;           evaluar measurement_type)
+;           Carga g_table para para medición 
 ;---------------------------------------------------------------------
 function cost_function, parameters
   common NT_limits, Ne0_Limits, Te0_Limits

@@ -21,7 +21,9 @@
 ;       over [-Infty,+Infty] space for both Te and Ne.
 ;
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
-;           V1.1, adapto la rutina para que Ne0 y Te0 puedan ser arrays
+;           V1.1, Federico A. Nuevo, IAFE, March-2020
+;           Adapto la rutina para que Ne0 y Te0 puedan ser arrays
+;           Faltaba un cuadrado sobre q en el factor de nomalización
 ;---------------------------------------------------------------------
 
 function p_function, Ne0, Te0
