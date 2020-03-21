@@ -34,17 +34,14 @@ function cost_function, parameters
   common NT_limits, Ne0_Limits, Te0_Limits
   common tomographic_measurements, y0, y, measurement_type, i_measurement
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
-
+  common weights,sig_WL,sig_v
+  common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
 
   Nem        = parameters[0]
-  fip_factor = parameters[1]
-  Tem        = parameters[2]
-  SigTe      = parameters[3]
-  SigNe      = parameters[4]
-  q          = parameters[5]
   M          = n_elements(y)
   
-  RESULT = (Nem-y0)^2
+  RESULT = (Nem-y0)^2/sig_WL^2
+  
   for k = 0, M-1 do begin   
      i_measurement=i_mea_vec(k)  
      ion_label = ion_label_vec(k)
@@ -57,7 +54,8 @@ function cost_function, parameters
      if measurement_type[i_measurement] eq 2 then begin
         load_g_table,instrument_label=instrument_label,band_label=band_label
      endif
-     RESULT = RESULT + (e_function(parameters) - y[k])^2
+     
+     RESULT = RESULT + (e_function(parameters) - y[k])^2/sig_v[k]^2
   endfor
 
   return, RESULT

@@ -20,7 +20,8 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   common NT_limits, Ne0_Limits, Te0_Limits
   common tomographic_measurements, y0, y, measurement_type, i_measurement
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
-  
+  common weights,sig_WL,sig_v
+
   r0         = 1.2    ; Rsun
   fip_factor = 1.0    ; Note that [Fe] = [Fe]_Feldman * fip_factor
   Tem        = 1.75e6 ; K
@@ -96,6 +97,13 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   ; DUMMY TEST 
   y0=Nem
   y = [9.8808411e-10,   4.9120305e-10,       197.88246,       585.35546,       373.01257]
+  
+  f_wl = 0.1
+  f    = 0.1 + y*0.
+
+  sig_WL = f_wl* y0
+  sig_v  = f   * y
+  
 
 
   i_mea_vec=[0,0,1,1,1]

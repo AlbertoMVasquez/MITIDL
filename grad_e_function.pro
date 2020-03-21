@@ -24,14 +24,25 @@ function grad_e_function, parameters
   q          = parameters[5]
 
   nodes=48
-
   result=parameters*0d
+  new = 1
 
-  result(0) = INT_2D('sgradp1_function',Ne0_Limits,'te_limits',nodes,/double,order=0)
-  result(1) = e_function(parameters)/fip_factor
-  result(2) = INT_2D('sgradp2_function',Ne0_Limits,'te_limits',nodes,/double,order=0)
-  result(3) = INT_2D('sgradp3_function',Ne0_Limits,'te_limits',nodes,/double,order=0)
-  result(4) = INT_2D('sgradp4_function',Ne0_Limits,'te_limits',nodes,/double,order=0)
-  result(5) = INT_2D('sgradp5_function',Ne0_Limits,'te_limits',nodes,/double,order=0)
+  if new eq 0 then begin
+     result(0) = INT_2D('sgradp1_function',Ne0_Limits,'te_limits',nodes,/double,order=0)
+     result(1) = e_function(parameters)/fip_factor
+     result(2) = INT_2D('sgradp2_function',Ne0_Limits,'te_limits',nodes,/double,order=0)
+     result(3) = INT_2D('sgradp3_function',Ne0_Limits,'te_limits',nodes,/double,order=0)
+     result(4) = INT_2D('sgradp4_function',Ne0_Limits,'te_limits',nodes,/double,order=0)
+     result(5) = INT_2D('sgradp5_function',Ne0_Limits,'te_limits',nodes,/double,order=0)
+  endif
+  if new eq 1 then begin
+     result(0) = INT_2D('sgradp1_function_new',Ne0_Limits,'te_limits',nodes,/double,order=0)
+     result(1) = e_function(parameters)/fip_factor
+     result(2) = INT_2D('sgradp2_function_new',Ne0_Limits,'te_limits',nodes,/double,order=0)
+     result(3) = INT_2D('sgradp3_function_new',Ne0_Limits,'te_limits',nodes,/double,order=0)
+     result(4) = INT_2D('sgradp4_function_new',Ne0_Limits,'te_limits',nodes,/double,order=0)
+     result(5) = INT_2D('sgradp5_function_new',Ne0_Limits,'te_limits',nodes,/double,order=0)
+  endif
+  
   return, RESULT
 end

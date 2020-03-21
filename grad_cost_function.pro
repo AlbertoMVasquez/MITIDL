@@ -32,6 +32,7 @@ function grad_cost_function, parameters
   common NT_limits, Ne0_Limits, Te0_Limits
   common tomographic_measurements, y0, y, measurement_type, i_measurement
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
+  common weights,sig_WL,sig_v
 
   RESULT     = parameters * 0d
   Nem        = parameters[0]
@@ -56,9 +57,9 @@ function grad_cost_function, parameters
      if measurement_type[i_measurement] eq 2 then begin
         load_g_table,instrument_label=instrument_label,band_label=band_label
      endif
-     RESULT = RESULT + 2*(e_function(parameters) - y[k])*grad_e_function(parameters)
+     RESULT = RESULT + 2*(e_function(parameters) - y[k]) /sig_v[k]^2   * grad_e_function(parameters)
   endfor
-  result(0) = result(0) + 2*(Nem-y0)
+  result(0) = result(0) + 2*(Nem-y0)/sig_WL^2
   
 
   return, RESULT
