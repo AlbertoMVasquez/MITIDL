@@ -92,11 +92,11 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   y0 = Nem * 1.1
   ;y  = [9.8e-10 , 280.5]
   ;measurement_type = [1,2]
-  y = [9.8e-10 , 280.5, 1. , 1. ,1.]
+  y = [15.e-10, 7.e-10, 250. , 500. ,300.]
 
   ; DUMMY TEST 
-  y0=Nem
-  y = [9.8808411e-10,   4.9120305e-10,       197.88246,       585.35546,       373.01257]
+  ;y0=Nem
+  ;y = [9.8808411e-10,   4.9120305e-10,       197.88246,       585.35546,       373.01257]
   
   f_wl = 0.1
   f    = 0.1 + y*0.
@@ -134,8 +134,17 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
 
   print,'grad_cost_function'
   print,grad_cost_function(parameters)
+  print
 
+  p   = parameters 
+  dp  = 0.01 * p
 
+  dphi        = cost_function(p+dp) - cost_function(p)
+  dphi_grad   = total(grad_cost_function(p)*dp)
+
+  print,'Phi(p+dp) - Phi(p):',dphi
+  print,'gradPhi *  dp:'     ,dphi_grad
+  print,'relative difference:', abs( dphi - dphi_grad) /dphi
   
   return
 end

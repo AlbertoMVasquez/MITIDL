@@ -1,28 +1,25 @@
 
 
 
-pro synth_y_values
-  common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
+function synth_y_values,parameters
+  
   common NT_limits, Ne0_Limits, Te0_Limits
-  common G_table, G, T_e, N_e, r, photT
   common tomographic_measurements, y0, y, measurement_type, i_measurement
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
-  common directories, tomroot
+  
 
   set_tomroot
   Ne0_limits=[1.e5,1.e10]
   Te0_limits=[0.5e6,1.e7]  
 
-  r0         = 1.2    ; Rsun
-  fip_factor = 1.0    ; Note that [Fe] = [Fe]_Feldman * fip_factor                                                           
-  Tem        = 1.75e6 ; K                                                                                                    
-  SigTe      = 0.50e6 ; K                                                                                                    
-  Nem        = 1.75e8 ; cm^-3                                                                                                
-  SigNe      = 0.50e8 ; cm^-3                                                                                                
-  q          = .5
-  parameters = [Nem, fip_factor, Tem, SigTe, SigNe, q]
+  Nem        = parameters[0]
+  fip_factor = parameters[1]
+  Tem        = parameters[2]
+  SigTe      = parameters[3]
+  SigNe      = parameters[4]
+  q          = parameters[5]
 
-
+  
   measurement_type = [1,2]
 
   
@@ -53,7 +50,5 @@ pro synth_y_values
      y_synth(k) = e_function(parameters) 
   endfor
   
-  print, y_synth
-
-  return
+  return, y_synth
 end
