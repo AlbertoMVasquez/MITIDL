@@ -26,8 +26,8 @@
 function e_function, parameters,order=order
   common NT_limits, Ne0_Limits, Te0_Limits
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
-  
-  
+  common G_table, G, T_e, N_e, r, photT  
+  common tomographic_measurements, y0, y, measurement_type, i_measurement
   
   Nem        = parameters[0]
   fip_factor = parameters[1]

@@ -33,10 +33,10 @@ function p_function, Ne0, Te0
      print,'Ne-Te correlation can not be 1.'
      stop
   endif
-  expT    = ((Te0-Tem)/SigTe)^2
-  expN    = ((Ne0-Nem)/SigNe)^2
-  expTN   = (Te0-Tem)*(Ne0-Nem)/(SigTe*SigNe)
-  p_value = (1./(2.*!pi*sigTe*sigNe*sqrt(1.-q^2)))*$
-            exp( - (1./2./(1.-q^2))*( expT + expN - 2.*q*expTN ) )  
+  expT2    = ((Te0-Tem)/SigTe)^2
+  expN2    = ((Ne0-Nem)/SigNe)^2
+  expTN    = (Te0-Tem)*(Ne0-Nem)/(SigTe*SigNe)
+  p_value  = (1./(2.*!pi*sigTe*sigNe*sqrt(1.-q^2)))*$
+             exp( - (1./2./(1.-q^2))*( expT2 + expN2 - 2.*q*expTN ) )  
   return,p_value
 end

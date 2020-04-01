@@ -20,6 +20,7 @@ pro test_min,min_method=min_method
      print,'minimization method (min_method keyword) not selected:'
      print,'1: Downhill Simplex'
      print,'2: Powell          '
+     print,'3: BFGS            '
      return
   endif
   
@@ -84,6 +85,13 @@ pro test_min,min_method=min_method
                      [0., 0. ,0. ,0. ,0. ,1.]])
      POWELL, P, xi, ftol, fmin, 'cost_function'
   endif
+  
+  if min_method eq 3  then begin
+     print,'BFGS Method '
+     DFPMIN, P, ftol, Fmin, 'cost_function', 'grad_cost_function'
+  endif
+
+
  
   
   t_elapsed  = systime(/seconds)-tstart

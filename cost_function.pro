@@ -36,6 +36,7 @@ function cost_function, parameters
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common weights,sig_WL,sig_v
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
+  common G_table, G, T_e, N_e, r, photT
 
   Nem        = parameters[0]
   M          = n_elements(y)

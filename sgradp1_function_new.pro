@@ -24,7 +24,7 @@ function sgradp1_function_new, Ne0, Te0
   expT    = ((Te0-Tem)/SigTe)^2
   expN    = ((Ne0-Nem)/SigNe)^2
   expTN   = (Te0-Tem)*(Ne0-Nem)/(SigTe*SigNe)
-  p_value = (1./(2.*!pi*sigTe*sigNe*sqrt(1.-q)))*$
+  p_value = (1./(2.*!pi*sigTe*sigNe*sqrt(1.-q^2)))*$
             exp( - (1./2./(1.-q^2))*( expT + expN - 2.*q*expTN ) )
   
   gradp1  = p_value * ( 1./(1.-q^2)/sigNe * ( (Ne0-Nem)/SigNe + q * (Te0-Tem)/SigTe )) ; dP/dNm

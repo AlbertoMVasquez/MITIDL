@@ -15,6 +15,9 @@
 function sp_function, Ne0, Te0
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common tomographic_measurements, y0, y, measurement_type, i_measurement
+  common G_table, G, T_e, N_e, r, photT
+
+
 ; 's' defined in the next line is the emissivity/or/FBE as a function of Te 
   s =  s_function(Ne0,Te0) ;*0. + 1. ;ACTIVATE to make s=1.
   p =  p_function(Ne0,Te0)

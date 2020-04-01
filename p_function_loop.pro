@@ -44,11 +44,11 @@ function p_function, Ne0, Te0
   p_value=dblarr(NTe,NNe)
   for iNe=0,NNe-1 do begin
      for iTe=0,NTe-1 do begin
-        expT    = ((Te0(iTe)-Tem)/SigTe)^2
-        expN    = ((Ne0(iNe)-Nem)/SigNe)^2
+        expT2    = ((Te0(iTe)-Tem)/SigTe)^2
+        expN2    = ((Ne0(iNe)-Nem)/SigNe)^2
         expTN   = (Te0(iTe)-Tem)*(Ne0(iNe)-Nem)/(SigTe*SigNe)
         p_value(iTe,iNe) = (1./(2.*!pi*sigTe*sigNe*sqrt(1.-q^2)))*$
-                           exp( - (1./2./(1.-q^2))*( expT + expN - 2.*q*expTN ) )  
+                           exp( - (1./2./(1.-q^2))*( expT2 + expN2 - 2.*q*expTN ) )  
      ENDFOR
   ENDFOR
   return,p_value

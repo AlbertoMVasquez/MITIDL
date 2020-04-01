@@ -137,7 +137,7 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   print
 
   p   = parameters 
-  dp  = 0.01 * p
+  dp  = 0.01* p
 
   dphi        = cost_function(p+dp) - cost_function(p)
   dphi_grad   = total(grad_cost_function(p)*dp)

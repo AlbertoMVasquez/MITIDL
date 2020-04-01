@@ -43,6 +43,15 @@ function grad_e_function, parameters
      result(4) = INT_2D('sgradp4_function_new',Ne0_Limits,'te_limits',nodes,/double,order=0)
      result(5) = INT_2D('sgradp5_function_new',Ne0_Limits,'te_limits',nodes,/double,order=0)
   endif
+  if new eq 2 then begin
+     result(0) = INT_2D('sgradp1',Ne0_Limits,'te_limits',nodes,/double,order=0)
+     result(1) = e_function(parameters)/fip_factor
+     result(2) = INT_2D('sgradp2',Ne0_Limits,'te_limits',nodes,/double,order=0)
+     result(3) = INT_2D('sgradp3',Ne0_Limits,'te_limits',nodes,/double,order=0)
+     result(4) = INT_2D('sgradp4',Ne0_Limits,'te_limits',nodes,/double,order=0)
+     result(5) = INT_2D('sgradp5',Ne0_Limits,'te_limits',nodes,/double,order=0)
+  endif
+
   
   return, RESULT
 end
