@@ -26,33 +26,34 @@
 ;
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
 ;           v1.1, Federico A. Nuevo, IAFE, March-2020
-;           Elimino derivadas de G
-;           Saco interpol del loop, no es necesario que se haga NNe veces.
-;
+;                 Derivatives of g where removed.
+;                 Also, G_atTe0 was brought out of Ne-loop in CASE "2:",
+;                 for now. See NOTE at the end of the code.
 ;---------------------------------------------------------------------
 function g_function, Te0, Ne0
   common G_table, G, T_e, N_e, r, photT
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common dimensions, NTe, NNe  
-  common tomographic_measurements, y0, y, measurement_type, i_measurement
+  common tomographic_measurements, y0, y, i_measurement
   NTe = 1
   NNe = 1
   if (size(Te0))(0) eq 1 then NTe = (size(Te0))(1)
   if (size(Ne0))(0) eq 1 then NNe = (size(Ne0))(1)
   RESULT = dblarr(NTe,NNe)
-  CASE measurement_type[i_measurement] OF
-     1: BEGIN
+  CASE i_measurement OF
+     0: BEGIN
         ;print,'Selected EMISSION LINE in g_function.pro'
-        for iTe=0,NTe-1 do begin
-           for iNe=0,NNe-1 do begin
-              RESULT[iTe,iNe] = findval3d_function(G,T_e,N_e,r,Te0[iTe],Ne0[iNe],r0)
-           endfor  
-        endfor
+        for iTe=0,NTe-1 do $
+        for iNe=0,NNe-1 do $
+            RESULT[iTe,iNe] = findval3d_function(G,T_e,N_e,r,Te0[iTe],Ne0[iNe],r0)
      END
-     2: BEGIN
+     1: BEGIN
         ;print,'Selected EUV BAND in g_function.pro'
         G_atTe0       = interpol( G    , T_e, Te0)
         for iNe=0,NNe-1 do RESULT[*,iNe] = G_atTe0
+      ; NOTE: In a next version G will be a function of (Te,Ne), even if
+      ;       very weakly dependent on Ne. For that, we will need first
+      ;       to compute Qkl(Te,Ne).
      END
   ENDCASE
   return, RESULT

@@ -27,7 +27,7 @@
 function e2_function, parameters
   common Ylimits, Y_Limits
   common NT_limits, Ne0_Limits, Te0_Limits
-  common tomographic_measurements, y0, y, measurement_type, i_measurement
+  common tomographic_measurements, y0, y, i_measurement
   Nem        = parameters[0]
   fip_factor = parameters[1]
   Tem        = parameters[2]

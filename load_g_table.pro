@@ -52,12 +52,12 @@
 pro load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_label=instrument_label,band_label=band_label
   common G_table, G, T_e, N_e, r, photT
   common directories, tomroot
-  common tomographic_measurements, y0, y, measurement_type, i_measurement
+  common tomographic_measurements, y0, y, i_measurement
   
   data_dir  = tomroot+'MITIDL/Emissivity_LookUp_Tables/'
 
-  CASE measurement_type[i_measurement] OF
-  1: BEGIN
+  CASE i_measurement OF
+  0: BEGIN
      file_name = 'G_function_'+ion_label+'_'+line_wavelength+'.save'
      restore,data_dir+file_name
      G     = emissivity            ; [ERG cm^+3 sec^-1]
@@ -66,7 +66,7 @@ pro load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_
      r     = rphot                 ; [Rsun]
      photT = radtemp               ; [K]
   END
-  2: BEGIN
+  1: BEGIN
      xstring = ''
      file_name = 'TRF_function_'+instrument_label+'_'+band_label+'.txt'
      openr,1,data_dir+file_name

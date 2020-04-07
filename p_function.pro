@@ -22,12 +22,11 @@
 ;
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
 ;           V1.1, Federio A. Nuevo, IAFE, Mach-2020
-;                 Faltaba cuadrado en q en el factor de normalización
+;                 The normalization factor of P lacked the square
+;                 power in q. 
 ;---------------------------------------------------------------------
-
 function p_function, Ne0, Te0
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
-
   eps=1.e-8
   if abs(q-1.) le eps then begin
      print,'Ne-Te correlation can not be 1.'
