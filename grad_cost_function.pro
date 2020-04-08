@@ -29,11 +29,11 @@
 ;      
 ;---------------------------------------------------------------------
 function grad_cost_function, parameters
-  common NT_limits, Ne0_Limits, Te0_Limits
-  common tomographic_measurements, y0, y, measurement_type, i_measurement
+  common tomographic_measurements, y0, y
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
-  common weights,sig_WL,sig_v
-
+  common measurement_errors,sig_WL,sig_y
+  common index_measurement, i_measurement
+  
   RESULT     = parameters * 0d
   Nem        = parameters[0]
   fip_factor = parameters[1]
@@ -44,23 +44,15 @@ function grad_cost_function, parameters
   
   M          = n_elements(y)
   for k = 0, M-1 do begin
-     
-     i_measurement   = i_mea_vec           (k)  
-     ion_label       = ion_label_vec       (k)
-     line_wavelength = line_wavelength_vec (k)
-     instrument_label= instrument_label_vec(k)
-     band_label      = band_label_vec      (k)
-     
-     if measurement_type[i_measurement] eq 1 then begin
-        load_g_table,ion_label=ion_label,line_wavelength=line_wavelength
-     endif
-     if measurement_type[i_measurement] eq 2 then begin
-        load_g_table,instrument_label=instrument_label,band_label=band_label
-     endif
-     RESULT = RESULT + 2*(e_function(parameters) - y[k]) /sig_v[k]^2   * grad_e_function(parameters)
+     i_measurement    =            i_mea_vec(k)  
+     ion_label        =        ion_label_vec(k)
+     line_wavelength  =  line_wavelength_vec(k)
+     instrument_label = instrument_label_vec(k)
+     band_label       =       band_label_vec(k)
+     load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_label=instrument_label,band_label=band_label
+     RESULT = RESULT + 2*(e_function(parameters) - y[k]) /sig_y[k]^2   * grad_e_function(parameters)
   endfor
   result(0) = result(0) + 2*(Nem-y0)/sig_WL^2
   
-
   return, RESULT
 end

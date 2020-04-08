@@ -5,7 +5,8 @@
 ; Wrapper routine to test suite of MIT codes.
 ;
 ; History:  V1.0, A.M. Vasquez, CLaSP, Spring-2018.
-;           V1.5, F.A. Nuevo & A.M. Vásquez, IAFE, March-2020. 
+;           V1.5, F.A. Nuevo, IAFE, March-2020.
+;           V1.6, A.M. Vasquez, IAFE, March-2020. 
 ;---------------------------------------------------------------------
 
 pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
@@ -18,10 +19,10 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common dimensions, NTe, NNe
   common NT_limits, Ne0_Limits, Te0_Limits
-  common tomographic_measurements, y0, y, i_measurement
+  common tomographic_measurements, y0, y
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common measurement_errors,sig_WL,sig_y
-
+  common index_measurement, i_measurement
 ;--------------------------------------------------------------------------------------------------------------------------
 ;                                     VALUES TO PLAY WITH
   
@@ -63,14 +64,10 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
 
 ;--------------------------------------------------------------------------------------------------------------------------
 
- ;measurement_type = [1,2]
-  if not keyword_set(euvband) AND not keyword_set(emissionline) then i_measurement = 0
-  
   set_tomroot
 
   ; Default values for a few things
-  if     keyword_set(emissionline)     then i_measurement    = 0
-  if     keyword_set(euvband)          then i_measurement    = 1
+  if not keyword_set(i_measurement)    then i_measurement    = 0
   if not keyword_set(ion_label)        then ion_label        = 'fexiii' ; always use lowercase
   if not keyword_set(line_wavelength)  then line_wavelength  =  '10747' ; 5-character string with wavelength in A
   if not keyword_set(fip_factor)       then fip_factor       =     1.0  ; Note that [Fe] = [Fe]_Feldman * fip_factor
@@ -124,8 +121,6 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   print, cost_function(parameters)
   print
 
-  stop
-  
   print,'grad_p'
   print,transpose(grad_p(Ne0,Te0))
   print

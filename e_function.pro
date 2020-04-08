@@ -26,16 +26,12 @@
 function e_function, parameters,order=order
   common NT_limits, Ne0_Limits, Te0_Limits
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
-  common G_table, G, T_e, N_e, r, photT  
-  common tomographic_measurements, y0, y, i_measurement
-  
   Nem        = parameters[0]
   fip_factor = parameters[1]
   Tem        = parameters[2]
   SigTe      = parameters[3]
   SigNe      = parameters[4]
   q          = parameters[5]
-  
   if not keyword_set(order) then $
      RESULT = INT_2D('sp_function',Ne0_Limits,'te_limits',96,/double,order=0) ; dydx-order
   if     keyword_set(order) then $

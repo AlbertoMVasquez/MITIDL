@@ -52,8 +52,8 @@
 pro load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_label=instrument_label,band_label=band_label
   common G_table, G, T_e, N_e, r, photT
   common directories, tomroot
-  common tomographic_measurements, y0, y, i_measurement
-  
+  common index_measurement, i_measurement
+
   data_dir  = tomroot+'MITIDL/Emissivity_LookUp_Tables/'
 
   CASE i_measurement OF

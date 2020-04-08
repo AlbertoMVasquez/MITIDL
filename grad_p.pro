@@ -24,10 +24,7 @@
 
 function grad_p, Ne0, Te0
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
-
-
   
-
   eps=1.e-8
   if abs(q-1.) le eps then begin
      print,'Ne-Te correlation can not be 1.'
@@ -62,8 +59,6 @@ function grad_p, Ne0, Te0
   grad(*,*,3) = p_value/sigNe    * ( 1./(1.-q^2) * ( expN2 + q * expTN )  -1) ; dP/sigN
         
   grad(*,*,4) = p_value/(1.-q^2) * ( q  - q/(1.-q^2) * ( expT2 + expN2 - 2.*q*expTN )- expTN ) ; dP/dq
-
-  
   
   return,grad
 end

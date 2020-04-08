@@ -28,25 +28,25 @@
 ;           V2.1, A.M. Vasquez, IAFE, March-2020.
 ;                 Only one call to load_g_table was needed.
 ;                 Also, "measurement_type" is not needed anymore,
-;                 now i_measurement indicates the type of meaurement
+;                 now i_measurement indicates the type of measurement,
+;                 and it is provided to load_g_table directly (not
+;                 through a common block).
 ;---------------------------------------------------------------------
 function cost_function, parameters
-  common NT_limits, Ne0_Limits, Te0_Limits
-  common tomographic_measurements, y0, y, i_measurement
+  common tomographic_measurements, y0, y
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common measurement_errors,sig_WL,sig_y
-  common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
-  common G_table, G, T_e, N_e, r, photT
-  Nem        = parameters[0]
-  M          = n_elements(y)  
+  common index_measurement, i_measurement
+  Nem    = parameters[0]
+  M      = n_elements(y)  
   RESULT = (Nem-y0)^2/sig_WL^2  
-  for k = 0, M-1 do begin   
+  for k = 0, M-1 do begin
      i_measurement    =            i_mea_vec(k)  
      ion_label        =        ion_label_vec(k)
      line_wavelength  =  line_wavelength_vec(k)
      instrument_label = instrument_label_vec(k)
      band_label       =       band_label_vec(k)
-     load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_label=instrument_label,band_label=band_label 
+     load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_label=instrument_label,band_label=band_label
      RESULT = RESULT + (e_function(parameters) - y[k])^2/sig_y[k]^2
   endfor
   return, RESULT

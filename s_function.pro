@@ -36,7 +36,6 @@
 ;---------------------------------------------------------------------
 
 function s_function, Ne0, Te0
-  common G_table, G, T_e, N_e, r, photT
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common dimensions, NTe, NNe
   NTe = 1

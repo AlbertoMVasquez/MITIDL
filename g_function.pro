@@ -34,7 +34,7 @@ function g_function, Te0, Ne0
   common G_table, G, T_e, N_e, r, photT
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common dimensions, NTe, NNe  
-  common tomographic_measurements, y0, y, i_measurement
+  common index_measurement, i_measurement
   NTe = 1
   NNe = 1
   if (size(Te0))(0) eq 1 then NTe = (size(Te0))(1)
