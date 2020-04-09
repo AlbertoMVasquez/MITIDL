@@ -3,8 +3,8 @@
 ; Brief description:
 ;
 ; For values of Te0 and Ne0, this function returns the value of the
-; gradient of the bivariate normal joint temperature-density probability distribution
-; respect to: Tem, Nem, SigTe, SigNe, q.
+; gradient of the bivariate normal joint temperature-density
+; probability distribution respect to: Tem, Nem, SigTe, SigNe, q.
 ;
 ; INPUTS:
 ;  Te0: float with the electron temperature       in units of [K]
@@ -15,8 +15,6 @@
 ;SigNe: float with the electron density     StDev in units of [cm-3]
 ;    q: temperature-density correlation dimensionless coefficient:
 ;       0 means no-correlation, 1 is full-correlation.
-;
-; 
 ;
 ; History:  V1.0, Federico Nuevo, 15-02-20.
 ;
@@ -36,9 +34,7 @@ function grad_p, Ne0, Te0
   if (size(Te0))(0) eq 1 then NTe = (size(Te0))(1)
   if (size(Ne0))(0) eq 1 then NNe = (size(Ne0))(1)
 
-
   grad=dblarr(NTe,NNe,5)
-  
   
   expT     =  (Te0-Tem)/SigTe
   expN     =  (Ne0-Nem)/SigNe

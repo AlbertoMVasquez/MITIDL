@@ -1,0 +1,12 @@
+
+IDEAS TO IMPLEMENT (in order of priority):
+
+1) Right now, the "cost_function" is loading into memory from DISK every table in every call. We have to load into memory all tables just once, in a single call from the MAIN routine (test.pro right now), before attempting minimization. That will save A LOT of time. The ONLY thing that needs to be called upon all the time is the interpolator "g_function". I propose:
+
+1-a) Create a common block "G_tables" to contain ALL tables and associated arrays.
+1-b) Build a new routine called "load_g_tables.pro" that will call "load_g_table.pro" M times, and store all in the new common block
+1-c) Use "i_measurement" label to decide which *interpolator and G-table/T_e/N_e/r arrays* to use. This should bedecided in the cost function routine, right where the current call to load_g_table is placed. The selected G table and associated arrays should be given the names of the variables in the current "G_table" common block, which should be kept to pass the proper values to "g_function.pro". 
+
+COMMENTS:
+
+* Fede: vos revisaste mis rutinas findval2d_function.pro y findval3d_function.pro? En su momento yo las testeé usando funciones analíticas 2d y 3d, graficando cortes de las mismas, y sobregraficando interpolaciones.

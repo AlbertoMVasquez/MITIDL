@@ -5,6 +5,7 @@
 ; This function returns the trilinearly interpolated value of
 ; F(xa,ya,za) into the point (x0,y0,z0)
 ;
+; The following feature was removed in V1.1 (see History notes):
 ; It also returns its 3 partial derivatives computed from finite
 ; diferences between the walls of the cell that contains the point
 ; (x0,y0,z0).
@@ -18,8 +19,9 @@
 ;
 ; RESULT = F
 ;
-; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
-;           V1.1, elimino derivadas
+; History:  V1.0, A.M. Vasquez, CLaSP, Spring-2018.
+;           V1.1, F.A. Nuevo, IAFE, March-2020.
+;                 Computation of derivatives was removed.
 ;---------------------------------------------------------------------
 
 function findval3d_function, F, xa, ya, za, x0, y0, z0
@@ -84,7 +86,6 @@ function findval3d_function, F, xa, ya, za, x0, y0, z0
 
 ; Assign one value to F
   F_value = F_value_x
-
 
   return, F_value
 end

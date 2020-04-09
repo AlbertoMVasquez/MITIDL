@@ -53,9 +53,7 @@ pro load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_
   common G_table, G, T_e, N_e, r, photT
   common directories, tomroot
   common index_measurement, i_measurement
-
   data_dir  = tomroot+'MITIDL/Emissivity_LookUp_Tables/'
-
   CASE i_measurement OF
   0: BEGIN
      file_name = 'G_function_'+ion_label+'_'+line_wavelength+'.save'
@@ -90,7 +88,6 @@ pro load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_
 ; is divided back by 4*!pi in s_function.pro.
      G     = TRF*4.*!pi            ; [PHOTON cm^+3 sec^-1]
      T_e   = 10.^logTe             ; [K]
-
 ; Make a Ne 1D-array for posterior use in integrals. In a future
 ; version G will trully be a function of both (Te,Ne), even if weakly
 ; dependent on Ne.

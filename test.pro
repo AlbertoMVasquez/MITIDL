@@ -23,7 +23,7 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common measurement_errors,sig_WL,sig_y
   common index_measurement, i_measurement
-;--------------------------------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------------------
 ;                                     VALUES TO PLAY WITH
   
   ; Measurement values:
@@ -56,13 +56,14 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   fip_factor = 1.0    ; Note that [Fe] = [Fe]_Feldman * fip_factor
 
   ; Parameter vector for both e_function and cost_function:
+  ; The order chosen for its elements follows Rich's notes, right after Eq. (2)
   parameters = [Nem, fip_factor, Tem, SigTe, SigNe, q]
   
   ; Test values for Ne and Te at which evaluate several functions:
   Ne0        = 2.50e8 ; cm^-3
   Te0        = 1.50e6 ; K
 
-;--------------------------------------------------------------------------------------------------------------------------
+;----------------------------------------------------------------------------------------------------------------
 
   set_tomroot
 
@@ -70,7 +71,7 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   if not keyword_set(i_measurement)    then i_measurement    = 0
   if not keyword_set(ion_label)        then ion_label        = 'fexiii' ; always use lowercase
   if not keyword_set(line_wavelength)  then line_wavelength  =  '10747' ; 5-character string with wavelength in A
-  if not keyword_set(fip_factor)       then fip_factor       =     1.0  ; Note that [Fe] = [Fe]_Feldman * fip_factor
+  if not keyword_set(fip_factor)       then fip_factor       =     1.0  ; [Fe] = [Fe]_Feldman * fip_factor
   if not keyword_set(instrument_label) then instrument_label =    'aia' ; always use lowercase
   if not keyword_set(band_label)       then band_label       =    '171'
   if not keyword_set(Ne0)              then Ne0              = 2.50e8   ; cm^-3
@@ -125,6 +126,8 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   print,transpose(grad_p(Ne0,Te0))
   print
 
+  STOP
+  
   print,'s*grad_P_i:'
   print,sgradp1_function(Ne0,Te0)
   print,sgradp2_function(Ne0,Te0)

@@ -23,14 +23,15 @@
 ;
 ; History:  V1.0, A.M. Vasquez, CLaSP, Spring-2018.
 ;           V2.0, F.A. Nuevo, IAFE, March 2020.
-;                 Load correct g_table to compute e_function for each term
+;                 Load correct g_table to compute appropriate e_function for each term.
 ;                 Also introduced the weight factors 1/sigma².
 ;           V2.1, A.M. Vasquez, IAFE, March-2020.
-;                 Only one call to load_g_table was needed.
-;                 Also, "measurement_type" is not needed anymore,
-;                 now i_measurement indicates the type of measurement,
-;                 and it is provided to load_g_table directly (not
-;                 through a common block).
+;                 Only one call to load_g_table was needed (there were
+;                 two calls in V2.0).
+;                 Also, "measurement_type" is not needed anymore.
+;                 Now i_measurement indicates the type of measurement,
+;                 provided to load_g_table through a dedicated common block,
+;                 ultimately needed by function_g.pro
 ;---------------------------------------------------------------------
 function cost_function, parameters
   common tomographic_measurements, y0, y
@@ -39,7 +40,7 @@ function cost_function, parameters
   common index_measurement, i_measurement
   Nem    = parameters[0]
   M      = n_elements(y)  
-  RESULT = (Nem-y0)^2/sig_WL^2  
+  RESULT = (Nem - y0)^2/sig_WL^2  
   for k = 0, M-1 do begin
      i_measurement    =            i_mea_vec(k)  
      ion_label        =        ion_label_vec(k)
@@ -47,6 +48,12 @@ function cost_function, parameters
      instrument_label = instrument_label_vec(k)
      band_label       =       band_label_vec(k)
      load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_label=instrument_label,band_label=band_label
+     ; The previous call to the load_g_table must be replaced here
+     ; by selection of the proper G table and associated arrays
+     ; from the arrays stored in a new common block named "G_tables"
+     ; which should contain all tables. The selected arrays are 
+     ; to be named with as the variables of the current "G_table"
+     ; common block, hence passing those to "g_function.pro".
      RESULT = RESULT + (e_function(parameters) - y[k])^2/sig_y[k]^2
   endfor
   return, RESULT
