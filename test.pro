@@ -115,7 +115,7 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   Te0_Limits = [min(T_e),max(T_e)]
 
 
-  goto,eg
+  ;goto,eg
   print,'e [erg sec-1 sr-1 K-1]:'
   print, e_function(parameters)
   print
@@ -145,14 +145,15 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   print
 
   
+  STOP
   
-  ;print,'s*grad_P_i:'
-  ;print,sgradp1_function(Ne0,Te0)
-  ;print,sgradp2_function(Ne0,Te0)
-  ;print,sgradp3_function(Ne0,Te0)
-  ;print,sgradp4_function(Ne0,Te0)
-  ;print,sgradp5_function(Ne0,Te0)
-  ;print
+  print,'s*grad_P_i:'
+  print,sgradp1_function(Ne0,Te0)
+  print,sgradp2_function(Ne0,Te0)
+  print,sgradp3_function(Ne0,Te0)
+  print,sgradp4_function(Ne0,Te0)
+  print,sgradp5_function(Ne0,Te0)
+  print
 
   print,'grad_e'
   print,grad_e_function(parameters)
