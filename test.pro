@@ -15,6 +15,7 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   
   common constants, Rsun, kB, h, c
   common G_table, G, T_e, N_e, r, photT
+  common tables,TeCoMP,NeCoMP,TeEUV,NeEUV,G1,G2,G3,G4,G5
   common directories, tomroot
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common dimensions, NTe, NNe
@@ -35,6 +36,7 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   line_wavelength_vec =['10747' ,'10801' ,''   ,''   ,''   ]
   instrument_label_vec=[''      ,''      ,'aia','aia','aia']
   band_label_vec      =[''      ,''      ,'171','193','211']
+
   
   ; Fractional error of each measurement:
   f_wl = 0.1
@@ -67,6 +69,8 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
 
   set_tomroot
 
+  load_tables
+
   ; Default values for a few things
   if not keyword_set(i_measurement)    then i_measurement    = 0
   if not keyword_set(ion_label)        then ion_label        = 'fexiii' ; always use lowercase
@@ -86,7 +90,7 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   if (size(Te0))(0) eq 1 then NTe = (size(Te0))(1)
   if (size(Ne0))(0) eq 1 then NNe = (size(Ne0))(1)
 
-; goto,ef
+  goto,ef
   
   print
   print,'Input values of Ne [cm^-3], Te [K], rad [Rsun], fip_factor:'
@@ -104,12 +108,14 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   print,'s*p [erg(/PH) sec-1 sr-1 K-1]:'
   print,sp_function(Ne0, Te0)
   print
-
   ef:
+  
   
   Ne0_Limits = [min(N_e),max(N_e)]
   Te0_Limits = [min(T_e),max(T_e)]
 
+
+  goto,eg
   print,'e [erg sec-1 sr-1 K-1]:'
   print, e_function(parameters)
   print
@@ -117,42 +123,60 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   print,'e2[erg sec-1 sr-1 K-1]:'
   print, e2_function(parameters)
   print
-  
+
+  tstart     = systime(/seconds)
   print, 'cost_function:'
   print, cost_function(parameters)
+  t_elapsed  = systime(/seconds)-tstart
+  print,'Elapsed time:',t_elapsed
   print
+
+  tstart     = systime(/seconds)
+  print, 'cost_function2:'
+  print, cost_function2(parameters)
+  t_elapsed  = systime(/seconds)-tstart
+  print,'Elapsed time:',t_elapsed
+  print
+  
+
 
   print,'grad_p'
   print,transpose(grad_p(Ne0,Te0))
   print
 
-  STOP
   
-  print,'s*grad_P_i:'
-  print,sgradp1_function(Ne0,Te0)
-  print,sgradp2_function(Ne0,Te0)
-  print,sgradp3_function(Ne0,Te0)
-  print,sgradp4_function(Ne0,Te0)
-  print,sgradp5_function(Ne0,Te0)
-  print
+  
+  ;print,'s*grad_P_i:'
+  ;print,sgradp1_function(Ne0,Te0)
+  ;print,sgradp2_function(Ne0,Te0)
+  ;print,sgradp3_function(Ne0,Te0)
+  ;print,sgradp4_function(Ne0,Te0)
+  ;print,sgradp5_function(Ne0,Te0)
+  ;print
 
   print,'grad_e'
   print,grad_e_function(parameters)
   print
+  eg:
 
   print,'grad_cost_function'
   print,grad_cost_function(parameters)
   print
 
+; ============ TEST DE TAYLOR ========================
   p   = parameters 
-  dp  = 1.e-6* p
+  
 
-  dphi        = cost_function(p+dp) - cost_function(p)
-  dphi_grad   = total(grad_cost_function(p)*dp)
+  dp  = 1.e-4* p *1.d ;* [1,0,0,0,0,0]
+
+
+  dphi        = (cost_function(p+dp) - cost_function(p))*1.d  ;/norm(dp)
+  dphi_grad   = total(grad_cost_function(p)*dp)*1.d           ;/norm(dp)
 
   print,'Phi(p+dp) - Phi(p):',dphi
   print,'gradPhi *  dp:'     ,dphi_grad
-  print,'relative difference:', abs( dphi - dphi_grad)/abs(dphi)
+  print,'relative difference:', abs( dphi- dphi_grad)/abs(dphi)
   stop
+
   return
 end
