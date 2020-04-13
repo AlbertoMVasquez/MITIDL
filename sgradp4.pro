@@ -15,7 +15,7 @@ function sgradp4,Ne0,Te0
   p_value = (1./(2.*!pi*sigTe*sigNe*sqrt(1.-q^2)))*$
             exp( - (1./2./(1.-q^2))*( expT2 + expN2 - 2.*q*expTN ) )
   
-  gradp4  = p_value/sigNe    * ( 1./(1.-q^2) * ( expN2 + q * expTN )  -1) ; dP/sigN
+  gradp4  = p_value/sigNe    * ( 1./(1.-q^2) * ( expN2 - q * expTN )  -1) ; dP/sigN
   
   RESULT = s*gradp4
 

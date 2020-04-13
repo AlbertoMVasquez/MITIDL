@@ -11,9 +11,11 @@ pro test_min,min_method=min_method
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common dimensions, NTe, NNe
   common NT_limits, Ne0_Limits, Te0_Limits
-  common tomographic_measurements, y0, y, measurement_type, i_measurement
+  common tomographic_measurements, y0, y
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
-  common weights,sig_WL,sig_v  
+  common measurement_errors,sig_WL,sig_y
+  common index_measurement, i_measurement
+
   
 
   if not keyword_set(min_method) then begin
@@ -26,7 +28,6 @@ pro test_min,min_method=min_method
   
 
   set_tomroot
-  measurement_type = [1,2]
   i_mea_vec=[0,0,1,1,1]
   ion_label_vec=       ['fexiii','fexiii','','','']
   line_wavelength_vec= ['10747','10801'  ,'','','']
@@ -51,7 +52,7 @@ pro test_min,min_method=min_method
   y0= Nem
   y = synth_y_values(par_orig)
   sig_WL = y0 
-  sig_v  = y 
+  sig_y  = y 
 
 
   ; initial guess

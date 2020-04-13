@@ -26,7 +26,7 @@ function sgradp5_function_new, Ne0, Te0
   p_value = (1./(2.*!pi*sigTe*sigNe*sqrt(1.-q^2)))*$
             exp( - (1./2./(1.-q^2))*( expT + expN - 2.*q*expTN ) )
   
-  gradp5  = p_value * ( q/(1.-q^2) -q/(1.-q^2)^2 * ( expT + expN - 2.*q*expTN )-1./(1.-q^2)*expTN) ; dP/dq
+  gradp5  = p_value * ( q/(1.-q^2) -q/(1.-q^2)^2 * ( expT + expN - 2.*q*expTN )+1./(1.-q^2)*expTN) ; dP/dq
   
   RESULT = s*gradp5
   return, RESULT

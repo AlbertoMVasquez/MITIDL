@@ -33,29 +33,38 @@
 ;                 provided to load_g_table through a dedicated common block,
 ;                 ultimately needed by function_g.pro
 ;---------------------------------------------------------------------
-function cost_function, parameters
+function cost_function2, parameters
   common tomographic_measurements, y0, y
-  common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common measurement_errors,sig_WL,sig_y
-  common index_measurement, i_measurement
   common G_table, G, T_e, N_e, r, photT
+  common tables,TeCoMP,NeCoMP,TeEUV,NeEUV,G1,G2,G3,G4,G5
+  common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec 
+  common index_measurement, i_measurement
+
   Nem    = parameters[0]
   M      = n_elements(y)  
   RESULT = (Nem - y0)^2/sig_WL^2  
+  
   for k = 0, M-1 do begin
      i_measurement    =            i_mea_vec(k)  
-     ion_label        =        ion_label_vec(k)
-     line_wavelength  =  line_wavelength_vec(k)
-     instrument_label = instrument_label_vec(k)
-     band_label       =       band_label_vec(k)
-     load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_label=instrument_label,band_label=band_label
-     ; The previous call to the load_g_table must be replaced here
-     ; by selection of the proper G table and associated arrays
-     ; from the arrays stored in a new common block named "G_tables"
-     ; which should contain all tables. The selected arrays are 
-     ; to be named with as the variables of the current "G_table"
-     ; common block, hence passing those to "g_function.pro".
+
+     
+     if k eq 0 then begin
+        G = G1
+        T_e = TeCoMP
+        N_e = NeCoMP
+     endif
+     if k eq 1 then G=G2
+     if k eq 2 then begin
+        G = G3
+        T_e = TeEUV
+        N_e = NeEUV
+     endif
+     if k eq 3 then G=G4
+     if k eq 4 then G=G5
+     
      RESULT = RESULT + (e_function(parameters) - y[k])^2/sig_y[k]^2
+    
   endfor
   return, RESULT
   end

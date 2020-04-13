@@ -22,7 +22,7 @@ function grad_e_function, parameters
   SigNe      = parameters[4]
   q          = parameters[5]
 
-  nodes=48
+  nodes=96
   result=parameters*0d
   new = 2
 

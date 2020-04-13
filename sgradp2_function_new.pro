@@ -26,7 +26,7 @@ function sgradp2_function_new, Ne0, Te0
   p_value = (1./(2.*!pi*sigTe*sigNe*sqrt(1.-q^2)))*$
             exp( - (1./2./(1.-q^2))*( expT + expN - 2.*q*expTN ) )
   
-  gradp2  = p_value * ( 1./(1.-q^2)/sigTe * ( (Te0-Tem)/SigTe + q * (Ne0-Nem)/SigNe )) ; dP/dTm
+  gradp2  = p_value * ( 1./(1.-q^2)/sigTe * ( (Te0-Tem)/SigTe - q * (Ne0-Nem)/SigNe )) ; dP/dTm
   
   RESULT = s*gradp2
   return, RESULT

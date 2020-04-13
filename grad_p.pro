@@ -46,15 +46,15 @@ function grad_p, Ne0, Te0
              exp( - (1./2./(1.-q^2))*( expT2 + expN2 - 2.*q*expTN ) )  
   
 
-  grad(*,*,0) = p_value * ( 1./(1.-q^2)/sigNe * ( expN+ q * expT)) ; dP/dNm
+  grad(*,*,0) = p_value * ( 1./(1.-q^2)/sigNe * ( expN - q * expT)) ; dP/dNm
         
-  grad(*,*,1) = p_value * ( 1./(1.-q^2)/sigTe * ( expT+ q * expN )) ; dP/dTm
+  grad(*,*,1) = p_value * ( 1./(1.-q^2)/sigTe * ( expT -  q * expN )) ; dP/dTm
   
-  grad(*,*,2) = p_value/sigTe    * ( 1./(1.-q^2) * ( expT2 + q * expTN )  -1) ; dP/sigT
+  grad(*,*,2) = p_value/sigTe    * ( 1./(1.-q^2) * ( expT2 - q * expTN )  -1) ; dP/sigT
   
-  grad(*,*,3) = p_value/sigNe    * ( 1./(1.-q^2) * ( expN2 + q * expTN )  -1) ; dP/sigN
+  grad(*,*,3) = p_value/sigNe    * ( 1./(1.-q^2) * ( expN2 - q * expTN )  -1) ; dP/sigN
         
-  grad(*,*,4) = p_value/(1.-q^2) * ( q  - q/(1.-q^2) * ( expT2 + expN2 - 2.*q*expTN )- expTN ) ; dP/dq
+  grad(*,*,4) = p_value/(1.-q^2) * ( q  - q/(1.-q^2) * ( expT2 + expN2 - 2.*q*expTN ) + expTN ) ; dP/dq
   
   return,grad
 end

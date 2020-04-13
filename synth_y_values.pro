@@ -4,8 +4,10 @@
 function synth_y_values,parameters
   
   common NT_limits, Ne0_Limits, Te0_Limits
-  common tomographic_measurements, y0, y, measurement_type, i_measurement
+  common tomographic_measurements, y0, y
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
+  common measurement_errors,sig_WL,sig_y
+  common index_measurement, i_measurement
   
 
   set_tomroot
