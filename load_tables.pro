@@ -1,5 +1,4 @@
 ;---------------------------------------------------------------------
-
 pro  load_tables
   
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
@@ -7,8 +6,7 @@ pro  load_tables
   common G_table, G, T_e, N_e, r, photT
   common directories, tomroot
   common tables,TeCoMP,NeCoMP,TeEUV,NeEUV,G1,G2,G3,G4,G5
-  
- 
+   
   M      = n_elements(i_mea_vec)  
  
   for k = 0, M-1 do begin

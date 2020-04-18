@@ -66,20 +66,19 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   Te0        = 1.50e6 ; K
 
 ;----------------------------------------------------------------------------------------------------------------
-
   set_tomroot
 
   load_tables
 
   ; Default values for a few things
-  if not keyword_set(i_measurement)    then i_measurement    = 0
+  if not keyword_set(i_measurement)    then i_measurement    =       0
   if not keyword_set(ion_label)        then ion_label        = 'fexiii' ; always use lowercase
   if not keyword_set(line_wavelength)  then line_wavelength  =  '10747' ; 5-character string with wavelength in A
   if not keyword_set(fip_factor)       then fip_factor       =     1.0  ; [Fe] = [Fe]_Feldman * fip_factor
   if not keyword_set(instrument_label) then instrument_label =    'aia' ; always use lowercase
   if not keyword_set(band_label)       then band_label       =    '171'
-  if not keyword_set(Ne0)              then Ne0              = 2.50e8   ; cm^-3
-  if not keyword_set(Te0)              then Te0              = 1.50e6   ; K
+  if not keyword_set(Ne0)              then Ne0              =  2.50e8  ; cm^-3
+  if not keyword_set(Te0)              then Te0              =  1.50e6  ; K
   
   load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_label=instrument_label,band_label=band_label
 
@@ -110,40 +109,23 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   print
   ef:
   
-  
   Ne0_Limits = [min(N_e),max(N_e)]
   Te0_Limits = [min(T_e),max(T_e)]
 
-
   ;goto,eg
-  print,'e [erg sec-1 sr-1 K-1]:'
-  print, e_function(parameters)
-  print
-
-  print,'e2[erg sec-1 sr-1 K-1]:'
-  print, e2_function(parameters)
-  print
+  print,'e [erg sec-1 sr-1 K-1]:', e_function(parameters)
+  print,'e2[erg sec-1 sr-1 K-1]:', e2_function(parameters)
 
   tstart     = systime(/seconds)
-  print, 'cost_function:'
-  print, cost_function(parameters)
-  t_elapsed  = systime(/seconds)-tstart
-  print,'Elapsed time:',t_elapsed
-  print
-
+  print, 'cost_function: ', cost_function(parameters),'  Elapsed time:',systime(/seconds)-tstart
   tstart     = systime(/seconds)
-  print, 'cost_function2:'
-  print, cost_function2(parameters)
-  t_elapsed  = systime(/seconds)-tstart
-  print,'Elapsed time:',t_elapsed
-  print
+  print, 'cost_function2:',cost_function2(parameters),'  Elapsed time:',systime(/seconds)-tstart
+
+  STOP
   
-
-
   print,'grad_p'
   print,transpose(grad_p(Ne0,Te0))
   print
-
   
   STOP
   
@@ -163,21 +145,6 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   print,'grad_cost_function'
   print,grad_cost_function(parameters)
   print
-
-; ============ TEST DE TAYLOR ========================
-  p   = parameters 
-  
-
-  dp  = 1.e-4* p *1.d ;* [1,0,0,0,0,0]
-
-
-  dphi        = (cost_function(p+dp) - cost_function(p))*1.d  ;/norm(dp)
-  dphi_grad   = total(grad_cost_function(p)*dp)*1.d           ;/norm(dp)
-
-  print,'Phi(p+dp) - Phi(p):',dphi
-  print,'gradPhi *  dp:'     ,dphi_grad
-  print,'relative difference:', abs( dphi- dphi_grad)/abs(dphi)
-  stop
 
   return
 end

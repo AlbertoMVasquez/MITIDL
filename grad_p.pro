@@ -36,25 +36,19 @@ function grad_p, Ne0, Te0
 
   grad=dblarr(NTe,NNe,5)
   
-  expT     =  (Te0-Tem)/SigTe
-  expN     =  (Ne0-Nem)/SigNe
-  expT2    =   expT^2
-  expN2    =   expN^2 
-  expTN    =   expT * expN
+  expT    = (Te0-Tem)/SigTe
+  expN    = (Ne0-Nem)/SigNe
+  expT2   = expT^2
+  expN2   = expN^2
+  expTN   = expT*expN
   
-  p_value  = (1./(2.*!pi*sigTe*sigNe*sqrt(1.-q^2)))*$
-             exp( - (1./2./(1.-q^2))*( expT2 + expN2 - 2.*q*expTN ) )  
-  
+  p_value = (1./(2.*!pi*sigTe*sigNe*sqrt(1.-q^2)))*$
+            exp( - (1./2./(1.-q^2))*(expT2 + expN2 - 2.*q*expTN) )  
 
-  grad(*,*,0) = p_value * ( 1./(1.-q^2)/sigNe * ( expN - q * expT)) ; dP/dNm
-        
-  grad(*,*,1) = p_value * ( 1./(1.-q^2)/sigTe * ( expT -  q * expN )) ; dP/dTm
-  
-  grad(*,*,2) = p_value/sigTe    * ( 1./(1.-q^2) * ( expT2 - q * expTN )  -1) ; dP/sigT
-  
-  grad(*,*,3) = p_value/sigNe    * ( 1./(1.-q^2) * ( expN2 - q * expTN )  -1) ; dP/sigN
-        
-  grad(*,*,4) = p_value/(1.-q^2) * ( q  - q/(1.-q^2) * ( expT2 + expN2 - 2.*q*expTN ) + expTN ) ; dP/dq
-  
-  return,grad
+  grad(*,*,0) = (1./sigNe)*(expN  - q*expT)                           ; \propto dP/dNm
+  grad(*,*,1) = (1./sigTe)*(expT  - q*expN)                           ; \propto dP/dTm
+  grad(*,*,2) = (1./sigTe)*(expT2 - q*expTN - (1.-q^2))               ; \propto dP/sigT
+  grad(*,*,3) = (1./sigNe)*(expN2 - q*expTN - (1.-q^2))               ; \propto dP/sigN
+  grad(*,*,4) = q + expTN - (q/(1.-q^2))*(expN2 + expT2 - 2.*q*expTN) ; \propto dP/dq
+  return, (p_value/(1-q^2))*grad
 end
