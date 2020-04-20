@@ -85,6 +85,20 @@ pro test_cuadratura
   t_elapsed  = systime(/seconds)-tstart
   print,'Elapsed time:',t_elapsed
 
+  tstart     = systime(/seconds)
+  print,'grad_cost_function:'
+  print,grad_cost_function(parameters)
+  print
+  t_elapsed  = systime(/seconds)-tstart
+  print,'Elapsed time:',t_elapsed
+  
+  tstart     = systime(/seconds)
+  print,'grad_cost_function (cuadr. simple):'
+  print,grad_cost_function_cs(parameters)
+  print
+  t_elapsed  = systime(/seconds)-tstart
+  print,'Elapsed time:',t_elapsed
+
 
   return
 end

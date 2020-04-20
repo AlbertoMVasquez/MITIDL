@@ -24,7 +24,7 @@ function grad_e_function, parameters
 
   nodes=96
   result=parameters*0d
-  new = 1
+  new = 0
 
   if new eq 0 then begin
      result(0) = INT_2D('sgradp1_function',Ne0_Limits,'te_limits',nodes,/double,order=0)
