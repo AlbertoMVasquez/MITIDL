@@ -1,11 +1,11 @@
 ;---------------------------------------------------------------------
-pro  load_tables
+pro  load_tables2
   
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common index_measurement, i_measurement
   common G_table, G, T_e, N_e, r, photT
   common directories, tomroot
-  common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5
+  common tables,T1,T2,T3,T4,T5,N1,N2,N3,N4,N5,G1,G2,G3,G4,G5
    
   M      = n_elements(i_mea_vec)  
  
@@ -19,28 +19,28 @@ pro  load_tables
           
      if k eq 0  then begin
         G1=G
-        Te1=T_e
-        Ne1=N_e 
+        T1=T_e
+        N1=N_e 
      endif
      if k eq 1  then begin
-        G2 =G
-        Te2=T_e
-        Ne2=N_e 
+        G2=G
+        T2=T_e
+        N2=N_e 
      endif
      if k eq 2  then begin
-        G3 =G
-        Te3=T_e
-        Ne3=N_e 
+        G3=G
+        T3=T_e
+        N3=N_e 
      endif
      if k eq 3  then begin
-        G4 =G
-        Te4=T_e
-        Ne4=N_e 
+        G4=G
+        T4=T_e
+        N4=N_e 
      endif
      if k eq 4  then begin
-        G5 =G
-        Te5=T_e
-        Ne5=N_e 
+        G5=G
+        T5=T_e
+        N5=N_e 
      endif
      i_measurement=0
     

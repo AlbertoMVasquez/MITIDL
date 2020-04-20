@@ -5,7 +5,7 @@ pro  load_tables
   common index_measurement, i_measurement
   common G_table, G, T_e, N_e, r, photT
   common directories, tomroot
-  common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5
+  common tables,TeCoMP,NeCoMP,TeEUV,NeEUV,G1,G2,G3,G4,G5
    
   M      = n_elements(i_mea_vec)  
  
@@ -18,30 +18,19 @@ pro  load_tables
      load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_label=instrument_label,band_label=band_label
           
      if k eq 0  then begin
-        G1=G
-        Te1=T_e
-        Ne1=N_e 
+                     G1=G
+        TeCoMP=T_e
+        NeCoMP=N_e 
      endif
-     if k eq 1  then begin
-        G2 =G
-        Te2=T_e
-        Ne2=N_e 
+     if k eq 1 then  G2=G
+     if k eq 2 then begin
+                     G3=G
+        TeEUV=T_e
+        NeEUV=N_e
      endif
-     if k eq 2  then begin
-        G3 =G
-        Te3=T_e
-        Ne3=N_e 
-     endif
-     if k eq 3  then begin
-        G4 =G
-        Te4=T_e
-        Ne4=N_e 
-     endif
-     if k eq 4  then begin
-        G5 =G
-        Te5=T_e
-        Ne5=N_e 
-     endif
+     if k eq 3 then  G4=G
+     if k eq 4 then  G5=G
+     
      i_measurement=0
     
   endfor

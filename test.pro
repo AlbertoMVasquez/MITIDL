@@ -15,7 +15,8 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   
   common constants, Rsun, kB, h, c
   common G_table, G, T_e, N_e, r, photT
-  common tables,TeCoMP,NeCoMP,TeEUV,NeEUV,G1,G2,G3,G4,G5
+  ;common tables,TeCoMP,NeCoMP,TeEUV,NeEUV,G1,G2,G3,G4,G5
+  common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5
   common directories, tomroot
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common dimensions, NTe, NNe
@@ -124,7 +125,7 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   STOP
   
   print,'grad_p'
-  print,transpose(grad_p(Ne0,Te0))
+  print,transpose(grad_p_function(Ne0,Te0))
   print
   
   STOP
