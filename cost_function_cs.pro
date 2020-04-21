@@ -3,6 +3,9 @@
 ; Brief description:
 ;
 ; Cost funtion to be minimazied in a each voxel of the tomographic grid.
+; This version (_cs) uses CS to calculate the emissivities
+;
+; CS: \int f(x,y) dx dy >  \Sum_{i,j} f(x_i,y_j) Dx Dy
 ;
 ; Argument:
 ; parameters: a 1D array of 6 elements: [Nem, fip_factor, Tem, SigTe, SigNe, q]
@@ -24,8 +27,8 @@
 ; OUTPUTS:
 ; Value of the function for the given values of the inputs and the parameters.
 ;
-; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
-;           V1.1 la versión 1.0 no andaba, varias cosas ... 
+; History:  V1.0, Federico A. Nuevo, IAFE, April-2020.
+;           
 ;---------------------------------------------------------------------
 function cost_function_cs, parameters
   

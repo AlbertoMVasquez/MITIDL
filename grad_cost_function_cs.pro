@@ -2,7 +2,8 @@
 ;
 ; Brief description:
 ;
-; Gradient of the Cost funtion to use in the minimization.
+; Gradient of the Cost funtion to use in the minimization. Use CS to
+; calculate the double integrals
 ;
 ; Argument:
 ; parameters: a 1D array of 6 elements: [Nem, fip_factor, Tem, SigTe, SigNe, q]
@@ -25,7 +26,7 @@
 ; Value of the gradient of the cost function for the given values 
 ; of the inputs and the parameters.
 ;
-; History:  V1.0, Federico Nuevo, IAFE, March-2020.
+; History:  V1.0, Federico Nuevo, IAFE, April-2020.
 ;      
 ;---------------------------------------------------------------------
 function grad_cost_function_cs, parameters

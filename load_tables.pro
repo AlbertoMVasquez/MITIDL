@@ -1,4 +1,29 @@
 ;---------------------------------------------------------------------
+;
+; Brief description:
+;
+; Load  all the tables of the G(Ne,Te) functions:
+; Gi, Tei, Nei (i=1,...,5)
+; the arrays are in common tables
+
+
+;
+; For lines:
+; 3D array:  G(Te, Ne, r) 
+; 1D arrays: log10(Te [K]), log10(Ne [cm-3]), r [Rsun],
+; scalar: photosphere Teff [K].
+;
+; For EUV bands:
+; 1D arrays: TRF(Te), log10(Te [K])
+;
+; Tables must be stored in:
+; tomroot/MITIDL/Emissivity/LookUp_Tables/
+;
+; 
+; History:  V1.0, Federico A. Nuevo, IAFE, April-2020.
+;
+
+;---------------------------------------------------------------------
 pro  load_tables
   
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec

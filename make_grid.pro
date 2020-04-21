@@ -1,4 +1,12 @@
+;-------------------------------------------------------
+; Esta rutina crea una grilla fija y uniforme de Ne y
+; Te para hacer las integrales dobles por CS.
+
+;-------------------------------------------------------
+
+
 pro make_grid
+
   common dimensions, NTe, NNe
   common NT_limits, Ne0_Limits, Te0_Limits
   common NT_arrays,Ne_array,Te_array

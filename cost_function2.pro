@@ -2,7 +2,10 @@
 ;
 ; Brief description:
 ;
-; Cost funtion to be minimazied in a each voxel of the tomographic grid.
+; Cost funtion to be minimizied in a each voxel of the tomographic
+; grid.
+; THIS VERSION OF THE COST FUNCTION USE the G functions save in memory
+; in the common tables.
 ;
 ; Argument:
 ; parameters: a 1D array of 6 elements: [Nem, fip_factor, Tem, SigTe, SigNe, q]

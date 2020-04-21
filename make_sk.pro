@@ -1,3 +1,17 @@
+;---------------------------------------------------------------------
+;
+; Brief description: 
+; This routine computes the S_k(Ne,Te) functions for a fixed Ne and Te
+; grid. 
+; Es necesario que se hallan creado los arrays 1D Ne_array y Te_array
+; Output: sk array de M x NTe x NNe
+; 
+; History: 
+;           V1.0, F.A. Nuevo, IAFE, April-2020.
+;                      
+;---------------------------------------------------------------------
+
+
 pro make_sk,sk
   
   common NT_arrays,Ne_array,Te_array

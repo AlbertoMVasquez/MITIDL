@@ -17,7 +17,10 @@
 ;       0 means no-correlation, 1 is full-correlation.
 ;
 ; History:  V1.0, Federico Nuevo, 15-02-20.
-;
+
+
+; NOTA: no se puede multiplicar p_value por grad porque son de dife-
+; rentes dimensiones! Di vuelta atrás como lo programó Albert  
 ;---------------------------------------------------------------------
 
 function grad_p_function, Ne0, Te0

@@ -2,8 +2,11 @@
 ; Brief description:
 ;
 ; This function computes the emissivity e of a line/band in a voxel.
+; Esta rutina usa CS para calcular las integrales dobles.
+
 ;
 ; ARGUMENT: 
+; k         : the index of the emissivity
 ; parameters: a 1D array of 6 elements: [Nem, fip_factor, Tem, SigTe, SigNe, q]
 ;
 ; OUTPUTS:
@@ -14,14 +17,7 @@
 ; or
 ; For EUV bands:
 ;
-; IMPORTANT NOTE: In its current implementation, this function
-; computes the 2D integral using the INT_2D.PRO routine, assuming
-; order=0, which means that the integration order is dy-dx, i.e the
-; independent variable is x (external integral), and the dependent
-; variable is y, where here x=Ne and y=Te.
-;
-; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
-;           v1.1, test that is the same dxdy-order than dydx-order
+; History:  V1.0, Federico A. Nuevo, IAFE, April-2020.
 ;---------------------------------------------------------------------
 function e_function_cs, k, parameters
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q

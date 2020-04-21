@@ -4,6 +4,7 @@
 
 pro test_min,min_method=min_method
         
+
   
   common constants, Rsun, kB, h, c
   common G_table, G, T_e, N_e, r, photT
@@ -15,7 +16,8 @@ pro test_min,min_method=min_method
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common measurement_errors,sig_WL,sig_y
   common index_measurement, i_measurement
-
+  common sk_array,sk
+  common NT_arrays,Ne_array,Te_array
   
 
   if not keyword_set(min_method) then begin
@@ -36,6 +38,7 @@ pro test_min,min_method=min_method
 
   Ne0_Limits = [1.e5,1.e10 ]
   Te0_Limits = [0.5e6,1.0e7]
+
   
   
 
@@ -54,6 +57,11 @@ pro test_min,min_method=min_method
   sig_WL = y0 
   sig_y  = y 
 
+  NNe=80
+  NTe=80
+  make_grid
+  make_sk,sk
+  
 
   ; initial guess
   guess_ini= 0.8*par_orig
@@ -89,7 +97,7 @@ pro test_min,min_method=min_method
   
   if min_method eq 3  then begin
      print,'BFGS Method '
-     DFPMIN, P, ftol, Fmin, 'cost_function', 'grad_cost_function'
+     DFPMIN, P, ftol, Fmin, 'cost_function_cs', 'grad_cost_function_cs'
   endif
 
 

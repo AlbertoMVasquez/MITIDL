@@ -1,4 +1,9 @@
-
+;----------------------------------------------------------------------
+; Esta rutina sirve para testear la suite the codigos (_cs) que usan
+; cuadratura simple para calcular las integrales dobles.
+;
+; CS: \int f(x,y) dx dy >  \Sum_{i,j} f(x_i,y_j) Dx Dy
+;----------------------------------------------------------------------
 
 pro test_cuadratura
 
@@ -6,7 +11,6 @@ pro test_cuadratura
 
   common constants, Rsun, kB, h, c
   common G_table, G, T_e, N_e, r, photT
-  ;common tables,TeCoMP,NeCoMP,TeEUV,NeEUV,G1,G2,G3,G4,G5
   common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5
   common directories, tomroot
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
@@ -55,50 +59,65 @@ pro test_cuadratura
   ; The order chosen for its elements follows Rich's notes, right after Eq. (2)
   parameters = [Nem, fip_factor, Tem, SigTe, SigNe, q]
   
-;----------------------------------------------------------------------------------------------------------------
+;----------------------------------------------------------------------------------------------------------------  
   set_tomroot
-
-
-
+  
+ ; Create a fixed grid of Ne and Te
   NNe=80
   NTe=80
   Ne0_Limits = [1.e6, 5.e9]
   Te0_Limits = [0.5e6,5.0e6]
   make_grid
+
+ ; Calculate de S_k in the grid 
   make_sk,sk
 
+ ; make a comparison between the double integral
+ ; calculated with INT2D and CS
   compare_integrals,parameters
 
+
+  ; compare cost function and time calculated with
+  ; the two "scenarios" 
   
+ 
   tstart     = systime(/seconds)
   print, 'cost_function:'
-  print, cost_function(parameters)
+  phi1= cost_function(parameters)
+  print, phi1
     t_elapsed  = systime(/seconds)-tstart
   print,'Elapsed time:',t_elapsed
-
   print
 
   tstart     = systime(/seconds)
   print, 'cost_function (cuadr. simple):'
-  print, cost_function_cs(parameters)
-  print
+  phi2= cost_function_cs(parameters)
+  print, phi2
   t_elapsed  = systime(/seconds)-tstart
   print,'Elapsed time:',t_elapsed
+  print
+
+  print,'relative diference:',abs(phi2-phi1)/phi1
+
+  print
 
   tstart     = systime(/seconds)
   print,'grad_cost_function:'
-  print,grad_cost_function(parameters)
-  print
+  dphi1=grad_cost_function(parameters)
+  print,dphi1
   t_elapsed  = systime(/seconds)-tstart
   print,'Elapsed time:',t_elapsed
-  
+  print
+
   tstart     = systime(/seconds)
   print,'grad_cost_function (cuadr. simple):'
-  print,grad_cost_function_cs(parameters)
-  print
+  dphi2=grad_cost_function_cs(parameters)
+  print,dphi2
   t_elapsed  = systime(/seconds)-tstart
   print,'Elapsed time:',t_elapsed
+  print
 
+  print,'relative diference:',abs(dphi2-dphi1)/abs(dphi1)
 
   return
 end

@@ -1,3 +1,16 @@
+;---------------------------------------------------------------------
+;
+; Brief description:
+;
+; This function computes the product of the s and dp/dTm functions.
+; dp/dTm is calculated directly (without use grad_p_function)
+;
+; INPUTS: Ne0, Te0.
+;
+;
+; History:  V1.0, Federico A. Nuevo, IAFE, April-2020.
+;
+;---------------------------------------------------------------------
 
 
 function sgradp2_function_new,Ne0,Te0

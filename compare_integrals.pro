@@ -1,3 +1,10 @@
+;-----------------------------------------------------
+; Esta rutina compara los valores de emisividad cal-
+; culados usando int2D y cuadratura simple, respectiva-
+; mente.
+
+;-----------------------------------------------------
+
 
 pro compare_integrals,parameters
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec

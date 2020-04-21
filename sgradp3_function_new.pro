@@ -1,3 +1,16 @@
+;---------------------------------------------------------------------
+;
+; Brief description:
+;
+; This function computes the product of the s and dp/dsigT functions.
+; dp/dsigT is calculated directly (without use grad_p_function)
+;
+; INPUTS: Ne0, Te0.
+;
+;
+; History:  V1.0, Federico A. Nuevo, IAFE, April-2020.
+;
+;---------------------------------------------------------------------
 
 
 function sgradp3_function_new,Ne0,Te0

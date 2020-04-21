@@ -1,4 +1,16 @@
-
+;---------------------------------------------------------------------
+;
+; Brief description:
+;
+; This function computes the product of the s and dp/dNm functions.
+; dp/dNm is calculated directly (without use grad_p_function)
+;
+; INPUTS: Ne0, Te0.
+;
+;
+; History:  V1.0, Federico A. Nuevo, IAFE, April-2020.
+;
+;---------------------------------------------------------------------
 
 function sgradp1_function_new,Ne0,Te0
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q

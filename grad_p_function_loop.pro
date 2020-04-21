@@ -5,6 +5,9 @@
 ; For values of Te0 and Ne0, this function returns the value of the
 ; gradient of the bivariate normal joint temperature-density
 ; probability distribution respect to: Tem, Nem, SigTe, SigNe, q.
+; The routine use a double loop in Ne and Te.
+; Esta rutina es necesaria si se calculan las integrales dobles
+; usando cuadratura simple (e_function_cs)
 ;
 ; INPUTS:
 ;  Te0: float with the electron temperature       in units of [K]
