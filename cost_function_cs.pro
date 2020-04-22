@@ -2,7 +2,7 @@
 ;
 ; Brief description:
 ;
-; Cost funtion to be minimazied in a each voxel of the tomographic grid.
+; Cost funtion to be minimizied in a each voxel of the tomographic grid.
 ; This version (_cs) uses CS to calculate the emissivities
 ;
 ; CS: \int f(x,y) dx dy >  \Sum_{i,j} f(x_i,y_j) Dx Dy
@@ -21,8 +21,7 @@
 ;       possible values are: 1, for CoMP/UCoMP line emissivity,
 ;                            2, for EUV FBE.
 ;
-; To-be-done: There are yet no weighting factors 1/SIGMA² in each term
-;             of the cost function.
+;
 ;
 ; OUTPUTS:
 ; Value of the function for the given values of the inputs and the parameters.

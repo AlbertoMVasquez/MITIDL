@@ -3,7 +3,7 @@
 ; Brief description:
 ;
 ; This function computes the product of the s and dp/dsigT functions.
-; dp/dsigT is calculated directly (without use grad_p_function)
+; dp/dsigT is calculated directly (without using grad_p_function)
 ;
 ; INPUTS: Ne0, Te0.
 ;

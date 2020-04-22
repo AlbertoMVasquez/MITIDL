@@ -1,14 +1,17 @@
 ;---------------------------------------------------------------------;
 ; Brief description:
 ;
-; This function computes the gradient of the emissivity respect to the parameters.
+; This function computes the gradient of the emissivity respect to the
+; parameters using CS to calculate the double integral.
+
 ;
 ; ARGUMENT: 
+; K         : index of the emissivity
 ; parameters: a 1D array of 6 elements: [Nem, fip_factor, Tem, SigTe, SigNe, q]
 ;
 ;
 ;
-; History:  V1.0, Federico A. Nuevo, IAFE, March-2020.
+; History:  V1.0, Federico A. Nuevo, IAFE, April-2020.
 ;
 ;---------------------------------------------------------------------
 function grad_e_function_cs,k, parameters
@@ -26,15 +29,17 @@ function grad_e_function_cs,k, parameters
   
   RESULT=parameters*0d
 
+  ; Ne and Te grid
   Ne0= Ne_array
   Te0= Te_array
   dNe = Ne0(1)-Ne0(0)
   dTe = Te0(1)-Te0(0)
 
+  ; P gradient
   gradP=grad_p_function_loop(Ne0,Te0)
   
-
-  Result(0) = total ( reform(sk(k,*,*)) * gradP (*,*,0) ) * dNe * dTe
+  ; Calculate the double integrals with CS 
+  Result(0) = total ( sk(k,*,*) * gradP (*,*,0) ) * dNe * dTe
   Result(1) = e_function_cs(k,parameters)/fip_factor
   Result(2) = total ( sk(k,*,*) * gradP (*,*,1) ) * dNe * dTe
   Result(3) = total ( sk(k,*,*) * gradP (*,*,2) ) * dNe * dTe

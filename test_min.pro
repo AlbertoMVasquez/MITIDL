@@ -30,19 +30,14 @@ pro test_min,min_method=min_method
   
 
   set_tomroot
-  i_mea_vec=[0,0,1,1,1]
-  ion_label_vec=       ['fexiii','fexiii','','','']
-  line_wavelength_vec= ['10747','10801'  ,'','','']
-  instrument_label_vec=['','','aia','aia','aia']
-  band_label_vec=      ['','','171','193','211']
-
-  Ne0_Limits = [1.e5,1.e10 ]
-  Te0_Limits = [0.5e6,1.0e7]
+  i_mea_vec           = [0,0,1,1,1]
+  ion_label_vec       = ['fexiii','fexiii','','','']
+  line_wavelength_vec = ['10747','10801'  ,'','','']
+  instrument_label_vec= ['','','aia','aia','aia']
+  band_label_vec      = ['','','171','193','211']
 
   
-  
-
-  ; Original values of parameters used to calculate sith emmisivities
+  ; Original values of parameters used to calculate synth emmisivities
   r0         = 1.2              ; Rsun                                                                                 
   fip_factor = 1.0              ; Note that [Fe] = [Fe]_Feldman * fip_factor        
   Tem        = 1.75e6           ; K                                               
@@ -50,18 +45,31 @@ pro test_min,min_method=min_method
   Nem        = 1.75e8           ; cm^-3                                                                              
   SigNe      = 0.50e8           ; cm^-3                                                                         
   q          =.5
-  par_orig = [Nem, fip_factor, Tem, SigTe, SigNe, q]
+  par_orig   = [Nem, fip_factor, Tem, SigTe, SigNe, q]
   
+  ; integral limits
+  Ne0_Limits = [1.e6 ,5.0e9]
+  Te0_Limits = [0.5e6,5.0e6]
+  ; synthetic values of y0 and y
   y0= Nem
   y = synth_y_values(par_orig)
-  sig_WL = y0 
-  sig_y  = y 
+  
+  ; Fractional error of each measurement:
+  f_wl = 0.1
+  f_y  = 0.1 + findgen(n_elements(y))
 
+  ; Absolute error of each measurement:
+  sig_WL = f_wl* y0
+  sig_y  = f_y * y
+
+   
+  ; Ne and Te grid
   NNe=80
   NTe=80
   make_grid
   make_sk,sk
   
+
 
   ; initial guess
   guess_ini= 0.8*par_orig
@@ -79,7 +87,7 @@ pro test_min,min_method=min_method
   if min_method eq 1 then begin
      print,'Downhill simplex Method'
      scale = [1.e8, 1., 1.e6, 1.e6, 1.e8, 1.]
-     P = AMOEBA(ftol,scale=scale, P0 = guess_ini ,FUNCTION_VALUE=fval,function_name='cost_function')
+     P = AMOEBA(ftol,scale=scale, P0 = guess_ini ,FUNCTION_VALUE=fval,function_name='cost_function_cs')
   endif
   
 
@@ -92,7 +100,7 @@ pro test_min,min_method=min_method
                      [0., 0. ,0. ,1. ,0. ,0.],$
                      [0., 0. ,0. ,0. ,1. ,0.],$
                      [0., 0. ,0. ,0. ,0. ,1.]])
-     POWELL, P, xi, ftol, fmin, 'cost_function'
+     POWELL, P, xi, ftol, fmin, 'cost_function_cs'
   endif
   
   if min_method eq 3  then begin
