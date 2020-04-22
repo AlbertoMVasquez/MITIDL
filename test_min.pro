@@ -1,10 +1,10 @@
 ;---------------------------------------------------------------------
 
+
 ;---------------------------------------------------------------------
 
 pro test_min,min_method=min_method
         
-
   
   common constants, Rsun, kB, h, c
   common G_table, G, T_e, N_e, r, photT
@@ -25,6 +25,7 @@ pro test_min,min_method=min_method
      print,'1: Downhill Simplex'
      print,'2: Powell          '
      print,'3: BFGS            '
+     print,'4: Polak-Ribiere   '
      return
   endif
   
@@ -108,7 +109,10 @@ pro test_min,min_method=min_method
      DFPMIN, P, ftol, Fmin, 'cost_function_cs', 'grad_cost_function_cs'
   endif
 
-
+  if min_method eq 4 then begin
+     PR_min,guess_ini,out,phiv
+     P = OUT
+  endif
  
   
   t_elapsed  = systime(/seconds)-tstart
