@@ -2,7 +2,10 @@
 ;
 ; Brief description:
 ;
-; Cost funtion to be minimazied in a each voxel of the tomographic grid.
+; Cost funtion to be minimizied in a each voxel of the tomographic
+; grid.
+; THIS VERSION OF THE COST FUNCTION USE the G functions save in memory
+; in the common tables.
 ;
 ; Argument:
 ; parameters: a 1D array of 6 elements: [Nem, fip_factor, Tem, SigTe, SigNe, q]
@@ -35,28 +38,48 @@
 ;---------------------------------------------------------------------
 function cost_function, parameters
   common tomographic_measurements, y0, y
-  common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common measurement_errors,sig_WL,sig_y
-  common index_measurement, i_measurement
   common G_table, G, T_e, N_e, r, photT
+  common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2
+  common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec 
+  common index_measurement, i_measurement
+
   Nem    = parameters[0]
   M      = n_elements(y)  
   RESULT = (Nem - y0)^2/sig_WL^2  
+  
   for k = 0, M-1 do begin
-     i_measurement    =            i_mea_vec(k)  
-     ion_label        =        ion_label_vec(k)
-     line_wavelength  =  line_wavelength_vec(k)
-     instrument_label = instrument_label_vec(k)
-     band_label       =       band_label_vec(k)
-     load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_label=instrument_label,band_label=band_label
-     ; The previous call to the load_g_table must be replaced here
-     ; by selection of the proper G table and associated arrays
-     ; from the arrays stored in a new common block named "G_tables"
-     ; which should contain all tables. The selected arrays are 
-     ; to be named with as the variables of the current "G_table"
-     ; common block, hence passing those to "g_function.pro".
+     i_measurement = i_mea_vec(k)
+     CASE k of
+     0: BEGIN
+        G   = G1
+        T_e = Te1
+        N_e = Ne1
+        r   = r1
+     END
+     1: BEGIN
+        G   = G2
+        T_e = Te2
+        N_e = Ne2
+        r   = r2
+     END
+     2: BEGIN
+        G   = G3
+        T_e = Te3
+        N_e = Ne3
+     END
+     3: BEGIN
+        G   = G4
+        T_e = Te4
+        N_e = Ne4
+     END
+     4: BEGIN
+        G   = G5
+        T_e = Te5
+        N_e = Ne5
+     END
+     ENDCASE
      RESULT = RESULT + (e_function(parameters) - y[k])^2/sig_y[k]^2
   endfor
   return, RESULT
   end
-  i_measurement=0

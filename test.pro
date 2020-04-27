@@ -15,8 +15,7 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   
   common constants, Rsun, kB, h, c
   common G_table, G, T_e, N_e, r, photT
-  ;common tables,TeCoMP,NeCoMP,TeEUV,NeEUV,G1,G2,G3,G4,G5
-  common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5
+  common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2
   common directories, tomroot
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common dimensions, NTe, NNe
@@ -71,8 +70,9 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
 
   load_tables
 
+
   ; Default values for a few things
-  if not keyword_set(i_measurement)    then i_measurement    =       0
+                                            i_measurement    =       0
   if not keyword_set(ion_label)        then ion_label        = 'fexiii' ; always use lowercase
   if not keyword_set(line_wavelength)  then line_wavelength  =  '10747' ; 5-character string with wavelength in A
   if not keyword_set(fip_factor)       then fip_factor       =     1.0  ; [Fe] = [Fe]_Feldman * fip_factor
@@ -119,17 +119,11 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
 
   tstart     = systime(/seconds)
   print, 'cost_function: ', cost_function(parameters),'  Elapsed time:',systime(/seconds)-tstart
-  tstart     = systime(/seconds)
-  print, 'cost_function2:',cost_function2(parameters),'  Elapsed time:',systime(/seconds)-tstart
-
-  STOP
   
   print,'grad_p'
   print,transpose(grad_p_function(Ne0,Te0))
   print
-  
-  STOP
-  
+    
   print,'s*grad_P_i:'
   print,sgradp1_function(Ne0,Te0)
   print,sgradp2_function(Ne0,Te0)
@@ -147,5 +141,7 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   print,grad_cost_function(parameters)
   print
 
+  stop
+  
   return
 end

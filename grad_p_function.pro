@@ -16,11 +16,8 @@
 ;    q: temperature-density correlation dimensionless coefficient:
 ;       0 means no-correlation, 1 is full-correlation.
 ;
-; History:  V1.0, Federico Nuevo, 15-02-20.
-
-
-; NOTA: no se puede multiplicar p_value por grad porque son de dife-
-; rentes dimensiones! Di vuelta atrás como lo programó Albert  
+; History:  V1.0, F.A. Nuevo,   15-02-20.
+;           V1.1, A.M. Vásquez, 22-04-20.
 ;---------------------------------------------------------------------
 
 function grad_p_function, Ne0, Te0

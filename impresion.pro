@@ -1,6 +1,6 @@
 
    p  = parameters
-  dp  = 1.d-1 * p
+  dp  = 1.d-3 * p
 
    phi        = cost_function(p)
   dphi        = cost_function(p+dp) - phi
