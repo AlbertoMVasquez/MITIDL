@@ -132,13 +132,13 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   print,sgradp5_function(Ne0,Te0)
   print
 
-  print,'grad_e'
-  print,grad_e_function(parameters)
+  tstart     = systime(/seconds)  
+  print,'grad_e_function: ',grad_e_function(parameters),'  Elapsed time:',systime(/seconds)-tstart
   print
-  eg:
 
-  print,'grad_cost_function'
-  print,grad_cost_function(parameters)
+  eg:
+  tstart     = systime(/seconds)  
+  print,'grad_cost_function:',grad_cost_function(parameters),'  Elapsed time:',systime(/seconds)-tstart
   print
 
   stop

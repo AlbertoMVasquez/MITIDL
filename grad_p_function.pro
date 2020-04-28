@@ -47,8 +47,8 @@ function grad_p_function, Ne0, Te0
 
   grad(*,*,0) = p_value * (1./sigNe)*(expN  - q*expT)                             ; \propto dP/dNm
   grad(*,*,1) = p_value * (1./sigTe)*(expT  - q*expN)                             ; \propto dP/dTm
-  grad(*,*,2) = p_value * (1./sigTe)*(expT2 - q*expTN - (1.-q^2))                 ; \propto dP/sigT
-  grad(*,*,3) = p_value * (1./sigNe)*(expN2 - q*expTN - (1.-q^2))                 ; \propto dP/sigN
+  grad(*,*,2) = p_value * (1./sigTe)*(expT2 - q*expTN - (1.-q^2))                 ; \propto dP/dsigT
+  grad(*,*,3) = p_value * (1./sigNe)*(expN2 - q*expTN - (1.-q^2))                 ; \propto dP/dsigN
   grad(*,*,4) = p_value * (q + expTN - (q/(1.-q^2))*(expN2 + expT2 - 2.*q*expTN)) ; \propto dP/dq
   return, (1/(1-q^2))*grad
 end

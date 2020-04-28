@@ -44,10 +44,10 @@ function grad_cost_function, parameters
   SigTe      = parameters[3]
   SigNe      = parameters[4]
   q          = parameters[5]
-
-  M          = n_elements(y)
-  result(0) = result(0) + 2*(Nem-y0)/sig_WL^2
   
+  result(0)  = result(0) + 2*(Nem-y0)/sig_WL^2
+
+  M          = n_elements(y)  
   for k = 0, M-1 do begin
      i_measurement = i_mea_vec(k)  
      CASE k of
@@ -79,7 +79,7 @@ function grad_cost_function, parameters
         N_e = Ne5
      END
      ENDCASE     
-     RESULT = RESULT + 2*(e_function(parameters) - y[k]) /sig_y[k]^2   * grad_e_function(parameters)
+     RESULT = RESULT + (2*(e_function(parameters) - y[k])/sig_y[k]^2)*grad_e_function(parameters)
   endfor
   
   return, RESULT
