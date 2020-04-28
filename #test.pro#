@@ -125,11 +125,11 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   print
     
   print,'s*grad_P_i:'
-  print,[sgradp1_function(Ne0,Te0),sgradp1_function_new(Ne0,Te0)]
-  print,[sgradp2_function(Ne0,Te0),sgradp2_function_new(Ne0,Te0)]
-  print,[sgradp3_function(Ne0,Te0),sgradp3_function_new(Ne0,Te0)]
-  print,[sgradp4_function(Ne0,Te0),sgradp4_function_new(Ne0,Te0)]
-  print,[sgradp5_function(Ne0,Te0),sgradp5_function_new(Ne0,Te0)]
+  print,refoDP1_FUNCTION(NE0,TE0),SGRADP1_FUNCTION_NEW(NE0,TE0)
+  PRINT,SGRADP2_FUNCTION(NE0,TE0),SGRADP2_FUNCTION_NEW(NE0,TE0)
+  PRINT,SGRADP3_FUNCTION(NE0,TE0),SGRADP3_FUNCTION_NEW(NE0,TE0)
+  PRINT,SGRADP4_FUNCTION(NE0,TE0),SGRADP4_FUNCTION_NEW(NE0,TE0)
+  PRINT,SGRADP5_FUNCTION(NE0,TE0),sgradp5_function_new(Ne0,Te0)
   print
 
   tstart     = systime(/seconds)  

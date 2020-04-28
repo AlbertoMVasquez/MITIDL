@@ -61,8 +61,8 @@ pro test_cuadratura
   set_tomroot
   
  ; Create a fixed grid of Ne and Te
-  NNe=80
-  NTe=80
+  NNe=100
+  NTe=100
   Ne0_Limits = [1.e6, 5.e9]
   Te0_Limits = [0.5e6,5.0e6]
   make_grid
@@ -77,8 +77,7 @@ pro test_cuadratura
 
   ; compare cost function and time calculated with
   ; the two "scenarios" 
-  
- 
+   
   tstart     = systime(/seconds)
   print, 'cost_function:'
   phi1= cost_function(parameters)

@@ -22,8 +22,7 @@ pro compare_integrals,parameters
      band_label       =       band_label_vec(k)
      load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_label=instrument_label,band_label=band_label
 
-       print,instrument_label+band_label
-       print,'diferencia relativa %:', ( e_function(parameters) - e_function_cs(k,parameters) )/ e_function(parameters) * 100
+       print,'Relative difference for the emissivity of index k='+string(k)+':'+string(100.*(e_function(parameters) - e_function_cs(k,parameters))/e_function(parameters))+' %'
 
     endfor
     i_measurement=0
