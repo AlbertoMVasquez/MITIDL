@@ -32,9 +32,8 @@
 ;           V1.1, F.A. Nuevo, IAFE, March-2020.
 ;                 Derivatives and Ne-loop were both removed
 ;           V1.2. A.M.Vasquez.
-;                 Eliminated unnecesary commin block.
+;                 Eliminated unnecesary common block.
 ;---------------------------------------------------------------------
-
 function s_function, Ne0, Te0
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common dimensions, NTe, NNe
@@ -42,11 +41,12 @@ function s_function, Ne0, Te0
   NNe = 1
   if (size(Te0))(0) eq 1 then NTe = (size(Te0))(1)
   if (size(Ne0))(0) eq 1 then NNe = (size(Ne0))(1)
+; stop
 ; Linearly interpolate G from the look-up table
   RESULT_s = dblarr(NTe,NNe)
 ; Evaluate G(Te0,Ne0)
   RESULT_g = g_function(Te0,Ne0) ; [ERG(or PH) cm+3 sec-1]; NOTE: this is a NTe x NNe 2D array.
 ; Compute emissivity s(Te0,Ne0), assuming isotropic emission:
-  for iTe=0,NTe-1 do result_s[iTe,*]=(fip_factor/4./!pi)*Ne0^2*result_g[iTe,*] ; [ERG(or PH) cm-3 sec-1 sr-1]
+    for iTe=0,NTe-1 do result_s[iTe,*]=(fip_factor/4./!pi)*Ne0^2*result_g[iTe,*] ; [ERG(or PH) cm-3 sec-1 sr-1]
   return, RESULT_s
 end

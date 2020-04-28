@@ -3,6 +3,11 @@
 ; cuadratura simple para calcular las integrales dobles.
 ;
 ; CS: \int f(x,y) dx dy >  \Sum_{i,j} f(x_i,y_j) Dx Dy
+;
+; HISTORY
+; V1.0 F.A. Nuevo, IAFE, April-2020
+; V1.1 A.M. Vasquez, IAFE, April-2020
+;
 ;----------------------------------------------------------------------
 
 pro test_cuadratura
@@ -59,62 +64,41 @@ pro test_cuadratura
   
 ;----------------------------------------------------------------------------------------------------------------  
   set_tomroot
+  load_tables
   
- ; Create a fixed grid of Ne and Te
-  NNe=100
-  NTe=100
-  Ne0_Limits = [1.e6, 5.e9]
-  Te0_Limits = [0.5e6,5.0e6]
   make_grid
 
  ; Calculate de S_k in the grid 
-  make_sk,sk
-
- ; make a comparison between the double integral
- ; calculated with INT2D and CS
+  make_sk_load_routine,sk   ; Con esta anda
+ ;make_sk             ,sk   ; Con esta no, por qué?
+  
+ ; make a comparison between the double integral calculated with INT2D and CS
   compare_integrals,parameters
 
+ ; compare cost function and time calculated with the two SCHEMES :)
+  tstart  = systime(/seconds)
+  PHI1    = cost_function(parameters)
+  tend    = systime(/seconds)
+  print, 'cost_function [INT2D]:', PHI1, '   Elapsed time [sec]:', tend-tstart
 
-  ; compare cost function and time calculated with
-  ; the two "scenarios" 
-   
-  tstart     = systime(/seconds)
-  print, 'cost_function:'
-  phi1= cost_function(parameters)
-  print, phi1
-    t_elapsed  = systime(/seconds)-tstart
-  print,'Elapsed time:',t_elapsed
-  print
+  tstart  = systime(/seconds)
+  PHI2    = cost_function_cs(parameters)
+  tend    = systime(/seconds)
+  print, 'cost_function (middle Riemann sum):', PHI2, '   Elapsed time [sec]:', tend-tstart
 
-  tstart     = systime(/seconds)
-  print, 'cost_function (cuadr. simple):'
-  phi2= cost_function_cs(parameters)
-  print, phi2
-  t_elapsed  = systime(/seconds)-tstart
-  print,'Elapsed time:',t_elapsed
-  print
-
-  print,'relative diference:',abs(phi2-phi1)/phi1
-
-  print
+  print,'Relative diference [%]:',100.*abs(phi2-phi1)/phi1
 
   tstart     = systime(/seconds)
-  print,'grad_cost_function:'
   dphi1=grad_cost_function(parameters)
-  print,dphi1
-  t_elapsed  = systime(/seconds)-tstart
-  print,'Elapsed time:',t_elapsed
-  print
+  tend    = systime(/seconds)
+  print,'grad_cost_function [INT2D]:',dphi1, '   Elapsed time [sec]:', tend-tstart
 
   tstart     = systime(/seconds)
-  print,'grad_cost_function (cuadr. simple):'
   dphi2=grad_cost_function_cs(parameters)
-  print,dphi2
-  t_elapsed  = systime(/seconds)-tstart
-  print,'Elapsed time:',t_elapsed
-  print
+  tend    = systime(/seconds)
+  print,'grad_cost_function [middle Riemann sum]:',dphi1, '   Elapsed time [sec]:', tend-tstart
 
-  print,'relative diference:',abs(dphi2-dphi1)/abs(dphi1)
+  print,'Relative diference [%]:', 100.* abs(dphi2-dphi1)/abs(dphi1)
 
   return
 end

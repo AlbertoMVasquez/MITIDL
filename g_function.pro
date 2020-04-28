@@ -44,7 +44,8 @@ function g_function, Te0, Ne0
      0: BEGIN
         ;print,'Selected EMISSION LINE in g_function.pro'
         for iTe=0,NTe-1 do $
-        for iNe=0,NNe-1 do $
+           for iNe=0,NNe-1 do $
+           ;stop
             RESULT[iTe,iNe] = findval3d_function(G,T_e,N_e,r,Te0[iTe],Ne0[iNe],r0)
      END
      1: BEGIN

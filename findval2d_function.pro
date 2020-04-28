@@ -13,7 +13,6 @@
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
 ;
 ;---------------------------------------------------------------------
-
 function findval2d_function, DATA_ARRAY ,ya ,za , y0, z0
 iyA=max(where(ya le y0))
 izA=max(where(za le z0))
