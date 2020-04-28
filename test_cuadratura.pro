@@ -75,7 +75,8 @@ pro test_cuadratura
  ; make a comparison between the double integral calculated with INT2D and CS
   compare_integrals,parameters
 
- ; compare cost function and time calculated with the two SCHEMES :)
+ ; compare cost function and time calculated with the two SCHEMES :) 
+ ; (no "SCENARIOS" Fede)
   tstart  = systime(/seconds)
   PHI1    = cost_function(parameters)
   tend    = systime(/seconds)
@@ -88,15 +89,15 @@ pro test_cuadratura
 
   print,'Relative diference [%]:',100.*abs(phi2-phi1)/phi1
 
-  tstart     = systime(/seconds)
-  dphi1=grad_cost_function(parameters)
-  tend    = systime(/seconds)
+  tstart = systime(/seconds)
+  dphi1  = grad_cost_function(parameters)
+  tend   = systime(/seconds)
   print,'grad_cost_function [INT2D]:',dphi1, '   Elapsed time [sec]:', tend-tstart
 
-  tstart     = systime(/seconds)
-  dphi2=grad_cost_function_cs(parameters)
-  tend    = systime(/seconds)
-  print,'grad_cost_function [middle Riemann sum]:',dphi1, '   Elapsed time [sec]:', tend-tstart
+  tstart = systime(/seconds)
+  dphi2  = grad_cost_function_cs(parameters)
+  tend   = systime(/seconds)
+  print,'grad_cost_function [middle Riemann sum]:',dphi2, '   Elapsed time [sec]:', tend-tstart
 
   print,'Relative diference [%]:', 100.* abs(dphi2-dphi1)/abs(dphi1)
 
