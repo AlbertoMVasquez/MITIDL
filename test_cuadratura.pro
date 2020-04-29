@@ -69,8 +69,8 @@ pro test_cuadratura
   make_grid
 
  ; Calculate de S_k in the grid 
-  make_sk_load_routine,sk   ; Con esta anda
- ;make_sk             ,sk   ; Con esta no, por qué?
+ ;make_sk_load_routine,sk
+  make_sk             ,sk
   
  ; make a comparison between the double integral calculated with INT2D and CS
   compare_integrals,parameters
