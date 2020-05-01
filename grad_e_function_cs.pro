@@ -39,12 +39,12 @@ function grad_e_function_cs,k, parameters
   gradP=grad_p_function_loop(Ne0,Te0)
   
   ; Calculate the double integrals with CS 
-  Result(0) = total ( sk(k,*,*) * gradP (*,*,0) ) * dNe * dTe
+  Result(0) = total ( fip_factor * sk(k,*,*) * gradP (*,*,0) ) * dNe * dTe
   Result(1) = e_function_cs(k,parameters)/fip_factor
-  Result(2) = total ( sk(k,*,*) * gradP (*,*,1) ) * dNe * dTe
-  Result(3) = total ( sk(k,*,*) * gradP (*,*,2) ) * dNe * dTe
-  Result(4) = total ( sk(k,*,*) * gradP (*,*,3) ) * dNe * dTe
-  Result(5) = total ( sk(k,*,*) * gradP (*,*,4) ) * dNe * dTe  
+  Result(2) = total ( fip_factor * sk(k,*,*) * gradP (*,*,1) ) * dNe * dTe
+  Result(3) = total ( fip_factor * sk(k,*,*) * gradP (*,*,2) ) * dNe * dTe
+  Result(4) = total ( fip_factor * sk(k,*,*) * gradP (*,*,3) ) * dNe * dTe
+  Result(5) = total ( fip_factor * sk(k,*,*) * gradP (*,*,4) ) * dNe * dTe  
 
   return, RESULT
 end

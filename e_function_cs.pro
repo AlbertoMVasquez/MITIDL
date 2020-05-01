@@ -41,7 +41,7 @@ function e_function_cs, k, parameters
   dTe = Te0(1)-Te0(0)
 
   ; CS : \Sum_{i,j} f(x_i,y_j) Dx Dy 
-  tmp = sk(k,*,*) * p_function_loop(Ne0,Te0)
+  tmp = fip_factor * sk(k,*,*) * p_function_loop(Ne0,Te0)
   result = total(tmp)* dNe * dTe
 
 

@@ -11,7 +11,7 @@
 pro set_tomroot
   common directories,tomroot
   tomroot = '/data1/tomography_dev/'
- ;tomroot = '/data1/tomography/' ;04-02-20, modificado para usar en mi PC
+  tomroot = '/data1/tomography/' ;04-02-20, modificado para usar en mi PC
   return
 end
 
