@@ -26,23 +26,16 @@
 ; OUTPUTS:
 ; Value of the function for the given values of the inputs and the parameters.
 ;
-; History:  V1.0, Federico A. Nuevo, IAFE, April-2020.
-;           
+; History:  V1.0, F.A. Nuevo, IAFE, April-2020.
+;           V1.1, A.M. Vasquez, IAFE, April-2020
+;
 ;---------------------------------------------------------------------
-function cost_function_cs, parameters
-  
+function cost_function_cs, parameters  
   common measurement_errors,sig_WL,sig_y
   common tomographic_measurements, y0, y
-  
-
   Nem        = parameters[0]
-  M          = n_elements(y)
-  
+  M          = n_elements(y) 
   RESULT = (Nem-y0)^2/sig_WL^2
-  for k = 0, M-1 do begin   
-     RESULT = RESULT + (e_function_cs(k,parameters) - y[k])^2/sig_y[k]^2
-     
-  endfor
-
+  for k = 0, M-1 do RESULT = RESULT + (e_function_cs(k,parameters) - y[k])^2/sig_y[k]^2
   return, RESULT
-  end
+end

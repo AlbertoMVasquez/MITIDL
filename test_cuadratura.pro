@@ -74,14 +74,11 @@ pro test_cuadratura
   ; Parameter vector for both e_function and cost_function:
   ; The order chosen for its elements follows Rich's notes, right after Eq. (2)
   parameters = [Nem, fip_factor, Tem, SigTe, SigNe, q]
-
-
   
  ; make a comparison between the double integral calculated with INT2D and CS
   compare_integrals,parameters
 
- ; compare cost function and time calculated with the two SCHEMES :) 
- ; (no "SCENARIOS" Fede)
+ ; compare cost function and time calculated with the two schemes
   tstart  = systime(/seconds)
   PHI1    = cost_function(parameters)
   tend    = systime(/seconds)

@@ -36,5 +36,5 @@ function e_function, parameters,order=order
      RESULT = INT_2D('sp_function',Ne0_Limits,'te_limits',96,/double,order=0) ; dydx-order
   if     keyword_set(order) then $
      RESULT = INT_2D('sp_function',Te0_Limits,'ne_limits',96,/double,order=1) ; dxdy-order 
-  return, RESULT
+ return, RESULT
 end
