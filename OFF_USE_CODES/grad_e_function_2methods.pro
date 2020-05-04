@@ -8,6 +8,9 @@
 ;
 ; History:  V1.0, F.A. Nuevo, IAFE, March-2020.
 ;
+; Nota: si new=0 usa las rutinas sgradpi_function     (i=1,...,5), que    utilizan grad_p_function.
+;       si new=1 usa las rutinas sgradpi_function_new (i=1,...,5), que no utilizan grad_p_function.
+;
 ;---------------------------------------------------------------------
 function grad_e_function, parameters
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
@@ -22,13 +25,24 @@ function grad_e_function, parameters
 
   nodes=96
   result=parameters*0d
+  new = 1
   
+  if new eq 0 then begin
      result(0) = INT_2D('sgradp1_function',Ne0_Limits,'te_limits',nodes,/double,order=0)
      result(1) = e_function(parameters)/fip_factor
      result(2) = INT_2D('sgradp2_function',Ne0_Limits,'te_limits',nodes,/double,order=0)
      result(3) = INT_2D('sgradp3_function',Ne0_Limits,'te_limits',nodes,/double,order=0)
      result(4) = INT_2D('sgradp4_function',Ne0_Limits,'te_limits',nodes,/double,order=0)
      result(5) = INT_2D('sgradp5_function',Ne0_Limits,'te_limits',nodes,/double,order=0)
+  endif
+  if new eq 1 then begin
+     result(0) = INT_2D('sgradp1_function_new',Ne0_Limits,'te_limits',nodes,/double,order=0)
+     result(1) = e_function(parameters)/fip_factor
+     result(2) = INT_2D('sgradp2_function_new',Ne0_Limits,'te_limits',nodes,/double,order=0)
+     result(3) = INT_2D('sgradp3_function_new',Ne0_Limits,'te_limits',nodes,/double,order=0)
+     result(4) = INT_2D('sgradp4_function_new',Ne0_Limits,'te_limits',nodes,/double,order=0)
+     result(5) = INT_2D('sgradp5_function_new',Ne0_Limits,'te_limits',nodes,/double,order=0)
+  endif
  
   return, RESULT
 end

@@ -22,12 +22,13 @@ pro make_grid
   print
   
 ; Valores originales de Fede
-; Ne0_Limits = [1.e6, 5.e9]
-; Te0_Limits = [0.5e6,5.0e6]
+; USAR ESTOS VALORES, VER TEST_INTEGRAL_LIMITS
+  Ne0_Limits = [1.e6, 5.e9]
+  Te0_Limits = [0.5e6,5.0e6]
 
 ; Valores dinámicos razonables:
-    Ne0_Limits = [max([min(Ne1),min(Ne2),min(Ne3),min(Ne4),min(Ne5)]),min([max(Ne1),max(Ne2),max(Ne3),max(Ne4),max(Ne5)])]
-  Te0_Limits = [max([min(Te1),min(Te2),min(Te3),min(Te4),min(Te5)]),min([max(Te1),max(Te2),max(Te3),max(Te4),max(Te5)])]
+;  Ne0_Limits = [max([min(Ne1),min(Ne2),min(Ne3),min(Ne4),min(Ne5)]),min([max(Ne1),max(Ne2),max(Ne3),max(Ne4),max(Ne5)])]
+;  Te0_Limits = [max([min(Te1),min(Te2),min(Te3),min(Te4),min(Te5)]),min([max(Te1),max(Te2),max(Te3),max(Te4),max(Te5)])]
 
   Ne_min=Ne0_Limits(0)
   Ne_max=Ne0_Limits(1)

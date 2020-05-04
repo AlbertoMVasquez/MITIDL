@@ -38,8 +38,8 @@ function grad_e_function_cs,k, parameters
   dTe = Te0(1)-Te0(0)
 
   ; P gradient
-  gradP=grad_p_function_cs(Ne0,Te0)
-  
+  if cool eq 0 then gradP=grad_p_function_loop(Ne0,Te0)
+  if cool eq 1 then gradP=grad_p_function_cool(Ne0,Te0)
   ; Calculate the double integrals with CS 
   Result(0) = total ( fip_factor * sk(k,*,*) * gradP (*,*,0) ) * dNe * dTe
   Result(1) = e_function_cs(k,parameters)/fip_factor

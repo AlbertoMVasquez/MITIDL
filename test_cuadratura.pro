@@ -60,7 +60,7 @@ pro test_cuadratura
 
  ; Calculate de S_k in the grid 
  ;make_sk_load_routine,sk
-  make_sk             ,sk
+  make_sk_over_fipfactor   ,sk
 ;----------------------------------------------------------------------------------------------------------------
   ; Test values for the parameters of the joint bivariate Te-Ne normal distribution:
   Tem        = 1.30e6 ; K

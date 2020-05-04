@@ -40,8 +40,8 @@ function e_function_cs, k, parameters
   dNe = Ne0(1)-Ne0(0)
   dTe = Te0(1)-Te0(0)
   ; CS : \Sum_{i,j} f(x_i,y_j) Dx Dy 
-
-  tmp = fip_factor*sk(k,*,*)*p_function_cs(Ne0,Te0)
+  if cool eq 0 then tmp = fip_factor*sk(k,*,*)*p_function_loop(Ne0,Te0)
+  if cool eq 1 then tmp = fip_factor*sk(k,*,*)*p_function_cool(Ne0,Te0)
 
   result = total(tmp)*dNe*dTe
   return, RESULT

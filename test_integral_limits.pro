@@ -45,7 +45,7 @@ pro test_integral_limits
    y1 = synth_y_values(parameters)
 
    print,'Ne limits:',Ne0_limits
-   print,'Te limits:',Ne0_limits
+   print,'Te limits:',Te0_limits
    print,'e_k values:',y1
    print
 ; Valores dinámicos razonables 
@@ -55,7 +55,7 @@ pro test_integral_limits
   y2 = synth_y_values(parameters)
 
   print,'Ne limits:',Ne0_limits
-  print,'Te limits:',Ne0_limits
+  print,'Te limits:',Te0_limits
   print,'e_k values:',y2
   print
 
