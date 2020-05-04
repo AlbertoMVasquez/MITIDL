@@ -49,7 +49,9 @@ pro test_int2d
  ; Ahora lo calculo usando operadores de array de IDL:
  ; Referencia:   https://www.harrisgeospatial.com/docs/matrix_operators.html
  tstart = systime(/seconds)
- suma2D_cool = total(dy_array*(f_array#dx_array))
+ ;suma2D_cool = total(dy_array*(f_array#dx_array))
+ suma2D_cool = total(dx_array*(f_array#dy_array)) ; estaba mal: proba con Nx ne Ny
+
  Tcalc_suma2D_cool = systime(/seconds) - tstart
 
 ; verifico que dan igual y comparo tiempos de cálculo
