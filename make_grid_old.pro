@@ -13,10 +13,9 @@ pro make_grid
   common NT_limits, Ne0_Limits, Te0_Limits
   common NT_arrays,Ne_array,Te_array,dNe_array,dTe_array
   common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2
- 
-
+  
  ; Create a fixed grid of Ne and Te
-  NNe=100;200
+  NNe=80;200
   NTe=80;200
 
   print,'Created Grid:',NNe,'    x',NTe
@@ -35,18 +34,12 @@ pro make_grid
   Ne_max=Ne0_Limits(1)
   Te_min=Te0_Limits(0)
   Te_max=Te0_Limits(1)
+  
+  dNe_array=(Ne_max - Ne_min)/NNe
+  dTe_array=(Te_max - Te_min)/NTe
 
-  Negrid = Ne_min + (Ne_max-Ne_min) * findgen(NNe+1)/float(NNe)
-  Tegrid = Te_min + (Te_max-Te_min) * findgen(NTe+1)/float(NTe)
+  Ne_array = Ne_min + dNe_array/2. + dNe_array*findgen(NNe)
+  Te_array = Te_min + dTe_array/2. + dTe_array*findgen(NTe)
 
-  Ne_array  = (Negrid(0:NNe-1)+Negrid(1:NNe))/2.
-  Te_array  = (Tegrid(0:NTe-1)+Tegrid(1:NTe))/2.
-  dNe_array = Negrid(1:NNe)-Negrid(0:NNe-1)
-  dTe_array = Tegrid(1:NTe)-Tegrid(0:NTe-1)
-
-  ;dNe=(Ne_max - Ne_min)/NNe
-  ;dTe=(Te_max - Te_min)/NTe
-  ;Ne_array = Ne_min + dNe/2. + dNe*findgen(NNe)
-  ;Te_array = Te_min + dTe/2. + dTe*findgen(NTe)
   return
 end

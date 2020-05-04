@@ -24,7 +24,7 @@ pro test_cuadratura
   common measurement_errors,sig_WL,sig_y
   common index_measurement, i_measurement
   common sk_array,sk       
-  common NT_arrays,Ne_array,Te_array
+  common NT_arrays,Ne_array,Te_array,dNe_array,dTe_array
 ;---------------------------------------------------------------------------------------------------------------
 ;                                     VALUES TO PLAY WITH
   
@@ -90,6 +90,7 @@ pro test_cuadratura
   print, 'cost_function (middle Riemann sum):', PHI2, '   Elapsed time [sec]:', tend-tstart
 
   print,'Relative diference [%]:',100.*abs(phi2-phi1)/phi1
+
 
   tstart = systime(/seconds)
   dphi1  = grad_cost_function(parameters)

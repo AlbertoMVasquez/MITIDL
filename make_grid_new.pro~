@@ -7,7 +7,7 @@
 ; V1.1 A.M. Vasquez, IAFE, April-2020
 ;
 ;-------------------------------------------------------
-pro make_grid
+pro make_grid_new
 
   common dimensions, NTe, NNe
   common NT_limits, Ne0_Limits, Te0_Limits
@@ -16,7 +16,7 @@ pro make_grid
  
 
  ; Create a fixed grid of Ne and Te
-  NNe=100;200
+  NNe=80;200
   NTe=80;200
 
   print,'Created Grid:',NNe,'    x',NTe
@@ -42,11 +42,13 @@ pro make_grid
   Ne_array  = (Negrid(0:NNe-1)+Negrid(1:NNe))/2.
   Te_array  = (Tegrid(0:NTe-1)+Tegrid(1:NTe))/2.
   dNe_array = Negrid(1:NNe)-Negrid(0:NNe-1)
-  dTe_array = Tegrid(1:NTe)-Tegrid(0:NTe-1)
+  dTe_array = Tegrid(1:NNe)-Tegrid(0:NNe-1)
 
   ;dNe=(Ne_max - Ne_min)/NNe
   ;dTe=(Te_max - Te_min)/NTe
   ;Ne_array = Ne_min + dNe/2. + dNe*findgen(NNe)
   ;Te_array = Te_min + dTe/2. + dTe*findgen(NTe)
+  
+
   return
 end
