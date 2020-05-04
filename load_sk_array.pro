@@ -67,7 +67,7 @@ pro  load_sk_array,fip_factor,Ne_A,Te_A,r_A,sk_A
      ENDCASE
   endfor
 
-   sk_A=(fip_factor/4./!pi)*sk_A
+   sk_A= sk_A / 4./!pi
 
   return
 end
