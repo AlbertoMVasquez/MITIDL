@@ -25,7 +25,7 @@ function e_function_cs, k, parameters
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common NT_arrays,Ne_array,Te_array,dNe_array,dTe_array
   common sk_array,sk   
-  
+
 
   Nem        = parameters[0]
   fip_factor = parameters[1]
@@ -33,17 +33,14 @@ function e_function_cs, k, parameters
   SigTe      = parameters[3]
   SigNe      = parameters[4]
   q          = parameters[5]
-  
   ; Ne and Te grid
   Ne0= Ne_array
   Te0= Te_array
-
-  dTN= dTe_array#dNe_array  ; array de NTe x NNe
   
   ; CS : \Sum_{i,j} f(x_i,y_j) Dx Dy 
-  tmp = fip_factor * reform(sk(k,*,*)) * p_function_cs(Ne0,Te0) ; array de NTe x NNe
-  ;result= total(dTe_array*(tmp#dNe_array))
-  result = total( tmp * dTN )
 
+  tmp = fip_factor*sk(k,*,*)*p_function_cs(Ne0,Te0)
+
+  result = total(tmp)*dNe_array*dTe_array
   return, RESULT
 end
