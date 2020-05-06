@@ -60,7 +60,6 @@ pro test_integral_limits
   print
 
   print,'relative difference [%]',abs(y2-y1)/y2
-  
 
   return
 end

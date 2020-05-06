@@ -11,9 +11,9 @@
 ; V1.1 A.M. Vasquez, IAFE, April-2020
 ;      Load G tables from memory.
 ;---------------------------------------------------------------------
-pro make_sk_over_fipfactor,sk
-  
-  common NT_arrays,Ne_array,Te_array
+pro make_sk_over_fip_factor
+  common sk_over_fip_factor_array,sk_over_fip_factor  
+  common NT_arrays,Ne_array,Te_array,dNe_array,dTe_array,dTN
   common dimensions, NTe, NNe
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common index_measurement, i_measurement
@@ -21,7 +21,7 @@ pro make_sk_over_fipfactor,sk
   common G_table, G, T_e, N_e, r, photT
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   M  = n_elements(i_mea_vec)
-  sk= dblarr (M, NTe , NNe)
+  sk_over_fip_factor = dblarr (M, NTe , NNe)
  
   for k = 0, M-1 do begin   
      i_measurement = i_mea_vec(k)
@@ -54,7 +54,7 @@ pro make_sk_over_fipfactor,sk
         N_e = Ne5
      END
      ENDCASE
-     sk(k,*,*) = s_function(Ne_array,Te_array) / fip_factor
+     sk_over_fip_factor(k,*,*) = s_function(Ne_array,Te_array) / fip_factor
   endfor
   return
 end

@@ -34,10 +34,14 @@ function p_function_cs, Ne0, Te0
   endif
   expT2    = double(((Te0-Tem)/SigTe)^2)
   expN2    = double(((Ne0-Nem)/SigNe)^2)
-  expTN    = double(((Te0-Tem)/sigTe)#((Ne0-Nem)/sigNe))
-  p_value  = (1./(2.*!pi*sigTe*sigNe*sqrt(1.-q^2)))*$
-             exp( - (1./2./(1.-q^2))* expT2 ) # exp( - (1./2./(1.-q^2))* expN2 ) * $
-             exp((1./(1.-q^2))*q*expTN ) 
+  expTN    = double(((Te0-Tem)/sigTe)#((Ne0-Nem)/sigNe))                       ; array NTe x NNe
+  p_value  = (1./(2.*!pi*sigTe*sigNe*sqrt(1.-q^2))) * $                        ; Scalar
+             (exp(-(1./2./(1.-q^2))*expT2) # exp(-(1./2./(1.-q^2))*expN2)) * $ ; array NTe x NNe
+             exp((1./(1.-q^2))*q*expTN)                                        ; array NTe x NNe
+
+; Correct NaNs due to INFINITY exp(expTN)
+  index_nan = where(finite(exp((1./(1.-q^2))*q*expTN)) ne 1)
+  if index_nan(0) ne -1 then p_value(index_nan) = 0.
 
   return,p_value
 end

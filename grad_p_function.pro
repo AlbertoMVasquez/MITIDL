@@ -17,7 +17,7 @@
 ;       0 means no-correlation, 1 is full-correlation.
 ;
 ; History:  V1.0, F.A. Nuevo,   15-02-20.
-;           V1.1, A.M. Vásquez, 22-04-20.
+;           V1.1, A.M. Vasquez, 22-04-20.
 ;---------------------------------------------------------------------
 
 function grad_p_function, Ne0, Te0
@@ -44,6 +44,10 @@ function grad_p_function, Ne0, Te0
   
   p_value = (1./(2.*!pi*sigTe*sigNe*sqrt(1.-q^2)))*$
             exp( - (1./2./(1.-q^2))*(expT2 + expN2 - 2.*q*expTN) )  
+
+; Correct NaNs due to INFINITY exp(expTN)
+  index_nan = where(finite(exp((1./(1.-q^2))*q*expTN)) ne 1)
+  if index_nan(0) ne -1 then p_value(index_nan) = 0.
 
   grad(*,*,0) = p_value * (1./sigNe)*(expN  - q*expT)                             ; \propto dP/dNm
   grad(*,*,1) = p_value * (1./sigTe)*(expT  - q*expN)                             ; \propto dP/dTm

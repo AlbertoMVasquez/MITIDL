@@ -19,13 +19,14 @@
 ; or
 ; For EUV bands:
 ;
-; History:  V1.0, Federico A. Nuevo, IAFE, April-2020.
+; History:  V1.0, F.A. Nuevo, IAFE, April-2020.
+;           V1.1, A.M. Vasquez, IAFE, April-2020.
+;                 Simplified.
 ;---------------------------------------------------------------------
 function e_function_cs, k, parameters
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
-  common NT_arrays,Ne_array,Te_array,dNe_array,dTe_array
-  common sk_array,sk   
-  
+  common NT_arrays,Ne_array,Te_array,dNe_array,dTe_array,dTN
+  common sk_over_fip_factor_array,sk_over_fip_factor    
 
   Nem        = parameters[0]
   fip_factor = parameters[1]
@@ -33,17 +34,8 @@ function e_function_cs, k, parameters
   SigTe      = parameters[3]
   SigNe      = parameters[4]
   q          = parameters[5]
-  
-  ; Ne and Te grid
-  Ne0= Ne_array
-  Te0= Te_array
-
-  dTN= dTe_array#dNe_array  ; array de NTe x NNe
-  
-  ; CS : \Sum_{i,j} f(x_i,y_j) Dx Dy 
-  tmp = fip_factor * reform(sk(k,*,*)) * p_function_cs(Ne0,Te0) ; array de NTe x NNe
-  ;result= total(dTe_array*(tmp#dNe_array))
-  result = total( tmp * dTN )
-
-  return, RESULT
+ 
+  tmp = fip_factor*reform(sk_over_fip_factor(k,*,*))*p_function_cs(Ne_array,Te_array) ; array NTe x NNe
+  ;result = Sum_{i,j} f(x_i,y_j) dx_i dy_j 
+  return, total( tmp * dTN ) ; = total(dTe_array*(tmp#dNe_array))
 end

@@ -36,6 +36,11 @@ function p_function, Ne0, Te0
   expN2    = ((Ne0-Nem)/SigNe)^2
   expTN    = (Te0-Tem)*(Ne0-Nem)/(SigTe*SigNe)
   p_value  = (1./(2.*!pi*sigTe*sigNe*sqrt(1.-q^2)))*$
-             exp( - (1./2./(1.-q^2))*( expT2 + expN2 - 2.*q*expTN ) )  
+             exp( - (1./2./(1.-q^2))*(expT2 + expN2 - 2.*q*expTN) )
+
+; Correct NaNs due to INFINITY exp(expTN)
+  index_nan = where(finite(exp((1./(1.-q^2))*q*expTN)) ne 1)
+  if index_nan(0) ne -1 then p_value(index_nan) = 0.
+
   return,p_value
 end

@@ -2,9 +2,7 @@
 
 
 ;---------------------------------------------------------------------
-
 pro test_min,min_method=min_method
-        
   
   common constants, Rsun, kB, h, c
   common G_table, G, T_e, N_e, r, photT
@@ -16,10 +14,9 @@ pro test_min,min_method=min_method
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common measurement_errors,sig_WL,sig_y
   common index_measurement, i_measurement
-  common sk_array,sk
-  common NT_arrays,Ne_array,Te_array
+  common sk_over_fip_factor_array,sk_over_fip_factor
+  common NT_arrays,Ne_array,Te_array,dNe_array,dTe_array,dTN
   
-
   if not keyword_set(min_method) then begin
      print,'minimization method (min_method keyword) not selected:'
      print,'1: Downhill Simplex'
@@ -65,16 +62,11 @@ pro test_min,min_method=min_method
 
    
   ; Ne and Te grid
-  NNe=80
-  NTe=80
-  make_grid
-  make_sk,sk
+  make_grid,/uniform,NNe_provided=80,NTe_provided=100 
+  make_sk_over_fip_factor
   
-
-
   ; initial guess
   guess_ini= 0.8*par_orig
-  
 
   ;print,cost_function(par_orig)
   ;print,cost_function(guess_ini)

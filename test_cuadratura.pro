@@ -10,7 +10,7 @@
 ;
 ;----------------------------------------------------------------------
 
-pro test_cuadratura
+pro test_cuadratura,uniform=uniform,loguniform=loguniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
 
   common constants, Rsun, kB, h, c
   common G_table, G, T_e, N_e, r, photT
@@ -23,8 +23,8 @@ pro test_cuadratura
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common measurement_errors,sig_WL,sig_y
   common index_measurement, i_measurement
-  common sk_array,sk       
-  common NT_arrays,Ne_array,Te_array,dNe_array,dTe_array
+  common sk_over_fip_factor_array,sk_over_fip_factor
+  common NT_arrays,Ne_array,Te_array,dNe_array,dTe_array,dTN
 ;---------------------------------------------------------------------------------------------------------------
 ;                                     VALUES TO PLAY WITH
   
@@ -55,12 +55,14 @@ pro test_cuadratura
 
   set_tomroot
   load_tables
-  
-  make_grid
 
- ; Calculate de S_k in the grid 
- ;make_sk_load_routine,sk
-  make_sk_over_fipfactor   ,sk
+  if not keyword_set(NNe_provided) then NNe_provided = 100
+  if not keyword_set(NTe_provided) then NTe_provided = 100
+  if keyword_set(   uniform) then make_grid,   /uniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
+  if keyword_set(loguniform) then make_grid,/loguniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
+  
+; Compute S_k/fip_factor in the grid 
+  make_sk_over_fip_factor
 ;----------------------------------------------------------------------------------------------------------------
   ; Test values for the parameters of the joint bivariate Te-Ne normal distribution:
   Tem        = 1.30e6 ; K
@@ -69,7 +71,6 @@ pro test_cuadratura
   SigNe      = 0.50e8 ; cm^-3
   q          = 0.5
   fip_factor = 1.1    ; Note that [Fe] = [Fe]_Feldman * fip_factor
-
 
   ; Parameter vector for both e_function and cost_function:
   ; The order chosen for its elements follows Rich's notes, right after Eq. (2)
