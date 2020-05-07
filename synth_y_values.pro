@@ -3,7 +3,7 @@
 ; This routine calculates the synthetic values of emissivities for a
 ; given set of paramaters.
 ;
-; Argument:
+; ARGUMENT:
 ; parameters: a 1D array of 6 elements: [Nem, fip_factor, Tem, SigTe, SigNe, q]
 ;
 ;

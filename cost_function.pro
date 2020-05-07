@@ -2,24 +2,23 @@
 ;
 ; Brief description:
 ;
-; Cost funtion to be minimizied in a each voxel of the tomographic
+; Cost function to be minimizied in a each voxel of the tomographic
 ; grid.
 ; THIS VERSION OF THE COST FUNCTION USE the G functions save in memory
 ; in the common tables.
 ;
-; Argument:
+; ARGUMENT:
 ; parameters: a 1D array of 6 elements: [Nem, fip_factor, Tem, SigTe, SigNe, q]
 ;
 ; Parameters in COMMON BLOCKS:
 ;
-; common tomographic_measurements: contains:
 ;     - y0: white-light tomography electron density of the voxel.
-;     - y:  an M-element 1D vector containing M tomograhic measurements in
+;     - y:  an M-element 1D vector containing M tomographic measurements in
 ;           the voxel, possibly including: EUV FBEs, CoMP/UCoMP line emissivities.
-;     - i_measurement: scalar the type of measurement (0=line, 1=FBE)
-;       of measurement of the corresponding element in array y,
-;       possible values are: 1, for CoMP/UCoMP line emissivity,
-;                            2, for EUV FBE.
+;     - imea_vec: a vector with the i_measurement of the M tomographic measurements
+;       (i_measurement: scalar the type of measurement (0=line, 1=FBE). 
+;     - sig_WL,sig_y: error of the y0 and y, respectively. Used as
+;       weights in the cost function. 
 ;
 ; OUTPUTS:
 ; Value of the function for the given values of the inputs and the parameters.

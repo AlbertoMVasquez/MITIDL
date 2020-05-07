@@ -1,7 +1,7 @@
 ;---------------------------------------------------------------------;
 ; Brief description:
 ;
-; This function computes the gradient of the emissivity respect to the
+; This function computes the gradient of the kth emissivity respect to the
 ; parameters using CS to calculate the double integral.
 
 ;
@@ -9,6 +9,8 @@
 ; K         : index of the emissivity
 ; parameters: a 1D array of 6 elements: [Nem, fip_factor, Tem, SigTe, SigNe, q]
 ;
+; OUTPUT: 
+; A vector of six element with the Kth emissivity gradient. 
 ;
 ;
 ; History:  V1.0, Federico A. Nuevo, IAFE, April-2020.

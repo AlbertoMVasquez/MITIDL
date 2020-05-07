@@ -1,3 +1,11 @@
+;-----------------------------------------------------
+; This routine does a comparison of the calculated
+; emissivities (using INT2D) for a given set of parameters:
+; [Nem, fip_factor, Tem, SigTe, SigNe, q]
+; for two different integral limits.
+;----------------------------------------------------
+
+
 pro test_integral_limits
 
   common G_table, G, T_e, N_e, r, photT

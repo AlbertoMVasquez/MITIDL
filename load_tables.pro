@@ -2,10 +2,12 @@
 ;
 ; Brief description:
 ;
-; Load  all the tables of the G(Ne,Te) functions:
-; Gi, Tei, Nei (i=1,...,5)
-; the arrays are in common tables
+; Load all the tables of the G(Ne,Te,r) functions and Ne-Te grid 
+; where were calculated.
 ;
+;
+; OUTPUT (in common tables):
+; Gi, Tei, Nei (i=1,...,5)
 ;
 ;
 ; For lines:
@@ -22,7 +24,6 @@
 ; 
 ; History:  V1.0, Federico A. Nuevo, IAFE, April-2020.
 ;
-
 ;---------------------------------------------------------------------
 pro  load_tables
   

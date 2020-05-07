@@ -1,10 +1,16 @@
 ;---------------------------------------------------------------------
 ;
 ; Brief description: 
-; This routine computes the S_k(Ne,Te) functions for a fixed Ne and Te
-; grid. 
-; Es necesario que se hallan creado los arrays 1D Ne_array y Te_array
-; Output: sk array de M x NTe x NNe
+; This routine computes the S_k(Ne,Te) functions (divided by fip_factor)
+; for a fixed Ne and Te grid (evaluated in Ne_array and Te_array). 
+;
+; INPUTS (in common NT_ARRAYS):
+;  Te_array: 1D array of NTe elements with the electron temperature in units of [K]
+;  Ne_array: 1D array of NNe elements with the electron density     in units of [cm-3]
+
+; OUTPUT: sk_over_fip_factor, An 3D array  of M x NTe x NNe elements
+; with S_k(Ne,Te) evaluated in Te_array and Ne_array.
+ 
 ; 
 ; HISTORY
 ; V1.0 F.A. Nuevo, IAFE, April-2020

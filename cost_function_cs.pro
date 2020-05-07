@@ -7,7 +7,7 @@
 ;
 ; CS: \int f(x,y) dx dy >  \Sum_{i,j} f(x_i,y_j) Dx Dy
 ;
-; Argument:
+; ARGUMENT:
 ; parameters: a 1D array of 6 elements: [Nem, fip_factor, Tem, SigTe, SigNe, q]
 ;
 ; Parameters in COMMON BLOCKS:
@@ -16,18 +16,16 @@
 ;     - y0: white-light tomography electron density of the voxel.
 ;     - y:  an M-element 1D vector containing M tomograhic measurements in
 ;           the voxel, possibly including: EUV FBEs, CoMP/UCoMP line emissivities.
-;     - measurement_type: am M-element 1D vector containing the type
-;       of measurement of the corresponding element in array y,
-;       possible values are: 1, for CoMP/UCoMP line emissivity,
-;                            2, for EUV FBE.
-;
-;
-;
-; OUTPUTS:
+; common measurement_errors,sig_WL,sig_y: contains:     
+;     - sig_wl, sig_y: error of y0 and y, respectively. used as
+;       weights in the cost function.
+;    
+;                          
+; OUTPUT:
 ; Value of the function for the given values of the inputs and the parameters.
 ;
 ; History:  V1.0, F.A. Nuevo, IAFE, April-2020.
-;           V1.1, A.M. Vasquez, IAFE, April-2020
+;
 ;
 ;---------------------------------------------------------------------
 function cost_function_cs, parameters  

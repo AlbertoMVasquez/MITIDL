@@ -7,19 +7,19 @@
 ; with user-provided parameters: Tem, Nem, SigTe, SigNe, q.
 ;
 ; INPUTS:
-;  Te0: 1D array with the electron temperature       in units of [K]
-;  Ne0: 1D array with the electron density           in units of [cm-3]
+;  Te0: 1D array of NTe elements with the electron temperature in units of [K]
+;  Ne0: 1D array of NNe elements with the electron density     in units of [cm-3]
 
+;  (in common parameters)
 ;  Tem: float with the mean electron temperature  in units of [K]
 ;  Nem: float with the mean electron density      in units of [cm-3]
 ;SigTe: float with the electron temperature StDev in units of [K]
 ;SigNe: float with the electron density     StDev in units of [cm-3]
-;    q: temperature-density correlation dimensionless coefficient:
-;       0 means no-correlation, 1 is full-correlation.
-;
+;    q: temperature-density correlation dimensionless coefficient
+;       ;
 ; OUTPUT:
-;       value of the probablility function p in a 2D array
-;       of NTe X NNe, evaluated in Ne0 and Te0. 
+;       value of the probabilility function p in a 2D array
+;       of NTe X NNe, evaluated in the 1D arrays: Ne0 and Te0.
 ;
 ; History:  V1.0, Federio A. Nuevo, IAFE, May-2020
 ;           V1.1, Alberto M. Vásquez, IAFE, May-2020

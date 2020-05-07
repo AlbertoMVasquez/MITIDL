@@ -1,7 +1,12 @@
 ;-----------------------------------------------------
-; Esta rutina compara los valores de emisividad cal-
-; culados usando int2D y cuadratura simple, respectiva-
-; mente.
+; This routine does a comparison of the calculated
+; emissivities using INT2D and simple Riemann cuadrature,
+; respectively. 
+;
+;INPUT:
+; parameters: a 1D array of 6 elements: [Nem, fip_factor, Tem, SigTe, SigNe, q]
+;
+;
 ;-----------------------------------------------------
 
 pro compare_integrals,parameters

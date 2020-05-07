@@ -10,17 +10,22 @@
 ; usando cuadratura simple (e_function_cs)
 ;
 ; INPUTS:
-;  Te0: float with the electron temperature       in units of [K]
-;  Ne0: float with the electron density           in units of [cm-3]
+;  Te0: 1D array of NTe elements with the electron temperature in units of [K]
+;  Ne0: 1D array of NNe elements with the electron density     in units of [cm-3]
+
+;  (in common parameters)
 ;  Tem: float with the mean electron temperature  in units of [K]
 ;  Nem: float with the mean electron density      in units of [cm-3]
 ;SigTe: float with the electron temperature StDev in units of [K]
 ;SigNe: float with the electron density     StDev in units of [cm-3]
-;    q: temperature-density correlation dimensionless coefficient:
-;       0 means no-correlation, 1 is full-correlation.
+;    q: temperature-density correlation dimensionless coefficient
+;       
+; OUTPUT:
+;       value of the gradient of the probabilility function p in a 
+;       3D array of NTe X NNe x 5, evaluated in the 1D arrays: Ne0 and Te0.
 ;
-; History:  V1.0, Federico Nuevo, 15-02-20.
-;           V1.1, A.M. Vasquez, 06-05-20.
+; History:  V1.0, Federico Nuevo, 01-05-20.
+;           V1.1, A.M. Vasquez,   06-05-20.
 ;                 Removed use of loops.
 ;---------------------------------------------------------------------
 
