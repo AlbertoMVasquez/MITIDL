@@ -22,7 +22,7 @@
 ;    
 ;                          
 ; OUTPUT:
-; Value of the function for the given values of the inputs and the parameters.
+; Value of the cost function for the given values of the inputs and the parameters.
 ;
 ; History:  V1.0, F.A. Nuevo, IAFE, April-2020.
 ;

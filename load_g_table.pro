@@ -86,8 +86,8 @@ pro load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_
 ; Note that TRF look-up table includes sr^-1 in its units, multiplying
 ; by 4pi below to put G in same units as for emission lines. Emissivity
 ; is divided back by 4*!pi in s_function.pro.
-     G     = TRF*4.*!pi            ; [PHOTON cm^+3 sec^-1]
-     T_e   = 10.^logTe             ; [K]
+     G     = TRF*4.*!pi         ; [PHOTON cm^+3 sec^-1]
+     T_e   = 10.^logTe          ; [K]
 ; Make a Ne 1D-array for posterior use in integrals. In a future
 ; version G will trully be a function of both (Te,Ne), even if weakly
 ; dependent on Ne.
@@ -95,6 +95,6 @@ pro load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_
      logNe = 5. + (10.-5.) * findgen(NNe)/float(NNe-1)
      N_e   = 10.^logNe
   END
-  ENDCASE  
+ENDCASE  
   return
 end

@@ -16,10 +16,10 @@
 ;SigTe: float with the electron temperature StDev in units of [K]
 ;SigNe: float with the electron density     StDev in units of [cm-3]
 ;    q: temperature-density correlation dimensionless coefficient
-;       ;
+;       
 ; OUTPUT:
-;       value of the probabilility function p in a 2D array
-;       of NTe X NNe, evaluated in the 1D arrays: Ne0 and Te0.
+;       probabilility function p in a 2D array of NTe X NNe, 
+;       evaluated in the 1D arrays: Ne0 and Te0.
 ;
 ; History:  V1.0, Federio A. Nuevo, IAFE, May-2020
 ;           V1.1, Alberto M. Vásquez, IAFE, May-2020

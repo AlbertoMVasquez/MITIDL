@@ -1,7 +1,7 @@
 ;---------------------------------------------------------------------;
 ; Brief description:
 ;
-; This function computes the emissivity e of a line/band in a voxel.
+; This function computes the emissivity e_k of a line/band in a voxel.
 ;
 ; ARGUMENT: 
 ; parameters: a 1D array of 6 elements: [Nem, fip_factor, Tem, SigTe, SigNe, q]

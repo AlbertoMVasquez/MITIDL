@@ -2,8 +2,8 @@
 ;
 ; Brief description:
 ;
-; Load all the tables of the G(Ne,Te,r) functions and Ne-Te grid 
-; where were calculated.
+; Load all tables of the G_k(Ne,Te,r) functions and the Ne-Te grid 
+; where G was calculated.
 ;
 ;
 ; OUTPUT (in common tables):
