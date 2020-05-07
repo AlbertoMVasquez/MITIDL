@@ -6,11 +6,15 @@
 ;
 ; HISTORY
 ; V1.0 F.A. Nuevo, IAFE, April-2020
-; V1.1 A.M. Vasquez, IAFE, April-2020
-;
+; V1.1 A.M. Vasquez, IAFE, May-2020
 ;----------------------------------------------------------------------
 
-pro test_cuadratura,uniform=uniform,loguniform=loguniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
+; test_cuadratura,/uniform,NNe_provided=50,NTe_provided=50
+; test_cuadratura,/loguniform,NNe_provided=50,NTe_provided=50
+; test_cuadratura,/lnuniform,NNe_provided=50,NTe_provided=50
+
+pro test_cuadratura,uniform=uniform,lnuniform=lnuniform,loguniform=loguniform,$
+                    NNe_provided=NNe_provided,NTe_provided=NTe_provided
 
   common constants, Rsun, kB, h, c
   common G_table, G, T_e, N_e, r, photT
@@ -46,25 +50,8 @@ pro test_cuadratura,uniform=uniform,loguniform=loguniform,NNe_provided=NNe_provi
   ; Absolute error of each measurement:
   sig_WL = f_wl* y0
   sig_y  = f_y * y
-  
-;----------------------------------------------------------------------------------------------------------------  
-  ; Test values for coronal heliocentric height and iron abundance:
-  r0         = 1.1    ; Rsun
-  ; Initial value of fip factor to make the calculation of s_k matrix
-  fip_factor = 1.0    ; Note that [Fe] = [Fe]_Feldman * fip_factor
-
-  set_tomroot
-  load_tables
-
-  if not keyword_set(NNe_provided) then NNe_provided = 100
-  if not keyword_set(NTe_provided) then NTe_provided = 100
-  if keyword_set(   uniform) then make_grid,   /uniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
-  if keyword_set(loguniform) then make_grid,/loguniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
-  
-; Compute S_k/fip_factor in the grid 
-  make_sk_over_fip_factor
-;----------------------------------------------------------------------------------------------------------------
-  ; Test values for the parameters of the joint bivariate Te-Ne normal distribution:
+ 
+ ; Test values for the parameters of the joint bivariate Te-Ne normal distribution:
   Tem        = 1.30e6 ; K
   SigTe      = 0.50e6 ; K
   Nem        = 1.75e8 ; cm^-3
@@ -75,6 +62,30 @@ pro test_cuadratura,uniform=uniform,loguniform=loguniform,NNe_provided=NNe_provi
   ; Parameter vector for both e_function and cost_function:
   ; The order chosen for its elements follows Rich's notes, right after Eq. (2)
   parameters = [Nem, fip_factor, Tem, SigTe, SigNe, q]
+  
+;----------------------------------------------------------------------------------------------------------------  
+ 
+  set_tomroot
+  load_tables
+
+  
+; Limits for the grid. These are DYNAMICAL as to adjust to future changes in G-tables:
+  Ne0_Limits = [max([min(Ne1),min(Ne2),min(Ne3),min(Ne4),min(Ne5)]),min([max(Ne1),max(Ne2),max(Ne3),max(Ne4),max(Ne5)])]
+  Te0_Limits = [max([min(Te1),min(Te2),min(Te3),min(Te4),min(Te5)]),min([max(Te1),max(Te2),max(Te3),max(Te4),max(Te5)])]
+
+  ; POR FAVOR NO BORRAR (SOLO COMENTAR)
+  Ne0_Limits = [1.0e6,5.0e9]
+  Te0_Limits = [0.5e6,5.0e6]
+  
+  ; Make the Ne and Te grid
+  if not keyword_set(NNe_provided) then NNe_provided = 100
+  if not keyword_set(NTe_provided) then NTe_provided = 100
+  if keyword_set(   uniform) then make_grid,   /uniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
+  if keyword_set(loguniform) then make_grid,/loguniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
+  if keyword_set( lnuniform) then make_grid, /lnuniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
+; Compute S_k/fip_factor in the grid 
+  make_sk_over_fip_factor
+;----------------------------------------------------------------------------------------------------------------
   
  ; make a comparison between the double integral calculated with INT2D and CS
   compare_integrals,parameters
