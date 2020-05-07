@@ -1,6 +1,18 @@
-
+; Brief description:
+;
 ; This routine calculates the synthetic values of emissivities for a
 ; given set of paramaters.
+;
+; Argument:
+; parameters: a 1D array of 6 elements: [Nem, fip_factor, Tem, SigTe, SigNe, q]
+;
+;
+; OUTPUTS:
+; y:  an M-element 1D vector containing M synthetic tomograhic measurements in
+; the voxel, possibly including: EUV FBEs, CoMP/UCoMP line emissivities. 
+;
+; History:  V1.0, V1.0, F.A. Nuevo, IAFE, May 2020.
+;---------------------------------------------------------------------
 
 
 function synth_y_values,parameters

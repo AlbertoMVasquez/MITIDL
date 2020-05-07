@@ -6,13 +6,7 @@
 ; Gi, Tei, Nei (i=1,...,5)
 ; the arrays are in common tables
 ;
-; IMPORTANT NOTE:
-;It stores G tables in a specific/rigid order:
-;1: CoMP-1074
-;2: CoMP-1079
-;3: AIA-171
-;4: AIA-193
-;5: AIA-211
+;
 ;
 ; For lines:
 ; 3D array:  G(Te, Ne, r) 

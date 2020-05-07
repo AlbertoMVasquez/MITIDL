@@ -13,11 +13,12 @@
 ;
 ; OUTPUTS:
 ;
-; emissivity e in units of:
+; kth emissivity e in units of:
 ;
 ; For lines: [erg cm-3 sec-1 sr-1]
 ; or
 ; For EUV bands:
+;
 ;
 ; History:  V1.0, F.A. Nuevo, IAFE, April-2020.
 ;           V1.1, A.M. Vasquez, IAFE, April-2020.

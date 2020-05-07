@@ -51,6 +51,9 @@ pro test_cuadratura,uniform=uniform,lnuniform=lnuniform,loguniform=loguniform,$
   sig_WL = f_wl* y0
   sig_y  = f_y * y
  
+ ; Test values for coronal heliocentric height and iron abundance:
+  r0         = 1.1    ; Rsun
+
  ; Test values for the parameters of the joint bivariate Te-Ne normal distribution:
   Tem        = 1.30e6 ; K
   SigTe      = 0.50e6 ; K
@@ -74,15 +77,23 @@ pro test_cuadratura,uniform=uniform,lnuniform=lnuniform,loguniform=loguniform,$
   Te0_Limits = [max([min(Te1),min(Te2),min(Te3),min(Te4),min(Te5)]),min([max(Te1),max(Te2),max(Te3),max(Te4),max(Te5)])]
 
   ; POR FAVOR NO BORRAR (SOLO COMENTAR)
-  Ne0_Limits = [1.0e6,5.0e9]
-  Te0_Limits = [0.5e6,5.0e6]
+  ;Ne0_Limits = [1.0e6,5.0e9]
+  ;Te0_Limits = [0.5e6,5.0e6]
+
+  print,'INTEGRAL LIMITS:'
+  print,'temp. range [K]   :',Te0_limits
+  print,'dens. range [cm-3]:',Te0_limits
   
-  ; Make the Ne and Te grid
+  ; Make the Ne and Te grid 
   if not keyword_set(NNe_provided) then NNe_provided = 100
   if not keyword_set(NTe_provided) then NTe_provided = 100
   if keyword_set(   uniform) then make_grid,   /uniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
   if keyword_set(loguniform) then make_grid,/loguniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
   if keyword_set( lnuniform) then make_grid, /lnuniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
+  if not keyword_set (uniform) and not keyword_set(loguniform) and not keyword_set (lnuniform) then begin
+     print,'please choose a grid'
+     return
+  endif
 ; Compute S_k/fip_factor in the grid 
   make_sk_over_fip_factor
 ;----------------------------------------------------------------------------------------------------------------
