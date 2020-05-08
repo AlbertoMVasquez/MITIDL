@@ -6,7 +6,7 @@
 ; dp/dsigT is calculated with grad_p_function.
 ;
 ; INPUTS: Ne0, Te0.
-;
+; OUTPUT: The value of s*dp/sigT
 ;
 ; History:  V1.0, F.A. Nuevo, IAFE, March-2020.
 ;           V1.1, A.M. Vasquez, HOME, April-2020.

@@ -1,10 +1,15 @@
 ;---------------------------------------------------------------------;
 ; Brief description:
 ;
-; This function computes the gradient of the emissivity respect to the parameters.
+; This function computes the gradient of the emissivity of a line/band in a voxel.
 ;
 ; ARGUMENT: 
 ; parameters: a 1D array of 6 elements: [Nem, fip_factor, Tem, SigTe, SigNe, q]
+;
+; OUTPUTS:
+;
+; gradient of the emissivity (vector of 6 elements) respect to parameters
+;
 ;
 ; History:  V1.0, F.A. Nuevo, IAFE, March-2020.
 ;

@@ -3,14 +3,15 @@
 ; Brief description:
 ;
 ; Load  all the tables of the G(Ne,Te,r) functions:
-; Gi, Tei, Nei (i=1,...,5) in one array
-;
-;
+; Gi, Tei, Nei (i=1,...,5) and intertolate its 
+; to a new 3D Ne-Te-r grid.
 ;
 ;
 ;INPUT: 1D arrays: Te_A, Ne_A, r_A 
 ; where the original G tables are interpolated
-;OUTPUT: 4D array:  G_A(k,Te, Ne, r) 
+
+;OUTPUT: 4D array:  G_A(k,Te, Ne, r) evaluated in 
+; Te_A, Ne_A, and r_A
 ;
 ;
 ; Tables must be stored in:

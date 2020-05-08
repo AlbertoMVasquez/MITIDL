@@ -20,6 +20,9 @@
 ;       value of the probablility function p, normalized to volume 1
 ;       over [-Infty,+Infty] space for both Te and Ne.
 ;
+; NOTE: Te0 can be an 1D array and Ne0 an scalar, or the opposite.
+;       But, is not possible that both be arrays.
+
 ; History:  V1.0, Alberto M. Vasquez, CLaSP, Spring-2018.
 ;           V1.1, Federio A. Nuevo, IAFE, Mach-2020
 ;                 The normalization factor of P lacked the square

@@ -8,7 +8,6 @@
 ;
 ;
 ;
-;
 ;INPUT: 1D arrays: Te_A, Ne_A, r_A 
 ; where the original G tables are interpolated
 ;OUTPUT: 4D array:  sk_A(k,Te, Ne, r) 

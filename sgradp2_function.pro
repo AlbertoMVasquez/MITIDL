@@ -6,7 +6,7 @@
 ; dp/dTm is calculated with grad_p_function.
 ;
 ; INPUTS: Ne0, Te0.
-;
+; OUTPUT: The value of s*dp/dTm
 ;
 ; History:  V1.0, Federico A. Nuevo, IAFE, March-2020.
 ;;

@@ -9,12 +9,19 @@
 ; INPUTS:
 ;  Te0: float with the electron temperature       in units of [K]
 ;  Ne0: float with the electron density           in units of [cm-3]
+;  (in COMMON parameters) 
 ;  Tem: float with the mean electron temperature  in units of [K]
 ;  Nem: float with the mean electron density      in units of [cm-3]
 ;SigTe: float with the electron temperature StDev in units of [K]
 ;SigNe: float with the electron density     StDev in units of [cm-3]
 ;    q: temperature-density correlation dimensionless coefficient:
 ;       0 means no-correlation, 1 is full-correlation.
+;
+; OUTPUT: An array of NTe x NNe x5 components with the gradient of P
+;         respect to the parameters vector.
+;
+; NOTE: Te0 can be an 1D array and Ne0 an scalar, or the opposite.
+;       But, is not possible that both be arrays.
 ;
 ; History:  V1.0, F.A. Nuevo,   15-02-20.
 ;           V1.1, A.M. Vasquez, 22-04-20.

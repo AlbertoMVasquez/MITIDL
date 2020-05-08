@@ -7,6 +7,7 @@
 ;
 ; INPUTS: Ne0, Te0.
 ;
+; OUTPUT: the value of S*dp/dNm
 ;
 ; History:  V1.0, F.A. Nuevo, IAFE, March-2020.
 ;           V1.1, A.M. Vasquez, HOME, April-2020.
