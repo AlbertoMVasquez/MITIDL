@@ -1,3 +1,8 @@
+; This routine is a wrapper to execute the routines:
+; - load_G_array
+; - load_sk_array
+
+
 pro test_g_array
 
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
@@ -12,7 +17,7 @@ pro test_g_array
   band_label_vec      =[''      ,''      ,'171','193','211']
 
   
-  
+; Craete a r-Ne-Te 3D grid to interpolate the G-functions 
   NNE=60
   NTe=60
   nmin=1.e6
