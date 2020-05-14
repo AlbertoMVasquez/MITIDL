@@ -1,5 +1,5 @@
 ;-----------------------------------------------------
-; This routine does a comparison of the calculated
+; This routine makes a comparison of the calculated
 ; emissivities (using INT2D) for a given set of parameters:
 ; [Nem, fip_factor, Tem, SigTe, SigNe, q]
 ; for two different integral limits.

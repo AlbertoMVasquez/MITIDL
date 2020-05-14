@@ -1,7 +1,8 @@
+;---------------------------------------------------------
 ; This routine is a wrapper to execute the routines:
 ; - load_G_array
 ; - load_sk_array
-
+;--------------------------------------------------------
 
 pro test_g_array
 

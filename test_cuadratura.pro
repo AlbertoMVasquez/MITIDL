@@ -1,6 +1,6 @@
 ;----------------------------------------------------------------------
-; Esta rutina sirve para testear la suite the codigos (_cs) que usan
-; cuadratura simple para calcular las integrales dobles.
+; This routine tests the suite of codes (_cs) that uses CS to calculate
+; the double integral. 
 ;
 ; CS: \int f(x,y) dx dy >  \Sum_{i,j} f(x_i,y_j) Dx Dy
 ;
