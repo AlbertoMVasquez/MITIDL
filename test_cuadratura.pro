@@ -15,12 +15,10 @@
 
 pro test_cuadratura,uniform=uniform,lnuniform=lnuniform,loguniform=loguniform,$
                     NNe_provided=NNe_provided,NTe_provided=NTe_provided
-
-  common constants, Rsun, kB, h, c
-  common G_table, G, T_e, N_e, r, photT
+  
+  
   common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2
   common directories, tomroot
-  common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common dimensions, NTe, NNe
   common NT_limits, Ne0_Limits, Te0_Limits
   common tomographic_measurements, y0, y
@@ -29,6 +27,9 @@ pro test_cuadratura,uniform=uniform,lnuniform=lnuniform,loguniform=loguniform,$
   common index_measurement, i_measurement
   common sk_over_fip_factor_array,sk_over_fip_factor
   common NT_arrays,Ne_array,Te_array,dNe_array,dTe_array,dTN
+  common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
+  common constants, Rsun, kB, h, c
+  common G_table, G, T_e, N_e, r, photT
 ;---------------------------------------------------------------------------------------------------------------
 ;                                     VALUES TO PLAY WITH
   
