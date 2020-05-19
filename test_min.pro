@@ -1,8 +1,10 @@
 ;---------------------------------------------------------------------
+;
 
+;---------------------------------------------------------------------
 ;test_min,min_method=1,/Riemann,/uniform
 ;test_min,min_method=1,/Riemann,/loguniform 
-;---------------------------------------------------------------------
+
 pro test_min,min_method=min_method,$
              Riemann=Riemann,$
              uniform=uniform,$
@@ -41,7 +43,7 @@ pro test_min,min_method=min_method,$
      print,'1: Downhill Simplex'
      print,'2: Powell          '
      print,'3: BFGS            '
-     print,'4: Polak-Ribiere  (WORK-IN-PROGRESS)'
+     print,'4: Polak-Ribiere   '
      return
   endif
  
@@ -105,6 +107,10 @@ pro test_min,min_method=min_method,$
      if keyword_set(   uniform) then make_grid,   /uniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
      if keyword_set(loguniform) then make_grid,/loguniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
      if keyword_set( lnuniform) then make_grid, /lnuniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
+     if not keyword_set(uniform) and not keyword_set(loguniform) and not keyword_set(lnuniform) then begin
+        print,'choose a grid (uniform, loguniform, or lnuniform)'
+        return
+     endif
      make_sk_over_fip_factor
   endif
 
@@ -126,7 +132,7 @@ pro test_min,min_method=min_method,$
   skiptest:
 
 
-  ftol = 1.0e-4
+  ftol = 1.0e-2
   Guess_ini = 0.8 * par_orig
   P = Guess_ini
   tstart     = systime(/seconds)
@@ -156,15 +162,21 @@ pro test_min,min_method=min_method,$
   endif
 
   IF min_method eq 4 then begin
-     print,'PR is not yet available'
-     return
+     print,'Polak-Ribiere Method '
+     if not keyword_set(riemann) then begin
+        command1='cp phi1.pro phi.pro'
+        command2='cp gradphi1.pro gradphi.pro'
+     endif else begin
+        command1='cp phi2.pro phi.pro'
+        command2='cp gradphi2.pro gradphi.pro'
+     endelse
+     print,command1 & spawn,command1
+     print,command2 & spawn,command2
+     pr_min,guess_ini,out,phiv   
+     P = OUT     
   endif
 
-  ;if min_method eq 4 then begin
-  ;   PR_min,guess_ini,out,phiv
-  ;   P = OUT
-  ;endif
- 
+  
   
   t_elapsed  = systime(/seconds)-tstart
   

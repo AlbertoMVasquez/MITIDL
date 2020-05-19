@@ -35,7 +35,7 @@
 ;                 provided to load_g_table through a dedicated common block,
 ;                 ultimately needed by function_g.pro
 ;---------------------------------------------------------------------
-function phi, parameters
+function cost_function, parameters
   common tomographic_measurements, y0, y
   common measurement_errors,sig_WL,sig_y
   common G_table, G, T_e, N_e, r, photT
