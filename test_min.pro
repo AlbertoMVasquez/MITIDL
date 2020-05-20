@@ -132,7 +132,7 @@ pro test_min,min_method=min_method,$
   skiptest:
 
 
-  ftol = 1.0e-2
+  ftol = 1.0e-4
   Guess_ini = 0.8 * par_orig
   P = Guess_ini
   tstart     = systime(/seconds)
@@ -172,6 +172,7 @@ pro test_min,min_method=min_method,$
      endelse
      print,command1 & spawn,command1
      print,command2 & spawn,command2
+     print
      pr_min,guess_ini,out,phiv   
      P = OUT     
   endif
