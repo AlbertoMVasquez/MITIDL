@@ -93,7 +93,7 @@ pro test_min,min_method=min_method,$
 
   ; Parameter vector for both e_function and cost_function:
   ; The order chosen for its elements follows Rich's notes, right after Eq. (2)
-  par_orig= [Nem, fip_factor, Tem, SigTe, SigNe, q]
+  par_orig= [Nem, fip_factor, Tem, SigTe, SigNe, q]*1.d
   
 ;----------------------------------------------------------------------------------------------------------------   
   set_tomroot
@@ -154,13 +154,13 @@ pro test_min,min_method=min_method,$
 
 
   ftol = 1.0e-4
-  Guess_ini = 0.8 * par_orig
+  Guess_ini = 0.8d * par_orig
   P = Guess_ini
   tstart     = systime(/seconds)
 
   if min_method eq 1 then begin
      print,'Downhill simplex Method'
-     scale = [1.e8, 1., 1.e6, 1.e6, 1.e8, 1.]
+     scale = [1.e8, 1., 1.e6, 1.e6, 1.e8, 1.]*0.5d
      P = AMOEBA(ftol,scale=scale, P0 = guess_ini ,FUNCTION_VALUE=fval,function_name=Phi_name)
   endif
   
@@ -173,7 +173,7 @@ pro test_min,min_method=min_method,$
                      [0., 0. ,1. ,0. ,0. ,0.],$
                      [0., 0. ,0. ,1. ,0. ,0.],$
                      [0., 0. ,0. ,0. ,1. ,0.],$
-                     [0., 0. ,0. ,0. ,0. ,1.]])
+                     [0., 0. ,0. ,0. ,0. ,1.]])*1.d
      POWELL, P, xi, ftol, fmin, Phi_name
   endif
   
