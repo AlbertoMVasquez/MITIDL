@@ -4,6 +4,17 @@
 ;
 ; CS: \int f(x,y) dx dy >  \Sum_{i,j} f(x_i,y_j) Dx Dy
 ;
+
+; KEYWORDS;
+; uniform : if keyword set the grid is uniform in Ne and Te
+; loguniform: if keyword set the grid is uniform in log10Ne and
+; log10Te
+; lnuniform: if keyword set the grid is uniform in lnNe and lnTe.
+; Also, use the Jacobian of the transformation to calculate dNe_array
+; and dTe_array.
+; NNe_provided: number of points in the Ne grid
+; NTe_provided: number of points in the Te grid
+
 ; HISTORY
 ; V1.0 F.A. Nuevo, IAFE, April-2020
 ; V1.1 A.M. Vasquez, IAFE, May-2020

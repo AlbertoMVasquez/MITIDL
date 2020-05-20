@@ -1,5 +1,26 @@
 ;---------------------------------------------------------------------
+; This routine calculate synthetic values of y0 and y using a set of
+; parameters and minimize the cost_function. 
 ;
+;INPUT:
+; min_method: this variable selects the minimization method
+     
+; min_method=1: Downhill Simplex
+; min_method=2: Powell          
+; min_method=3: BFGS            
+; min_method=4: Polak-Ribiere   
+
+;
+; KEYWORDS:
+; Riemann: if keyword set the Riemann aproach is used.
+; uniform : if keyword set the grid is uniform in Ne and Te
+; loguniform: if keyword set the grid is uniform in log10Ne and
+; log10Te
+; lnuniform: if keyword set the grid is uniform in lnNe and lnTe.
+; Also, use the Jacobian of the transformation to calculate dNe_array
+; and dTe_array.
+; NNe_provided: number of points in the Ne grid
+; NTe_provided: number of points in the Te grid
 
 ;---------------------------------------------------------------------
 ;test_min,min_method=1,/Riemann,/uniform
