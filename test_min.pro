@@ -168,6 +168,7 @@ pro test_min,min_method=min_method,$
   
   if min_method eq 2 then begin
      print,'Powell  Method'
+ 
      xi = TRANSPOSE([[1., 0. ,0. ,0. ,0. ,0.],$
                      [0., 1. ,0. ,0. ,0. ,0.],$
                      [0., 0. ,1. ,0. ,0. ,0.],$
@@ -209,7 +210,9 @@ pro test_min,min_method=min_method,$
   print,'original values:'
   print,par_orig
   print
-  
+  print,'relative difference:',abs((P-par_orig)/par_orig)
+  print
+
   print,'Phi(guess):', cost_function(guess_ini)
   print,'Phi(min):',   cost_function(P)
   print,'Phi(orig):',  cost_function(par_orig)
