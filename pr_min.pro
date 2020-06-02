@@ -1,6 +1,6 @@
-pro pr_min,guess,out,phiv
+pro pr_min,guess,out,phiv,ftol
   P=guess
-  ftol=1.d-4                    ; convergence tolerance on the cost function value 
+  ;ftol=1.d-2                    ; convergence tolerance on the cost function value 
   retry:
   frprmn,P,ftol,iter,fret       ; entra en frprmn (Polak-Ribiere)
   if fret eq -666. then begin

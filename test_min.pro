@@ -103,9 +103,9 @@ pro test_min,min_method=min_method,$
   Ne0_Limits = [max([min(Ne1),min(Ne2),min(Ne3),min(Ne4),min(Ne5)]),min([max(Ne1),max(Ne2),max(Ne3),max(Ne4),max(Ne5)])]
   Te0_Limits = [max([min(Te1),min(Te2),min(Te3),min(Te4),min(Te5)]),min([max(Te1),max(Te2),max(Te3),max(Te4),max(Te5)])]
 
-  ; POR FAVOR NO BORRAR (SOLO COMENTAR)
-  ;Ne0_Limits = [1.0e6,5.0e9]
-  ;Te0_Limits = [0.5e6,5.0e6]
+ ; restricted Ne and Te ranges 
+ ; Ne0_Limits = [1.0e6,5.0e9]
+ ; Te0_Limits = [0.5e6,5.0e6]
 
   ; synthetic values of y0 and y
   y0= Nem
@@ -153,7 +153,7 @@ pro test_min,min_method=min_method,$
   skiptest:
 
 
-  ftol = 1.0e-4
+  ftol = 1.d-2;1.0e-4
   Guess_ini = 0.8d * par_orig
   P = Guess_ini
   tstart     = systime(/seconds)
@@ -195,7 +195,7 @@ pro test_min,min_method=min_method,$
      print,command1 & spawn,command1
      print,command2 & spawn,command2
      print
-     pr_min,guess_ini,out,phiv   
+     pr_min,guess_ini,out,phiv,ftol   
      P = OUT     
   endif
 
