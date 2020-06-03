@@ -108,7 +108,8 @@ pro test_min,min_method=min_method,$
  ; Te0_Limits = [0.5e6,5.0e6]
 
   ; synthetic values of y0 and y
-  y0= Nem
+  ;y0 = 1.3*Nem
+  y0 =     Nem
   y = synth_y_values(par_orig)
 
   ; Fractional error of each measurement:
@@ -153,8 +154,9 @@ pro test_min,min_method=min_method,$
   skiptest:
 
 
-  ftol = 1.d-2;1.0e-4
+  ftol = 1.0e-4
   Guess_ini = 0.8d * par_orig
+  ;Guess_ini = [0.8d,1.6d,0.9d,0.5,1.2d,0.5d] * par_orig
   P = Guess_ini
   tstart     = systime(/seconds)
 
