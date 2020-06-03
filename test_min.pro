@@ -23,8 +23,9 @@
 ; NTe_provided: number of points in the Te grid
 
 ;---------------------------------------------------------------------
-;test_min,min_method=1,/Riemann,/uniform
-;test_min,min_method=1,/Riemann,/loguniform 
+; test_min,min_method=1,/Riemann,/uniform
+; test_min,min_method=1,/Riemann,/loguniform
+; test_min,min_method=1,/Riemann,/loguniform,NNe_provided=300,NTe_provided=300
 
 pro test_min,min_method=min_method,$
              Riemann=Riemann,$
@@ -78,8 +79,6 @@ pro test_min,min_method=min_method,$
   band_label_vec      =[''      ,''      ,'171','193','211']
 
 
-  
-
  ; Test values for coronal heliocentric height and iron abundance:
   r0         = 1.1    ; Rsun
 
@@ -107,21 +106,24 @@ pro test_min,min_method=min_method,$
  ; Ne0_Limits = [1.0e6,5.0e9]
  ; Te0_Limits = [0.5e6,5.0e6]
 
-  ; synthetic values of y0 and y
-  ;y0 = 1.3*Nem
-  y0 =     Nem
-  y = synth_y_values(par_orig)
-
   ; Fractional error of each measurement:
-  f_wl = 0.1
-  f_y  = 0.1 + findgen(n_elements(i_mea_vec))
+  f_wl = 0.2
+  f_y  = 0.2 + fltarr (n_elements(i_mea_vec))
 
-  
+  ; synthetic values of y0 and y,     
+  ; as exactly expected from assumed models.
+  ; y0 = Nem                      
+  ; y  = synth_y_values(par_orig) 
+
+ ; synthetic values of y0 and y,     
+ ; using the fractional errors above to simulate (normal) uncertainty of measurement.
+   y0 = Nem                      * (1.0+f_wl*randomn(seed,1))
+   y  = synth_y_values(par_orig) * (1.0+f_y *randomn(seed,5))
+
   ; Absolute error of each measurement:
   sig_WL = f_wl* y0
   sig_y  = f_y * y
   
-
   if keyword_set(Riemann) then begin
      if not keyword_set(NNe_provided) then NNe_provided = 100
      if not keyword_set(NTe_provided) then NTe_provided = 100
@@ -153,10 +155,10 @@ pro test_min,min_method=min_method,$
   stop
   skiptest:
 
+  ftol = 1.0e-2
+ ;Guess_ini = 0.5 * par_orig
+  Guess_ini = (1.0+0.5*randomn(seed,6)) * par_orig
 
-  ftol = 1.0e-4
-  Guess_ini = 0.8d * par_orig
-  ;Guess_ini = [0.8d,1.6d,0.9d,0.5,1.2d,0.5d] * par_orig
   P = Guess_ini
   tstart     = systime(/seconds)
 
@@ -165,9 +167,7 @@ pro test_min,min_method=min_method,$
      scale = [1.e8, 1., 1.e6, 1.e6, 1.e8, 1.]*0.5d
      P = AMOEBA(ftol,scale=scale, P0 = guess_ini ,FUNCTION_VALUE=fval,function_name=Phi_name)
   endif
-  
-
-  
+    
   if min_method eq 2 then begin
      print,'Powell  Method'
  
