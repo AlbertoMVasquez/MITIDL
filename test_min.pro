@@ -117,8 +117,8 @@ pro test_min,min_method=min_method,$
 
  ; synthetic values of y0 and y,     
  ; using the fractional errors above to simulate (normal) uncertainty of measurement.
-   y0 = Nem                      * (1.0+f_wl*randomn(seed,1))
-   y  = synth_y_values(par_orig) * (1.0+f_y *randomn(seed,5))
+   y0 = Nem                      ;* (1.0+f_wl*randomn(seed,1))
+   y  = synth_y_values(par_orig) ;* (1.0+f_y *randomn(seed,5))
 
   ; Absolute error of each measurement:
   sig_WL = f_wl* y0
@@ -155,9 +155,9 @@ pro test_min,min_method=min_method,$
   stop
   skiptest:
 
-  ftol = 1.0e-2
- ;Guess_ini = 0.5 * par_orig
-  Guess_ini = (1.0+0.5*randomn(seed,6)) * par_orig
+  ftol = 1.0e-4
+  Guess_ini = 0.8 * par_orig
+ ;Guess_ini = (1.0+0.5*randomn(seed,6)) * par_orig
 
   P = Guess_ini
   tstart     = systime(/seconds)

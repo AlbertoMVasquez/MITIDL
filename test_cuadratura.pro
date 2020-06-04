@@ -57,7 +57,7 @@ pro test_cuadratura,uniform=uniform,lnuniform=lnuniform,loguniform=loguniform,$
   
   ; Fractional error of each measurement:
   f_wl = 0.1
-  f_y  = 0.1 + findgen(n_elements(y))
+  f_y  = 0.1 + fltarr(n_elements(y))
 
   ; Absolute error of each measurement:
   sig_WL = f_wl* y0
