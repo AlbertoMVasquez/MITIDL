@@ -83,13 +83,13 @@ pro test_min,min_method=min_method,$
   r0         = 1.1    ; Rsun
 
  ; Test values for the parameters of the joint bivariate Te-Ne normal distribution:
-  Tem        = 1.30e6 ; K
-  SigTe      = 0.50e6 ; K
-  Nem        = 1.75e8 ; cm^-3
-  SigNe      = 0.50e8 ; cm^-3
+  Nem        = 1.75e8           ; cm^-3
+  fip_factor = 1.1              ; Note that [Fe] = [Fe]_Feldman * fip_factor 
+  Tem        = 1.30e6           ; K
+  SigTe      = 0.50e6           ; K
+  SigNe      = 0.50e8           ; cm^-3
   q          = 0.5
-  fip_factor = 1.1    ; Note that [Fe] = [Fe]_Feldman * fip_factor
-
+  
   ; Parameter vector for both e_function and cost_function:
   ; The order chosen for its elements follows Rich's notes, right after Eq. (2)
   par_orig= [Nem, fip_factor, Tem, SigTe, SigNe, q]*1.d
@@ -156,8 +156,11 @@ pro test_min,min_method=min_method,$
   skiptest:
 
   ftol = 1.0e-4
-  Guess_ini = 0.8 * par_orig
- ;Guess_ini = (1.0+0.5*randomn(seed,6)) * par_orig
+  Guess_ini = 0.2 * par_orig
+ ;  Guess_ini = (1.0+0.2*randomn(seed,6)) * par_orig
+ ;  make_guess_ini,guess_ini
+  print,'initial guess:',guess_ini
+  print,'(guess - orig)/orig:', (guess_ini -par_orig)/par_orig
 
   P = Guess_ini
   tstart     = systime(/seconds)
