@@ -26,6 +26,9 @@
 ; test_min,min_method=1,/Riemann,/uniform
 ; test_min,min_method=1,/Riemann,/loguniform
 ; test_min,min_method=1,/Riemann,/loguniform,NNe_provided=300,NTe_provided=300
+; Polak-Ribiere minimization:
+; test_min,min_method=4,/Riemann,/loguniform
+
 
 pro test_min,min_method=min_method,$
              Riemann=Riemann,$
@@ -156,7 +159,7 @@ pro test_min,min_method=min_method,$
   skiptest:
 
   ftol = 1.0e-4
-  Guess_ini = 0.2 * par_orig
+  Guess_ini = 0.8 * par_orig
  ;  Guess_ini = (1.0+0.2*randomn(seed,6)) * par_orig
  ;  make_guess_ini,guess_ini
   print,'initial guess:',guess_ini
