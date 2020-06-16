@@ -1,4 +1,4 @@
-pro make_guess_ini,guess_ini
+pro make_guess_ini,guess_ini,PHIguess
   common tomographic_measurements, y0, y  
 
   print,'calculating initial guess...'
@@ -15,12 +15,12 @@ pro make_guess_ini,guess_ini
   ;sigN_range        = [0.1, 0.9]*1.e8  & n5=3
   ;q_range           = [0.1, 0.9]       & n6=3
  
-  Nem_range         = [0.25,4.0]*y0    & n1=6
-  fip_range         = [0.1, 10.]       & n2=6
-  Tem_range         = [0.5, 2.5]*MK    & n3=6
-  SigT_range        = [0.1, 1.0]*MK    & n4=6
-  sigN_range        = [0.1,2.0]*y0     & n5=6
-  q_range           = [0.1,0.9]        & n6=6
+  Nem_range         = [0.25,4.0]*y0    & n1=10
+  fip_range         = [0.1, 10.]       & n2=10
+  Tem_range         = [0.5, 2.5]*MK    & n3=10
+  SigT_range        = [0.1, 1.0]*MK    & n4=10
+  sigN_range        = [0.1,2.0]*y0     & n5=10
+  q_range           = [0.1,0.9]        & n6=10
 
 
   phiA = dblarr(n1,n2,n3,n4,n5,n6)
@@ -31,7 +31,7 @@ pro make_guess_ini,guess_ini
   SigTv = SigT_range(0) + (sigT_range(1) -sigT_range(0))*findgen(n4)/float(n4-1)
   SigNv = SigN_range(0) + (sigN_range(1) -sigN_range(0))*findgen(n5)/float(n5-1)
      qv = q_range   (0) + (q_range   (1) -q_range   (0))*findgen(n6)/float(n6-1)
-     stop
+     
      
      for i1=0,n1-1 do begin
         for i2=0,n2-1 do begin
@@ -50,12 +50,13 @@ pro make_guess_ini,guess_ini
      endfor
 
      ii = median (where (phiA eq min(phiA)))
+     PHIguess = phiA(ii)
      p  = ARRAY_INDICES(phiA, ii)
      guess_ini     = [Nemv(p(0)),fipv(p(1)),Temv(p(2)),sigTv(p(3)),sigNv(p(4)),qv(p(5))]
 
      t_elapsed  = systime(/seconds)-tstart
      print,'Elapsed time:',t_elapsed
 
-     stop
+     
      return
 end

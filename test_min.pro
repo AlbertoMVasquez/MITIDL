@@ -159,11 +159,14 @@ pro test_min,min_method=min_method,$
   skiptest:
 
   ftol = 1.0e-4
-  Guess_ini = 0.8 * par_orig
+ ;  Guess_ini = 0.8 * par_orig
  ;  Guess_ini = (1.0+0.2*randomn(seed,6)) * par_orig
- ;  make_guess_ini,guess_ini
+  make_guess_ini,guess_ini,PHIguess
   print,'initial guess:',guess_ini
   print,'(guess - orig)/orig:', (guess_ini -par_orig)/par_orig
+  print,'Phi(guess):',PHIguess
+  save,filename='~/Downloads/guess_inicial10^6.sav',guess_ini,phiguess,par_orig
+  return
 
   P = Guess_ini
   tstart     = systime(/seconds)
