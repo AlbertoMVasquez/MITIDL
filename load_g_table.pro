@@ -94,6 +94,7 @@ pro load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_
      NNe   = 50
      logNe = 5. + (10.-5.) * findgen(NNe)/float(NNe-1)
      N_e   = 10.^logNe
+     r     = 1.
   END
 ENDCASE  
   return

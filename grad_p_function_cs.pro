@@ -42,8 +42,9 @@ function grad_p_function_cs, Ne0, Te0
   NNe = 1
   if (size(Te0))(0) eq 1 then NTe = (size(Te0))(1)
   if (size(Ne0))(0) eq 1 then NNe = (size(Ne0))(1)
-
   grad=dblarr(NTe,NNe,5)
+
+  if abs(q) lt 1 then begin
 
   expT     = double(((Te0-Tem)/SigTe))
   expN     = double(((Ne0-Nem)/SigNe))
@@ -57,6 +58,7 @@ function grad_p_function_cs, Ne0, Te0
   ; Correct NaNs due to INFINITY exp(expTN)
   index_nan = where(finite(exp((1./(1.-q^2))*q*expTN)) ne 1)
   if index_nan(0) ne -1 then p_value(index_nan) = 0.
+
 
 ;-----------------------------------------------------------------------
 ; Fede, aqui te dejo el codigo original tuyo y mi versión SIN LOOPS:
@@ -96,6 +98,11 @@ skip_code_with_loops:
   grad(*,*,2) = (1./sigTe)*(pexpT2 - q*pexpTN - (1.-q^2)*p_value)                   ; \propto dP/dsigT  
   grad(*,*,3) = (1./sigNe)*(pexpN2 - q*pexpTN - (1.-q^2)*p_value)                   ; \propto dP/dsigN
   grad(*,*,4) = (q*p_value + pexpTN - (q/(1.-q^2))*(pexpN2 + pexpT2 - 2.*q*pexpTN)) ; \propto dP/dq
+
+  grad =  (1./(1-q^2))*grad
+endif
   
-  return, (1./(1-q^2))*grad
+
+  return, grad
+  
 end

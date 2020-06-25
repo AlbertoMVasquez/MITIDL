@@ -43,6 +43,8 @@ function cost_function, parameters
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec 
   common index_measurement, i_measurement
 
+  RESULT = 0d
+
   Nem    = parameters[0]
   M      = n_elements(y)  
   RESULT = (Nem - y0)^2/sig_WL^2  

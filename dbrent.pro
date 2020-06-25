@@ -96,6 +96,7 @@ function dbrent,ax,bx,cx,tol,xmin
   endfor
 
   print,'Error: dbrent exceeded maximum iterations. Retry.'
+  
 
 ;ORIGINAL CODE NEXT TWO LINES
 ;xmin=x

@@ -113,7 +113,7 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   Ne0_Limits = [min(N_e),max(N_e)]
   Te0_Limits = [min(T_e),max(T_e)]
 
-  ;goto,eg
+  goto,eg
   print,'e [erg sec-1 sr-1 K-1]:', e_function(parameters)
   print,'e2[erg sec-1 sr-1 K-1]:', e2_function(parameters)
 
