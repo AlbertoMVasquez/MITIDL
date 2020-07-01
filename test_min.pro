@@ -1,11 +1,7 @@
 
 ;---------------------------------------------------------------------
-pro wrapper
-; test_min,min_method=1,/Riemann,/uniform
-; test_min,min_method=1,/Riemann,/loguniform
-; test_min,min_method=1,/Riemann,/loguniform,NNe_provided=300,NTe_provided=300
-; Polak-Ribiere minimization:
-  test_min,min_method=4,/Riemann,/loguniform
+pro wrapper,method
+  test_min,min_method=method,/Riemann,/lnuniform,NNe_provided=50,NTe_provided=50
   return
 end
 
@@ -89,15 +85,14 @@ pro test_min,min_method=min_method,$
 
 
  ; Test values for coronal heliocentric height and iron abundance:
-  r0         = 1.1    ; Rsun
-
+  r0         = 1.1       ; Rsun
  ; Test values for the parameters of the joint bivariate Te-Ne normal distribution:
-  Nem        = 1.75e8           ; cm^-3
-  fip_factor = 1.1              ; Note that [Fe] = [Fe]_Feldman * fip_factor 
-  Tem        = 1.30e6           ; K
-  SigTe      = 0.50e6           ; K
+  Nem        = 1.2e8           ; cm^-3
+  fip_factor = 1.2              ; Note that [Fe] = [Fe]_Feldman * fip_factor 
+  Tem        = 1.10e6           ; K
+  SigTe      = 0.70e6           ; K
   SigNe      = 0.50e8           ; cm^-3
-  q          = 0.5
+  q          = 0.45
   
   ; Parameter vector for both e_function and cost_function:
   ; The order chosen for its elements follows Rich's notes, right after Eq. (2)
@@ -108,12 +103,12 @@ pro test_min,min_method=min_method,$
   load_tables
   
 ; Limits for the grid. These are DYNAMICAL as to adjust to future changes in G-tables:
-  Ne0_Limits = [max([min(Ne1),min(Ne2),min(Ne3),min(Ne4),min(Ne5)]),min([max(Ne1),max(Ne2),max(Ne3),max(Ne4),max(Ne5)])]
-  Te0_Limits = [max([min(Te1),min(Te2),min(Te3),min(Te4),min(Te5)]),min([max(Te1),max(Te2),max(Te3),max(Te4),max(Te5)])]
+ ; Ne0_Limits = [max([min(Ne1),min(Ne2),min(Ne3),min(Ne4),min(Ne5)]),min([max(Ne1),max(Ne2),max(Ne3),max(Ne4),max(Ne5)])]
+ ; Te0_Limits = [max([min(Te1),min(Te2),min(Te3),min(Te4),min(Te5)]),min([max(Te1),max(Te2),max(Te3),max(Te4),max(Te5)])]
 
  ; restricted Ne and Te ranges 
- ;  Ne0_Limits = [1.0e6,5.0e9]
- ;  Te0_Limits = [0.5e6,5.0e6]
+   Ne0_Limits = [1.0e6,5.0e9]
+   Te0_Limits = [0.5e6,5.0e6]
   
   if keyword_set(Riemann) then begin
      if not keyword_set(NNe_provided) then NNe_provided = 100
@@ -132,19 +127,18 @@ pro test_min,min_method=min_method,$
 
 
   ; Fractional error of each measurement:
-  f_wl = 0.2
-  f_y  = 0.2 + fltarr (n_elements(i_mea_vec))
+  f_wl = 0.1
+  f_y  = 0.1 + fltarr (n_elements(i_mea_vec))
   ; synthetic values of y0 and y,     
   ; as exactly expected from assumed models.
-   y0 = double(Nem)                      
-   y  = synth_y_values_cs(par_orig) 
+  ;y0 = double(Nem)                      
+  ;y  = synth_y_values_cs(par_orig) 
   ; synthetic values of y0 and y,     
   ; using the fractional errors above to simulate (normal) uncertainty of measurement.
-  ; y0 = double(Nem)              * (1.0+f_wl*randomn(seed,1))
-  ; y  = synth_y_values_cs(par_orig) * (1.0+f_y *randomn(seed,5))
- 
- 
- 
+   y0 = double(Nem)                 ;* (1.0+f_wl*randomn(seed,1))(0)
+   y  = synth_y_values_cs(par_orig) ;* (1.0+f_y *randomn(seed,5))
+   
+
 
   print,'synthetic values of y0 and y:',y0,y
   print
@@ -175,55 +169,18 @@ pro test_min,min_method=min_method,$
 
 
 ; INITIAL GUESS:
-   ;Guess_ini = 1.2 * par_orig
-   Guess_ini = (1.0+0.4*randomn(seed,6)) * par_orig
-; make_guess_ini,guess_ini,PHIguess
+   ; Guess_ini = 1.4 * par_orig
+   ; Guess_ini = (1.0+0.5*randomn(seed,6)) * par_orig
+     make_guess_ini,guess_ini,PHIguess
+
+  ; pass Ne and Te to units of 10^8 cm-3 and MK
+  change_units,par_orig,guess_ini
 
   print,'initial guess:',guess_ini
   print,'(guess - orig)/orig:', (guess_ini -par_orig)/par_orig
   print
-; print,'Phi(guess):',PHIguess
-; save,filename='~/Downloads/guess_inicial10^6.sav',guess_ini,phiguess,par_orig
-; return
 
-
-; COST FUNCTION and its gradient BEFORE normalization
-  ;print,cost_function_cs(guess_ini)
-  ;print,grad_cost_function_cs(guess_ini)
-  ;print
-  ;stop
-
-
-  ; pass Ne and Te to units of 10^8 cm-3 and MK
-  ;goto,skipnormalization
-  ; -----------------------------------------------------
-  y0 = y0/1.d8         ; WL measure [10^8 cm-3]              
-  sig_WL = sig_WL/1.d8 ; error of WL measure [10^8 cm-3]
-  par_orig[0]= par_orig[0]/1.d8 ; Nm [10^8 cm-3]
-  par_orig[2]= par_orig[2]/1.d6 ; Tm [MK]
-  par_orig[3]= par_orig[3]/1.d6 ; sigT [MK]
-  par_orig[4]= par_orig[4]/1.d8 ; sigN [10^8 cm-3]
-  ;Initial Guess in new units 
-  Guess_ini[0]= Guess_ini[0]/1.d8 ; Nm [10^8 cm-3]
-  Guess_ini[2]= Guess_ini[2]/1.d6 ; Tm [MK]
-  Guess_ini[3]= Guess_ini[3]/1.d6 ; sigT [MK]
-  Guess_ini[4]= Guess_ini[4]/1.d8 ; sigN [10^8 cm-3]
-  ; Ne and Te grid 
-  Ne_array = Ne_array /1.d8
-  Te_array = Te_array /1.d6 
-  dNe_array= dNe_array/1.d8
-  dTe_array= dTe_array/1.d6
-  dTN      = dTN/1.d6 /1.d8
-  skipnormalization:
-; -----------------------------------------------------
-
- ; print,'initial guess:',guess_ini
- ; print,'(guess - orig)/orig:', (guess_ini -par_orig)/par_orig
-; COST FUNCTION and its gradient AFTER normalization
-  ;print,cost_function_cs(guess_ini)
-  ;print,grad_cost_function_cs(guess_ini)
-  ;stop
-
+ 
   ftol = 1.0d-4
   P = Guess_ini
   tstart     = systime(/seconds)
@@ -249,7 +206,7 @@ pro test_min,min_method=min_method,$
   
   if min_method eq 3  then begin
      print,'BFGS Method '
-     DFPMIN, P, ftol, Fmin, Phi_name, Grad_Phi_name
+     DFPMIN, P, ftol, Fmin, Phi_name, Grad_Phi_name, /double, itmax=1000
   endif
 
   IF min_method eq 4 then begin
@@ -291,7 +248,8 @@ pro test_min,min_method=min_method,$
   print,'original values:'
   print,par_orig
   print
-  print,'relative difference:',abs((P-par_orig)/par_orig)
+  print,'relative difference:'
+  print,abs((P-par_orig)/par_orig)
   print
 
   print,'Phi(guess):', cost_function_cs(guess_ini)
@@ -306,7 +264,66 @@ pro test_min,min_method=min_method,$
   yv      = [y0, y]
   score = mean(abs((yv - ysynth)/yv))
   print,'Score:',score
- 
+   
+  return
+end
+
+
+
+pro change_units,par,guess,direction=direction
+; IF direction= 1:  cm-3, K      > 10^8cm-3, MK
+; IF direction=-1:  10^8cm-3, MK > cm-3, K
+  common tomographic_measurements, y0, y
+  common measurement_errors,sig_WL,sig_y
+  common NT_arrays,Ne_array,Te_array,dNe_array,dTe_array,dTN
   
+
+  if not keyword_set(direction) then direction=1
+
+  if direction eq 1 then begin
+ ; -----------------------------------------------------
+     y0 = y0/1.d8               ; WL measure [10^8 cm-3]              
+     sig_WL = sig_WL/1.d8       ; error of WL measure [10^8 cm-3]
+     par[0]= par[0]/1.d8        ; Nm [10^8 cm-3]
+     par[2]= par[2]/1.d6        ; Tm [MK]
+     par[3]= par[3]/1.d6        ; sigT [MK]
+     par[4]= par[4]/1.d8        ; sigN [10^8 cm-3]
+  ;Initial Guess in new units 
+     Guess[0]= Guess[0]/1.d8    ; Nm [10^8 cm-3]
+     Guess[2]= Guess[2]/1.d6    ; Tm [MK]
+     Guess[3]= Guess[3]/1.d6    ; sigT [MK]
+     Guess[4]= Guess[4]/1.d8    ; sigN [10^8 cm-3]
+  ; Ne and Te grid 
+     Ne_array = Ne_array /1.d8
+     Te_array = Te_array /1.d6 
+     dNe_array= dNe_array/1.d8
+     dTe_array= dTe_array/1.d6
+     dTN      = dTN/1.d6 /1.d8
+  endif
+
+  if direction eq -1 then begin
+     y0 = y0*1.d8               ; WL measure [10^8 cm-3]              
+     sig_WL = sig_WL*1.d8       ; error of WL measure [10^8 cm-3]
+     par[0]= par[0]*1.d8        ; Nm [10^8 cm-3]
+     par[2]= par[2]*1.d6        ; Tm [MK]
+     par[3]= par[3]*1.d6        ; sigT [MK]
+     par[4]= par[4]*1.d8        ; sigN [10^8 cm-3]
+  ;Initial Guess in new units 
+     Guess[0]= Guess[0]*1.d8    ; Nm [10^8 cm-3]
+     Guess[2]= Guess[2]*1.d6    ; Tm [MK]
+     Guess[3]= Guess[3]*1.d6    ; sigT [MK]
+     Guess[4]= Guess[4]*1.d8    ; sigN [10^8 cm-3]
+  ; Ne and Te grid 
+     Ne_array = Ne_array*1.d8
+     Te_array = Te_array*1.d6 
+     dNe_array= dNe_array*1.d8
+     dTe_array= dTe_array*1.d6
+     dTN      = dTN*1.d6*1.d8
+  endif
+
+; -----------------------------------------------------
+
+  
+
   return
 end

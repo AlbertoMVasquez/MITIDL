@@ -33,11 +33,12 @@ function grad_cost_function_cs, parameters
   
   RESULT     = parameters * 0d
   Nem        = parameters[0]  
+  q          = parameters[5]  
   M          = n_elements(y)
   for k = 0, M-1 do begin
      RESULT = RESULT + 2*(e_function_cs(k,parameters) - y[k]) /sig_y[k]^2   * grad_e_function_cs(k,parameters)
   endfor
   result(0) = result(0) + 2*(Nem-y0)/sig_WL^2
-  
+  result(5) = result(5) + df_penalty_q(q)
   return, RESULT
 end

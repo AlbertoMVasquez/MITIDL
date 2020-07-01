@@ -36,11 +36,11 @@ pro make_guess_ini,guess_ini,PHIguess
 
   ; range of the variable-grid  
   Nem_range         = [0.25,4.0]*y0    & n1=5
-  fip_range         = [0.1, 10.]       & n2=5 ; 0.5 > 5.
+  fip_range         = [0.1, 5.0]       & n2=5 ; 0.5 > 5.
   Tem_range         = [0.5, 2.5]*MK    & n3=5
   SigT_range        = [0.1, 1.0]*MK    & n4=5
   sigN_range        = [0.1,2.0]*y0     & n5=5
-  q_range           = [0.1,0.9]        & n6=5
+  q_range           = [0.1,0.8]        & n6=5
 
   ; array with the values of the cost function
   phiA = dblarr(n1,n2,n3,n4,n5,n6)

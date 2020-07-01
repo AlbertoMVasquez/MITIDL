@@ -23,6 +23,7 @@
 ; test_cuadratura,/uniform,NNe_provided=50,NTe_provided=50
 ; test_cuadratura,/loguniform,NNe_provided=50,NTe_provided=50
 ; test_cuadratura,/lnuniform,NNe_provided=50,NTe_provided=50
+; test_cuadratura,/lnuniform,NNe_provided=30,NTe_provided=30
 
 pro test_cuadratura,uniform=uniform,lnuniform=lnuniform,loguniform=loguniform,$
                     NNe_provided=NNe_provided,NTe_provided=NTe_provided
@@ -85,12 +86,12 @@ pro test_cuadratura,uniform=uniform,lnuniform=lnuniform,loguniform=loguniform,$
 
   
 ; Limits for the grid. These are DYNAMICAL as to adjust to future changes in G-tables:
-  Ne0_Limits = [max([min(Ne1),min(Ne2),min(Ne3),min(Ne4),min(Ne5)]),min([max(Ne1),max(Ne2),max(Ne3),max(Ne4),max(Ne5)])]
-  Te0_Limits = [max([min(Te1),min(Te2),min(Te3),min(Te4),min(Te5)]),min([max(Te1),max(Te2),max(Te3),max(Te4),max(Te5)])]
+  ;Ne0_Limits = [max([min(Ne1),min(Ne2),min(Ne3),min(Ne4),min(Ne5)]),min([max(Ne1),max(Ne2),max(Ne3),max(Ne4),max(Ne5)])]
+  ;Te0_Limits = [max([min(Te1),min(Te2),min(Te3),min(Te4),min(Te5)]),min([max(Te1),max(Te2),max(Te3),max(Te4),max(Te5)])]
 
   ; restricted Ne and Te ranges
-  ;Ne0_Limits = [1.0e6,5.0e9]
-  ;Te0_Limits = [0.5e6,5.0e6]
+  Ne0_Limits = [1.0e6,5.0e9]
+  Te0_Limits = [0.5e6,5.0e6]
 
   print,'INTEGRAL LIMITS:'
   print,'temp. range [K]   :',Te0_limits

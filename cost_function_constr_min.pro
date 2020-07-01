@@ -34,9 +34,11 @@ function cost_function_constr_min, parameters
   RESULT     = 0d
   RESULTADO  = dblarr(2)
   Nem        = parameters[0]
+  q          = parameters[5]
   M          = n_elements(y) 
   RESULT = (Nem-y0)^2/sig_WL^2
   for k = 0, M-1 do RESULT = RESULT + (e_function_cs(k,parameters) - y[k])^2/sig_y[k]^2
+  RESULT = RESULT + f_penalty_q(q)
   resultado[0]=Nem
   resultado[1]=RESULT
   return, RESULTADO
