@@ -32,8 +32,10 @@ pro test_g_array
   Nr=26
   dr = 0.01
   r_array  = 1. + dr * findgen(Nr)    + dr/2
+  r_array  = [1.1]              ; array de un solo elemento
   Ne_array = Nmin + dNe* findgen(NNe) + dNe/2
   Te_array = tmin + dTe* findgen(NTe) + dTe/2
+  
   
   load_G_array,Ne_array,Te_array,r_array,G_A
   load_sk_array,fip_factor,Ne_array,Te_array,r_array,sk_A

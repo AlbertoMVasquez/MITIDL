@@ -23,7 +23,7 @@
 ; test_cuadratura,/uniform,NNe_provided=50,NTe_provided=50
 ; test_cuadratura,/loguniform,NNe_provided=50,NTe_provided=50
 ; test_cuadratura,/lnuniform,NNe_provided=50,NTe_provided=50
-; test_cuadratura,/lnuniform,NNe_provided=30,NTe_provided=30
+; test_cuadratura,/lnuniform,NNe_provided=40,NTe_provided=20
 
 pro test_cuadratura,uniform=uniform,lnuniform=lnuniform,loguniform=loguniform,$
                     NNe_provided=NNe_provided,NTe_provided=NTe_provided

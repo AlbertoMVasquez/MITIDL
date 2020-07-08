@@ -3,7 +3,7 @@
 ; Brief description:
 ;
 ; Load  all the tables of the G(Ne,Te,r) functions:
-; Gi, Tei, Nei (i=1,...,5) and intertolate its 
+; Gi, Tei, Nei (i=1,...,5) and interpolate its 
 ; to a new 3D Ne-Te-r grid.
 ;
 ;
