@@ -31,7 +31,7 @@ pro  load_tables
   common index_measurement, i_measurement
   common G_table, G, T_e, N_e, r, photT
   common directories, tomroot
-  common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2
+  common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2,r3,r4,r5
    
   M      = n_elements(i_mea_vec)  
  
@@ -59,16 +59,19 @@ pro  load_tables
         G3  = G
         Te3 = T_e
         Ne3 = N_e 
+        r3  = r
      END
      3: BEGIN
         G4  = G
         Te4 = T_e
-        Ne4 = N_e 
+        Ne4 = N_e
+        r4  = r
      END
      4: BEGIN
         G5  = G
         Te5 = T_e
-        Ne5 = N_e 
+        Ne5 = N_e
+        r5  = r 
      END
      ENDCASE
   endfor

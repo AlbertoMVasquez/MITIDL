@@ -1,5 +1,41 @@
 
 ;---------------------------------------------------------------------
+pro wrapperAIA3,method
+; para hacer este experimento (minimización de P solo con los 3 datos
+; de AIA) HAY QUE COMENTAR (Nem-y0)^2/sig_WL^2 en cost_function y 
+; 2*(Nem-y0)/sig_WL^2 en grad_cost_function.
+
+  common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
+  common tomographic_measurements, y0, y
+  common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
+  
+  i_mea_vec           =[1    ,1    ,1 ]
+  ion_label_vec       =[''   ,''   ,'']
+  line_wavelength_vec =[''   ,''   ,'']
+  instrument_label_vec=['aia','aia','aia']
+  band_label_vec      =['171','193','211']
+
+  
+  r0  = 1.11                    ; Rsun
+  y0 = double(1.3e+08)
+  y  = double([41.895351, 108.93031, 37.497993])
+  
+  ;r0  = 1.21                    ; Rsun
+  ;y0 = double(0.64e8)
+  ;y  = double([6.15104531, 23.377518, 9.6444130])
+
+  
+  fip_factor = 1.        ; necesario para pòder calcular s_k con s_function
+  
+  minimizador,min_method=method,/Riemann,/lnuniform,NNe_provided=50,NTe_provided=50
+
+ 
+  return
+end
+
+
+
+;---------------------------------------------------------------------
 pro wrapper,method
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common tomographic_measurements, y0, y
@@ -11,13 +47,16 @@ pro wrapper,method
   instrument_label_vec=[''      ,''      ,'aia','aia','aia']
   band_label_vec      =[''      ,''      ,'171','193','211']
 
-  ;synthetic values of y0 and y:   1.5000000e+08   1.1396292e-09   5.1159609e-10       275.48046       781.21159       319.38916
   ; Todas estas variables se pasan por commons!
   y0 = double(1.5000000e+08)
   y  = double([1.1396292e-09,   5.1159609e-10,       275.48046,       781.21159,       319.38916])
+
+
+
   r0  = 1.1              ; Rsun
   fip_factor = 1.        ; necesario para pòder calcular s_k con s_function
   
+
   minimizador,min_method=method,/Riemann,/lnuniform,NNe_provided=50,NTe_provided=50
 
  
@@ -58,7 +97,7 @@ pro minimizador,min_method=min_method,$
                 NTe_provided= NTe_provided
   
   common G_table, G, T_e, N_e, r, photT
-  common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2
+  common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2,r3,r4,r5
   common directories, tomroot
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common dimensions, NTe, NNe
@@ -129,7 +168,7 @@ pro minimizador,min_method=min_method,$
 
 
   ; Fractional error of each measurement:
-   f_wl = 0.1
+   f_wl = 0.1 
    f_y  = 0.1 + fltarr (n_elements(i_mea_vec))
   
   
@@ -237,7 +276,9 @@ pro minimizador,min_method=min_method,$
   ysynth  = synth_y_values_cs(P) & ysynth  = [P(0),ysynth]
   yv      = [y0, y]
   score = mean(abs((yv - ysynth)/yv))
-  print,'Score:',score
+  score = mean(abs((y - ysynth)/y))
+  print,'Score R:',score
+  print,'R_k    :',abs((y - ysynth)/y)
 
   return
 end

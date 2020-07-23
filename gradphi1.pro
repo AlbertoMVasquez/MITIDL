@@ -32,7 +32,7 @@ function gradphi, parameters
   common measurement_errors,sig_WL,sig_y
   common index_measurement, i_measurement
   common G_table, G, T_e, N_e, r, photT
-  common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2
+  common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2,r3,r4,r5
   
   RESULT     = parameters * 0d
   Nem        = parameters[0]
@@ -64,16 +64,19 @@ function gradphi, parameters
         G   = G3
         T_e = Te3
         N_e = Ne3
+        r   = r3
      END
      3: BEGIN
         G   = G4
         T_e = Te4
         N_e = Ne4
+        r   = r4
      END
      4: BEGIN
         G   = G5
         T_e = Te5
         N_e = Ne5
+        r   = r5
      END
      ENDCASE     
      RESULT = RESULT + (2*(e_function(parameters) - y[k])/sig_y[k]^2)*grad_e_function(parameters)

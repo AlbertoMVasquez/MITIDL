@@ -27,7 +27,7 @@ pro make_sk_over_fip_factor
   common dimensions, NTe, NNe
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common index_measurement, i_measurement
-  common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2
+  common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2,r3,r4,r5
   common G_table, G, T_e, N_e, r, photT
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   M  = n_elements(i_mea_vec)
@@ -52,16 +52,19 @@ pro make_sk_over_fip_factor
         G   = G3
         T_e = Te3
         N_e = Ne3
+        r   = r3 
      END
      3: BEGIN
         G   = G4
         T_e = Te4
         N_e = Ne4
+        r   = r4
      END
      4: BEGIN
         G   = G5
         T_e = Te5
         N_e = Ne5
+        r   = r5
      END
      ENDCASE
      sk_over_fip_factor(k,*,*) = s_function(Ne_array,Te_array) / fip_factor

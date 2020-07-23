@@ -29,7 +29,7 @@ pro test_cuadratura,uniform=uniform,lnuniform=lnuniform,loguniform=loguniform,$
                     NNe_provided=NNe_provided,NTe_provided=NTe_provided
   
   
-  common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2
+  common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2,r3,r4,r5
   common directories, tomroot
   common dimensions, NTe, NNe
   common NT_limits, Ne0_Limits, Te0_Limits

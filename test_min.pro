@@ -3,7 +3,7 @@
 pro wrapper,method,noise=noise
 
   if not keyword_set(noise) then $
-     test_min,min_method=method,/Riemann,/lnuniform,NNe_provided=50,NTe_provided=50
+     test_min,min_method=method,/Riemann,/lnuniform;,NNe_provided=50,NTe_provided=50
 
   if     keyword_set(noise) then $
      test_min,min_method=method,/Riemann,/lnuniform,NNe_provided=50,NTe_provided=50,/noise
@@ -46,7 +46,7 @@ pro test_min,min_method=min_method,$
              noise=noise
   
   common G_table, G, T_e, N_e, r, photT
-  common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2
+  common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2,r3,r4,r5
   common directories, tomroot
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common dimensions, NTe, NNe
@@ -92,13 +92,13 @@ pro test_min,min_method=min_method,$
 
 
  ; Test values for coronal heliocentric height and iron abundance:
-  r0         = 1.1              ; Rsun
+  r0         = 1.105 ;1.1              ; Rsun
  ; Test values for the parameters of the joint bivariate Te-Ne normal distribution:
-  Nem        = 1.75e8           ; cm^-3
-  fip_factor = 1.1              ; Note that [Fe] = [Fe]_Feldman * fip_factor 
-  Tem        = 1.3e6            ; K
-  SigTe      = 0.50e6           ; K
-  SigNe      = 0.50e8           ; cm^-3
+  Nem        = 0.61315012e8   ;0.5*1.3e8   ;1.75e8           ; cm^-3
+  fip_factor = 1.0            ;1.1                                           ; Note that [Fe] = [Fe]_Feldman * fip_factor 
+  Tem        = 1.4769326e6    ;1.5e6                                         ; K
+  SigTe      = 0.3*Tem        ;0.50e6                                        ; K
+  SigNe      = 0.3*Nem        ;0.50e8                                        ; cm^-3
   q          = 0.5
   
   ; Parameter vector for both e_function and cost_function:
@@ -110,12 +110,12 @@ pro test_min,min_method=min_method,$
   load_tables
   
 ; Limits for the grid. These are DYNAMICAL as to adjust to future changes in G-tables:
- ; Ne0_Limits = [max([min(Ne1),min(Ne2),min(Ne3),min(Ne4),min(Ne5)]),min([max(Ne1),max(Ne2),max(Ne3),max(Ne4),max(Ne5)])]
- ; Te0_Limits = [max([min(Te1),min(Te2),min(Te3),min(Te4),min(Te5)]),min([max(Te1),max(Te2),max(Te3),max(Te4),max(Te5)])]
+  Ne0_Limits = [max([min(Ne1),min(Ne2),min(Ne3),min(Ne4),min(Ne5)]),min([max(Ne1),max(Ne2),max(Ne3),max(Ne4),max(Ne5)])]
+  Te0_Limits = [max([min(Te1),min(Te2),min(Te3),min(Te4),min(Te5)]),min([max(Te1),max(Te2),max(Te3),max(Te4),max(Te5)])]
 
  ; restricted Ne and Te ranges 
-   Ne0_Limits = [1.0e6,5.0e9]
-   Te0_Limits = [0.5e6,5.0e6]
+ ;  Ne0_Limits = [1.0e6,5.0e9]
+ ;  Te0_Limits = [0.5e6,5.0e6]
   
    if keyword_set(Riemann) then begin
       if not keyword_set(NNe_provided) then NNe_provided = 100
@@ -139,7 +139,7 @@ pro test_min,min_method=min_method,$
   ; synthetic values of y0 and y,     
   ; as exactly expected from assumed models.
   y0 = double(Nem)                      
-  y  = synth_y_values_cs(par_orig) 
+  y  = synth_y_values_CS(par_orig) 
 
    if keyword_set(noise) then begin
       ; synthetic values of y0 and y,     
@@ -151,6 +151,7 @@ pro test_min,min_method=min_method,$
 
    print,'synthetic values of y0 and y:',y0,y
    print
+   stop
 
   ; Absolute error of each measurement:
    sig_WL = f_wl* y0 
