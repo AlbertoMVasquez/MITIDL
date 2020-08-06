@@ -21,7 +21,7 @@
 ;
 
 ;---------------------------------------------------------------------
-pro  load_sk_array,fip_factor,Ne_A,Te_A,r_A,sk_A
+pro  load_sk_array,Ne_A,Te_A,r_A,sk_A
   
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common index_measurement, i_measurement
