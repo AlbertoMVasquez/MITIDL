@@ -14,7 +14,7 @@ pro wrapper
   band_label_vec      =[''      ,''      ,'171','193','211']
   ;File name of x-tomographic products of all instruments 
   ;(need to be consistent with above)
-  filename = ['x_KCOR.CR2198.13imgs-reduced.bf2.ri1.05.ro2.25_Inst_1.09_2.00_120_90_180_dropneg_r3D_l1e-4',$
+  xfiles   = ['x_KCOR.CR2198.13imgs-reduced.bf2.ri1.05.ro2.25_Inst_1.09_2.00_120_90_180_dropneg_r3D_l1e-4',$
               'x.comp1074.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_1.7_IRMIN_1.09',$
               'x.comp1079.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_L3.0_IRMIN_1.09',$
               'x_aia.171.cr2198.26x90_bf4_ri.00_ro1.09_h1_Oldset_r3d_reduced_L0.70',$
@@ -31,7 +31,7 @@ pro wrapper
   method=3 ; BFGS method
 
   
-  MIT,rmin,rmax,filename,/Riemann,min_method=method
+  MIT,rmin,rmax,xfiles,/Riemann,min_method=method
 
   return
 end
@@ -42,7 +42,7 @@ end
 
 ;===============================================================
 
-pro MIT,rmin,rmax,filename,min_method=min_method,riemann=riemann,$
+pro MIT,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
         NNe_provided=NNe_provided,NTe_provided=NTe_provided 
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common NT_limits, Ne0_Limits, Te0_Limits
@@ -101,21 +101,23 @@ pro MIT,rmin,rmax,filename,min_method=min_method,riemann=riemann,$
   endif
 
 
+  
+
 
 ; Load tomographies into memory
-  xread,file=filename(0),nr=120,nt=90,np=180,map=KCOR
-  xread,file=filename(1),nr=50 ,nt=90,np=180,map=comp1074
-  xread,file=filename(2),nr=50 ,nt=90,np=180,map=comp1079
-  xread,file=filename(3),nr=26 ,nt=90,np=180,map=FBE171
-  xread,file=filename(4),nr=26 ,nt=90,np=180,map=FBE193
-  xread,file=filename(5),nr=26 ,nt=90,np=180,map=FBE211
-
+  xread,file=xfiles(0),nr=120,nt=90,np=180,map=KCOR
+  xread,file=xfiles(1),nr=50 ,nt=90,np=180,map=comp1074
+  xread,file=xfiles(2),nr=50 ,nt=90,np=180,map=comp1079
+  xread,file=xfiles(3),nr=26 ,nt=90,np=180,map=FBE171
+  xread,file=xfiles(4),nr=26 ,nt=90,np=180,map=FBE193
+  xread,file=xfiles(5),nr=26 ,nt=90,np=180,map=FBE211
+  
 ; Bring FBEs into CGS units:
   FBE171 = FBE171/0.0696
   FBE193 = FBE193/0.0696
   FBE211 = FBE211/0.0696
 
-; This is correct ???
+; This is correct ??? something more??
   comp1074=comp1074/6.96e10
   comp1079=comp1079/6.96e10
 
@@ -169,6 +171,11 @@ pro MIT,rmin,rmax,filename,min_method=min_method,riemann=riemann,$
    yA        = dblarr(Nr,Nt,Np,ndat) 
    ysynthA   = dblarr(Nr,Nt,Np,ndat) 
 ;--------------------------------
+
+   r_array = rad
+   load_sk_array,Ne_array,Te_array,r_array,sk_A
+   change_units_grid
+
    irad1=0                      
    irad2=Nr-1                   
    ;if keyword_set(oneheight) then begin
@@ -191,9 +198,12 @@ pro MIT,rmin,rmax,filename,min_method=min_method,riemann=riemann,$
    ilon2 = np-1
    Dilon = 5                    ;1
    skiptesting:
+
    for ir =irad1,irad2,Dirad do begin
+      sk_over_fip_factor = sk_A(*,*,*,ir)
       for ith=ilat1,ilat2,Dilat do begin
          for ip =ilon1,ilon2,Dilon do begin
+
            ;Load y0 and y in the voxel
             y0 = kcor(ir,ith,ip) 
             y  =[comp1074(ir,ith,ip),comp1079(ir,ith,ip),$
@@ -201,18 +211,13 @@ pro MIT,rmin,rmax,filename,min_method=min_method,riemann=riemann,$
             if min([y0,y]) le 0. then goto,skipmin ; SKIP ZDAs
 
            ;INITIAL GUESS:
-            make_guess_ini,guess_ini,PHIguess
-trash:/Eco, Umberto - El cementerio de Praga (r1.0 Piolin).mobi
-trash:/Eco, Umberto - El nombre de la rosa [3484] (r2.1 Piolin).mobi
-trash:/Eco, Umberto - El pendulo de Foucault [2928] (r1.4 Piolin).mobi
-             ;Pass Ne and Te to units of 10^8 cm-3 and MK
-            change_units,guess_ini
+            make_guess_ini_new_units,guess_ini,PHIguess
+           
            ;MINIMIZATION BLOCK
             minimizador,phi_name,grad_phi_name,guess_ini,P,min_method=min_method
             parA(ir,ith,ip,*) = P ; save the parameters vector in a 3D array 
-
             skipmin:
-            
+ 
          endfor                 ; IP  loop
       endfor                    ; ITH loop
    endfor                       ; IR loop
