@@ -15,7 +15,6 @@ pro wrapper,method
   y  = double([1.1396292e-09,   5.1159609e-10,       275.48046,       781.21159,       319.38916])
 
 
-
   r0  = 1.1              ; Rsun
   fip_factor = 1.        ; necesario para pòder calcular s_k con s_function
   
@@ -119,8 +118,9 @@ pro hallar_min,min_method=min_method,$
   set_tomroot
   ;load_tables
   if not keyword_set(Riemann) then load_tables
-  
-; Limits for the grid. These are DYNAMICAL as to adjust to future changes in G-tables:
+ 
+ ; load_tables 
+ ; Limits for the grid. These are DYNAMICAL as to adjust to future changes in G-tables:
  ; Ne0_Limits = [max([min(Ne1),min(Ne2),min(Ne3),min(Ne4),min(Ne5)]),min([max(Ne1),max(Ne2),max(Ne3),max(Ne4),max(Ne5)])]
  ; Te0_Limits = [max([min(Te1),min(Te2),min(Te3),min(Te4),min(Te5)]),min([max(Te1),max(Te2),max(Te3),max(Te4),max(Te5)])]
 
@@ -139,11 +139,10 @@ pro hallar_min,min_method=min_method,$
         print,'choose a grid (uniform, loguniform, or lnuniform)'
         return
      endif
-    ; make_sk_over_fip_factor
+   ; make_sk_over_fip_factor
      r_array = dblarr(1) + r0
      load_sk_array,Ne_array,Te_array,r_array,sk_A
      sk_over_fip_factor = sk_A(*,*,*,0)
-     stop
   endif
 
 
@@ -159,13 +158,16 @@ pro hallar_min,min_method=min_method,$
   sig_WL = f_wl* y0 
   sig_y  = f_y * y  
 
-; Pass Ne and Te to units of 10^8 cm-3 and MK
-  change_units_grid  
-  y0 = y0/1.d8                  ; WL measure [10^8 cm-3]              
-  sig_WL = sig_WL/1.d8          ; error of WL measure [10^8 cm-3]
-  
+; Pass Ne-Te grid to units of 10^8 cm-3 and MK
+  if keyword_set(Riemann) then begin
+     change_units_grid  
+     y0 = y0/1.d8               ; WL measure [10^8 cm-3]              
+     sig_WL = sig_WL/1.d8       ; error of WL measure [10^8 cm-3]
+  endif
+
 ; INITIAL GUESS:
-  make_guess_ini_new_units,guess_ini,PHIguess
+  if not keyword_set(Riemann) then make_guess_ini          ,guess_ini,PHIguess
+  if     keyword_set(Riemann) then make_guess_ini_new_units,guess_ini,PHIguess
     
 ;===========================
 ;  MINIMIZATION BLOCK
