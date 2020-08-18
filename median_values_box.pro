@@ -38,8 +38,9 @@ pro median_values_box,rad_range,lat_range,lon_range,file
                  latA gt lat_range(0) and latA lt lat_range(1) and $
                  lonA gt lon_range(0) and lonA lt lon_range(1)      )
 
-  print,'median value of Ne in the box: [10^8 cm-3]',median(n_e(index))/1.e8
-  print,'median value of Te in the box: [MK]       ',median(tm (index))/1.e6
+  print,'median value of Nm in the box: [10^8 cm-3]',median(n_e(index))/1.e8
+  print,'median value of Tm in the box: [MK]       ',median(tm (index))/1.e6
+  print,'median value of WT in the box: [MK]       ',median(wt (index))/1.e6
   print
   print,'median value of FBE 171 A in the box:',median(x171(index))
   print,'median value of FBE 193 A in the box:',median(x193(index))
