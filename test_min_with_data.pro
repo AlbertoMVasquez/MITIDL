@@ -10,13 +10,20 @@ pro wrapper,method
   instrument_label_vec=[''      ,''      ,'aia','aia','aia']
   band_label_vec      =[''      ,''      ,'171','193','211']
 
+
+  r0  = 1.1              ; Rsun
+  fip_factor = 1.        ; necesario para pòder calcular s_k con s_function
   ; Todas estas variables se pasan por commons!
   y0 = double(1.5000000e+08)
   y  = double([1.1396292e-09,   5.1159609e-10,       275.48046,       781.21159,       319.38916])
 
+  r0 = 1.11
+  y0 = double(1.30e8 )
+  y  = double([2.13e-10,   7.54e-11,       41.9,       109,       37.5])
 
-  r0  = 1.1              ; Rsun
-  fip_factor = 1.        ; necesario para pòder calcular s_k con s_function
+  r0 = 1.21
+  y0 = double(0.64e8)
+  y  = double([7.72e-11,   7.25e-11,       5.88,       23.72,       9.89])
   
 
   hallar_min,min_method=method,/Riemann,/lnuniform,NNe_provided=50,NTe_provided=50
