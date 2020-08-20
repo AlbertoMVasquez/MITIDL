@@ -15,13 +15,13 @@
 ;---------------------------------------------------------------------
 
 
-pro make_guess_ini_with_demt,guess_ini,PHIguess
+pro make_guess_ini_with_demt,nm_demt,tm_demt,wt_demt,guess_ini,PHIguess
   common tomographic_measurements, y0, y  
 
   print,'calculating initial guess...'
   tstart     = systime(/seconds)
 
- 
+
   ; range of the variable-grid  
                                          n1=1
   fip_range         = [0.1, 5.0]       & n2=5 ; 0.5 > 5.

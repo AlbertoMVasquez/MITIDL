@@ -30,9 +30,9 @@ pro  load_sk_array,Ne_A,Te_A,r_A,sk_A
   
    
   M      = n_elements(i_mea_vec)  
-  NTe    = (size(Te_A))(1)
-  NNe    = (size(Ne_A))(1)
-  Nr     = (size(r_A ))(1)
+  NTe    = n_elements(Te_A)
+  NNe    = n_elements(Ne_A)
+  Nr     = n_elements(r_A )
   sk_A    = dblarr(M,NTe,NNe,Nr)
   
   for k = 0, M-1 do begin

@@ -3,7 +3,8 @@ pro wrapper,method
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common tomographic_measurements, y0, y
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
-  
+  common guess_demt,nm_demt,tm_demt,wt_demt
+
   i_mea_vec           =[0       ,0       ,1    ,1    ,1    ]
   ion_label_vec       =['fexiii','fexiii',''   ,''   ,''   ]
   line_wavelength_vec =['10747' ,'10801' ,''   ,''   ,''   ]
@@ -11,21 +12,23 @@ pro wrapper,method
   band_label_vec      =[''      ,''      ,'171','193','211']
 
 
-  r0  = 1.1              ; Rsun
-  fip_factor = 1.        ; necesario para pòder calcular s_k con s_function
   ; Todas estas variables se pasan por commons!
+
+  r0  = 1.1  ; Rsun
   y0 = double(1.5000000e+08)
   y  = double([1.1396292e-09,   5.1159609e-10,       275.48046,       781.21159,       319.38916])
 
   r0 = 1.11
   y0 = double(1.30e8 )
   y  = double([2.13e-10,   7.54e-11,       41.9,       109,       37.5])
+  nm_demt=0.6131501 & tm_demt=1.4769326 & wt_demt=0.24922289 ; 1.11 Rsun
 
   r0 = 1.21
   y0 = double(0.64e8)
   y  = double([7.72e-11,   7.25e-11,       5.88,       23.72,       9.89])
-  
+  nm_demt=0.27979984& tm_demt=1.5809454 & wt_demt=0.22113686 ; 1.21 Rsun
 
+     
   hallar_min,min_method=method,/Riemann,/lnuniform,NNe_provided=50,NTe_provided=50
    
   return
@@ -75,7 +78,7 @@ pro hallar_min,min_method=min_method,$
   common index_measurement, i_measurement
   common sk_over_fip_factor_array,sk_over_fip_factor
   common NT_arrays,Ne_array,Te_array,dNe_array,dTe_array,dTN
-  
+  common guess_demt,nm_demt,tm_demt,wt_demt
   
   if not keyword_set(min_method) then begin
      print,'minimization method (min_method keyword) not selected:'
@@ -146,10 +149,11 @@ pro hallar_min,min_method=min_method,$
         print,'choose a grid (uniform, loguniform, or lnuniform)'
         return
      endif
-   ; make_sk_over_fip_factor
+     ; make_sk_over_fip_factor
      r_array = dblarr(1) + r0
      load_sk_array,Ne_array,Te_array,r_array,sk_A
-     sk_over_fip_factor = sk_A(*,*,*,0)
+     sk_over_fip_factor = reform ( sk_A(*,*,*,0) )
+     stop
   endif
 
 
@@ -174,8 +178,9 @@ pro hallar_min,min_method=min_method,$
 
 ; INITIAL GUESS:
   if not keyword_set(Riemann) then make_guess_ini          ,guess_ini,PHIguess
-  if     keyword_set(Riemann) then make_guess_ini_new_units,guess_ini,PHIguess
-    
+ ;if     keyword_set(Riemann) then make_guess_ini_new_units,guess_ini,PHIguess
+  if     keyword_set(Riemann) then make_guess_ini_with_demt,nm_demt,tm_demt,wt_demt,guess_ini,PHIguess
+
 ;===========================
 ;  MINIMIZATION BLOCK
   tstart     = systime(/seconds)

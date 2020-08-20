@@ -6,6 +6,8 @@ pro wrapper
   ;COMMON FOV of all instruments 
   rmin= 1.05
   rmax= 1.25
+  rmin= 1.06
+  rmax= 1.07
   ;This vectors define the order of the measurement
   i_mea_vec           =[0       ,0       ,1    ,1    ,1    ]
   ion_label_vec       =['fexiii','fexiii',''   ,''   ,''   ]
@@ -28,10 +30,12 @@ pro wrapper
   Ne0_Limits = [1.0e6,5.0e9]
   Te0_Limits = [0.5e6,5.0e6]
 
-  method=3 ; BFGS method
+  method=4 ; Polak-Ribiere method
 
-  
-  MIT,rmin,rmax,xfiles,/Riemann,min_method=method
+  file_demt='ldem2198.out'
+  file_out ='mit.out'
+  dir      ='~/Downloads/'
+  MIT,rmin,rmax,xfiles,/Riemann,min_method=method,file_demt=file_demt,file_out=file_out,dir=dir,/loguniform
 
   return
 end
@@ -43,9 +47,18 @@ end
 ;===============================================================
 
 pro MIT,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
-        NNe_provided=NNe_provided,NTe_provided=NTe_provided 
+        uniform=uniform,loguniform=loguniform,lnuniform=lnuniform,$
+        NNe_provided=NNe_provided,NTe_provided=NTe_provided,$
+        file_demt=file_demt,file_out=file_out,dir=dir
+
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common NT_limits, Ne0_Limits, Te0_Limits
+  common NT_arrays,Ne_array,Te_array,dNe_array,dTe_array,dTN
+  common directories, tomroot
+  common tomographic_measurements, y0, y  
+  common measurement_errors,sig_WL,sig_y
+  common sk_over_fip_factor_array,sk_over_fip_factor
+
 
   if not keyword_set(min_method) then begin
      print,'minimization method (min_method keyword) not selected:'
@@ -87,6 +100,7 @@ pro MIT,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
   IF min_method eq 5 then print,"Constrained Minimization"
 
   
+  
   if keyword_set(Riemann) then begin
      if not keyword_set(NNe_provided) then NNe_provided = 100
      if not keyword_set(NTe_provided) then NTe_provided = 100
@@ -111,15 +125,20 @@ pro MIT,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
   xread,file=xfiles(3),nr=26 ,nt=90,np=180,map=FBE171
   xread,file=xfiles(4),nr=26 ,nt=90,np=180,map=FBE193
   xread,file=xfiles(5),nr=26 ,nt=90,np=180,map=FBE211
-  
-; Bring FBEs into CGS units:
-  FBE171 = FBE171/0.0696
-  FBE193 = FBE193/0.0696
-  FBE211 = FBE211/0.0696
+ 
+  rsun = 6.96e10 ; cm
+ ; ETR Values for Bsun 
+  Bsun_1075 = 6.1768E-01 * 1.e+2 ; erg s-1 cm-2 A-1
+  Bsun_1080 = 6.2250E-01 * 1.e+2 ; erg s-1 cm-2 A-1
 
-; This is correct ??? something more??
-  comp1074=comp1074/6.96e10
-  comp1079=comp1079/6.96e10
+; Bring FBEs into CGS units:
+  FBE171 = FBE171 * 1.e12 /rsun
+  FBE193 = FBE193 * 1.e12 /rsun
+  FBE211 = FBE211 * 1.e12 /rsun
+
+; tomographic values in units of [erg s-1 cm-3 sr-1]
+  comp1074 = comp1074 * Bsun_1075 / (4.*!pi) / rsun
+  comp1079 = comp1079 * Bsun_1080 / (4.*!pi) / rsun
 
 ;  KCOR:
    rmin_kcor = 1.05
@@ -128,7 +147,7 @@ pro MIT,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
    dr_kcor   = (Rmax_kcor - Rmin_kcor)/Nr_kcor 
    r_kcor    = Rmin_kcor + dr_kcor * indgen(Nr_kcor) + dr_kcor/2
    i_kcor = where ( r_kcor ge rmin and r_kcor le rmax ) 
-   kcor = reform ( kcor(i_kcor,*,*))
+   kcor = kcor(i_kcor,*,*)
 
 
 ;  CoMP:
@@ -138,8 +157,8 @@ pro MIT,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
    dr_comp     = (Rmax_comp - Rmin_comp)/Nr_comp 
    r_comp      = Rmin_comp + dr_comp * indgen(Nr_comp) + dr_comp/2
    i_comp = where ( r_comp ge rmin and r_comp le rmax ) 
-   comp1074 = reform(comp1074 ( i_comp,*,*))
-   comp1079 = reform(comp1079 ( i_comp,*,*))
+   comp1074 = comp1074 ( i_comp,*,*)
+   comp1079 = comp1079 ( i_comp,*,*)
 
     
 ;  AIA settings:
@@ -149,10 +168,13 @@ pro MIT,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
    dr_aia   = (Rmax_aia - Rmin_aia)/Nr_aia 
    r_aia    = Rmin_aia + dr_aia * indgen(Nr_aia) + dr_aia/2
    i_aia  = where ( r_aia ge rmin and r_aia le rmax ) 
-   FBE171 = reform ( FBE171(i_aia,*,*) )
-   FBE193 = reform ( FBE193(i_aia,*,*) )
-   FBE211 = reform ( FBE211(i_aia,*,*) )
-   
+   FBE171 = FBE171(i_aia,*,*) 
+   FBE193 = FBE193(i_aia,*,*) 
+   FBE211 = FBE211(i_aia,*,*) 
+   load_demt,file_demt,nm_demt_array,tm_demt_array,wt_demt_array
+   nm_demt_array = nm_demt_array(i_aia,*,*) 
+   tm_demt_array = tm_demt_array(i_aia,*,*) 
+   wt_demt_array = wt_demt_array(i_aia,*,*)
 
 ;  tomographic grid common to all instrument:
    Nr  = n_elements(i_aia)
@@ -172,9 +194,12 @@ pro MIT,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
    ysynthA   = dblarr(Nr,Nt,Np,ndat) 
 ;--------------------------------
 
+   set_tomroot
+
    r_array = rad
    load_sk_array,Ne_array,Te_array,r_array,sk_A
    change_units_grid
+   
 
    irad1=0                      
    irad2=Nr-1                   
@@ -190,42 +215,74 @@ pro MIT,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
    ilon2=np-1
    Dilon=1
   ;--------------------------
-   goto,skiptesting
-   ilat1 = 5                    ;0
+   ;goto,skiptesting
+   ilat1 = 45                   ;0
    ilat2 = ilat1                ;nth-1
    Dilat = 1                    ;1
    ilon1 = 0
    ilon2 = np-1
-   Dilon = 5                    ;1
+   Dilon = 10                   ;1
    skiptesting:
 
    for ir =irad1,irad2,Dirad do begin
-      sk_over_fip_factor = sk_A(*,*,*,ir)
+      sk_over_fip_factor = reform( sk_A(*,*,*,ir) )
       for ith=ilat1,ilat2,Dilat do begin
          for ip =ilon1,ilon2,Dilon do begin
-
-           ;Load y0 and y in the voxel
+            print,'rad, lat, lon: ',rad(ir),lat(ith),lon(ip)
+          ; Load y0 and y in the voxel
             y0 = kcor(ir,ith,ip) 
             y  =[comp1074(ir,ith,ip),comp1079(ir,ith,ip),$
                  FBE171(ir,ith,ip),FBE193(ir,ith,ip),FBE211(ir,ith,ip)]
+
+          ; Fractional error of each measurement:
+            f_wl = 0.1 
+            f_y  = 0.1 + fltarr (n_elements(i_mea_vec))
+            print,'values of y0 and y:',y0,y
+            print
+          ; Absolute error of each measurement:
+            sig_WL = f_wl* y0 
+            sig_y  = f_y * y  
+
             if min([y0,y]) le 0. then goto,skipmin ; SKIP ZDAs
 
+            
+
            ;INITIAL GUESS:
-            make_guess_ini_new_units,guess_ini,PHIguess
-           
+            ;make_guess_ini_new_units,guess_ini,PHIguess
+            nm_demt = nm_demt_array(ir,ith,ip)
+            tm_demt = tm_demt_array(ir,ith,ip)
+            wt_demt = wt_demt_array(ir,ith,ip)
+            make_guess_ini_with_demt,nm_demt,tm_demt,wt_demt,guess_ini,PHIguess
+
+
            ;MINIMIZATION BLOCK
             minimizador,phi_name,grad_phi_name,guess_ini,P,min_method=min_method
-            parA(ir,ith,ip,*) = P ; save the parameters vector in a 3D array 
-            skipmin:
- 
+            parA(ir,ith,ip,*) = P ; save the parameters vector in a 3D array
+               print,'------------------------------------------------------------------------------------------------'
+               print,'          Nem          fip_factor         Tem             SigTe          SigNe           q      '
+               print,'initial guess:'
+               print,guess_ini
+               print,'obtainded minimum:'
+               print,p
+               print
+               print,'Phi(guess):', cost_function_cs(guess_ini)
+               print,'Phi(min):',   cost_function_cs(P)
+               print
+               ysynth  = synth_y_values_cs(P) & ysynth  = [P(0),ysynth]
+               yv      = [y0, y]
+               score = mean(abs((yv - ysynth)/yv))
+               print,'Score R:',score
+               print,'R_k    :',abs((yv - ysynth)/yv)
+               stop
+               skipmin:             
          endfor                 ; IP  loop
       endfor                    ; ITH loop
    endfor                       ; IR loop
 
 ;--------------------------------
 
-   
+   save,filename=dir+fileout,rat,lat,lon,parA,yA,ysynthA
 
-   stop
+  
    RETURN
 END
