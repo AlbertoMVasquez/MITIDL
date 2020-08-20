@@ -14,20 +14,21 @@ pro wrapper,method
 
   ; Todas estas variables se pasan por commons!
 
-  r0  = 1.1  ; Rsun
-  y0 = double(1.5000000e+08)
-  y  = double([1.1396292e-09,   5.1159609e-10,       275.48046,       781.21159,       319.38916])
+  ;r0  = 1.1  ; Rsun
+  ;y0 = double(1.5000000e+08)
+  ;y  = double([1.1396292e-09,   5.1159609e-10,       275.48046,       781.21159,       319.38916])
 
-  r0 = 1.11
+  
+  r0 = 1.115
   y0 = double(1.30e8 )
   y  = double([2.13e-10,   7.54e-11,       41.9,       109,       37.5])
   nm_demt=0.6131501 & tm_demt=1.4769326 & wt_demt=0.24922289 ; 1.11 Rsun
 
-  r0 = 1.21
-  y0 = double(0.64e8)
-  y  = double([7.72e-11,   7.25e-11,       5.88,       23.72,       9.89])
-  nm_demt=0.27979984& tm_demt=1.5809454 & wt_demt=0.22113686 ; 1.21 Rsun
-
+  ;r0 = 1.21
+  ;y0 = double(0.64e8)
+  ;y  = double([7.72e-11,   7.25e-11,       5.88,       23.72,       9.89])
+  ;nm_demt=0.27979984& tm_demt=1.5809454 & wt_demt=0.22113686 ; 1.21 Rsun
+  
      
   hallar_min,min_method=method,/Riemann,/lnuniform,NNe_provided=50,NTe_provided=50
    
@@ -153,7 +154,6 @@ pro hallar_min,min_method=min_method,$
      r_array = dblarr(1) + r0
      load_sk_array,Ne_array,Te_array,r_array,sk_A
      sk_over_fip_factor = reform ( sk_A(*,*,*,0) )
-     stop
   endif
 
 
@@ -178,7 +178,7 @@ pro hallar_min,min_method=min_method,$
 
 ; INITIAL GUESS:
   if not keyword_set(Riemann) then make_guess_ini          ,guess_ini,PHIguess
- ;if     keyword_set(Riemann) then make_guess_ini_new_units,guess_ini,PHIguess
+  ;if     keyword_set(Riemann) then make_guess_ini_new_units,guess_ini,PHIguess
   if     keyword_set(Riemann) then make_guess_ini_with_demt,nm_demt,tm_demt,wt_demt,guess_ini,PHIguess
 
 ;===========================

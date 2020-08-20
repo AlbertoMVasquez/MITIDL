@@ -197,6 +197,7 @@ pro MIT,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
    set_tomroot
 
    r_array = rad
+   stop
    load_sk_array,Ne_array,Te_array,r_array,sk_A
    change_units_grid
    
@@ -230,9 +231,11 @@ pro MIT,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
          for ip =ilon1,ilon2,Dilon do begin
             print,'rad, lat, lon: ',rad(ir),lat(ith),lon(ip)
           ; Load y0 and y in the voxel
-            y0 = kcor(ir,ith,ip) 
+            y0 = kcor(ir,ith,ip) /1.e8
             y  =[comp1074(ir,ith,ip),comp1079(ir,ith,ip),$
                  FBE171(ir,ith,ip),FBE193(ir,ith,ip),FBE211(ir,ith,ip)]
+
+             
 
           ; Fractional error of each measurement:
             f_wl = 0.1 
