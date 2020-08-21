@@ -11,15 +11,12 @@ pro wrapper,method
   instrument_label_vec=[''      ,''      ,'aia','aia','aia']
   band_label_vec      =[''      ,''      ,'171','193','211']
 
-
-  ; Todas estas variables se pasan por commons!
-
+  
   ;r0  = 1.1  ; Rsun
   ;y0 = double(1.5000000e+08)
   ;y  = double([1.1396292e-09,   5.1159609e-10,       275.48046,       781.21159,       319.38916])
 
-  
-  r0 = 1.115
+  r0 = 1.11
   y0 = double(1.30e8 )
   y  = double([2.13e-10,   7.54e-11,       41.9,       109,       37.5])
   nm_demt=0.6131501 & tm_demt=1.4769326 & wt_demt=0.24922289 ; 1.11 Rsun
@@ -150,7 +147,7 @@ pro hallar_min,min_method=min_method,$
         print,'choose a grid (uniform, loguniform, or lnuniform)'
         return
      endif
-     ; make_sk_over_fip_factor
+   ; make_sk_over_fip_factor
      r_array = dblarr(1) + r0
      load_sk_array,Ne_array,Te_array,r_array,sk_A
      sk_over_fip_factor = reform ( sk_A(*,*,*,0) )

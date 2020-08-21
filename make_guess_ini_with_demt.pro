@@ -1,7 +1,9 @@
 ;---------------------------------------------------------------------
 ; This routine make a grid in the variables-space and found the 
 ; the value in the grid the minimizes the cost function to use it
-; as initial guess in the minimization.
+; as initial guess in the minimization. For Nm, Tm, sigN, and sigT
+; uses the DEMT Nm, Tm and WT values. 
+; Es significativamente mas rapida que make_guess_ini...
 ;
 ; OUTPUT:
 
@@ -10,7 +12,7 @@
 ; PHIGUESS: the value of the cost function in the initial guess.
 
 ; HISTORY:
-; V1.0, Federico A. Nuevo, June, IAFE.
+; V1.0, Federico A. Nuevo, August, IAFE.
 
 ;---------------------------------------------------------------------
 
@@ -34,7 +36,7 @@ pro make_guess_ini_with_demt,nm_demt,tm_demt,wt_demt,guess_ini,PHIguess
   phiA = dblarr(n1,n2,n3,n4,n5,n6)
   
  ; variable-grid
-  Nemv  = [Nm_demt]
+  Nemv  = [y0];[Nm_demt]
   fipv  = fip_range (0) + (fip_range (1) -fip_range (0))*findgen(n2)/float(n2-1)
   Temv  = [Tm_demt]
   SigTv = [WT_demt]

@@ -6,8 +6,8 @@ pro wrapper
   ;COMMON FOV of all instruments 
   rmin= 1.05
   rmax= 1.25
-  rmin= 1.06
-  rmax= 1.07
+  rmin= 1.11
+  rmax= 1.12
   ;This vectors define the order of the measurement
   i_mea_vec           =[0       ,0       ,1    ,1    ,1    ]
   ion_label_vec       =['fexiii','fexiii',''   ,''   ,''   ]
@@ -23,10 +23,8 @@ pro wrapper
               'x_aia.193.cr2198.26x90_bf4_ri.00_ro1.09_h1_Oldset_r3d_reduced_L0.90',$
               'x_aia.211.cr2198.26x90_bf4_ri.00_ro1.09_h1_Oldset_r3d_reduced_L0.90']
 
- ; Limits for the grid. These are DYNAMICAL as to adjust to future changes in G-tables:
- ; Ne0_Limits = [max([min(Ne1),min(Ne2),min(Ne3),min(Ne4),min(Ne5)]),min([max(Ne1),max(Ne2),max(Ne3),max(Ne4),max(Ne5)])]
- ; Te0_Limits = [max([min(Te1),min(Te2),min(Te3),min(Te4),min(Te5)]),min([max(Te1),max(Te2),max(Te3),max(Te4),max(Te5)])]
- ; Restricted Ne and Te ranges 
+ 
+; Restricted Ne and Te ranges 
   Ne0_Limits = [1.0e6,5.0e9]
   Te0_Limits = [0.5e6,5.0e6]
 
@@ -35,7 +33,9 @@ pro wrapper
   file_demt='ldem2198.out'
   file_out ='mit.out'
   dir      ='~/Downloads/'
-  MIT,rmin,rmax,xfiles,/Riemann,min_method=method,file_demt=file_demt,file_out=file_out,dir=dir,/loguniform
+  MIT,rmin,rmax,xfiles,/Riemann,min_method=method,$
+      file_demt=file_demt,file_out=file_out,dir=dir,$
+      /lnuniform,NNe_provided=50,NTe_provided=50
 
   return
 end
@@ -197,7 +197,6 @@ pro MIT,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
    set_tomroot
 
    r_array = rad
-   stop
    load_sk_array,Ne_array,Te_array,r_array,sk_A
    change_units_grid
    
@@ -229,6 +228,7 @@ pro MIT,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
       sk_over_fip_factor = reform( sk_A(*,*,*,ir) )
       for ith=ilat1,ilat2,Dilat do begin
          for ip =ilon1,ilon2,Dilon do begin
+            print,'---------------------------------------------'
             print,'rad, lat, lon: ',rad(ir),lat(ith),lon(ip)
           ; Load y0 and y in the voxel
             y0 = kcor(ir,ith,ip) /1.e8
@@ -259,7 +259,10 @@ pro MIT,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
 
 
            ;MINIMIZATION BLOCK
+            tstart     = systime(/seconds)
             minimizador,phi_name,grad_phi_name,guess_ini,P,min_method=min_method
+            t_elapsed  = systime(/seconds)-tstart
+            print,'Elapsed time:',t_elapsed
             parA(ir,ith,ip,*) = P ; save the parameters vector in a 3D array
                print,'------------------------------------------------------------------------------------------------'
                print,'          Nem          fip_factor         Tem             SigTe          SigNe           q      '
