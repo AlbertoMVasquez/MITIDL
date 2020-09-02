@@ -3,7 +3,7 @@
 pro wrapper
 
   !PATH = Expand_Path('+/data1/tomography/SolarTom_idl') + ':' + !PATH
-  rad_range=[ 1.2 , 1.22]       ; Rsun
+  rad_range=[ 1.1 , 1.12]       ; Rsun
   lat_range=[- 40 ,   0.]       ; deg
   lon_range=[ 250 , 350.]       ; deg
   file='LDEM.v3_CR2198_l.70.90.90_h1_reduced_Rmin1.00_Rmax1.26_Nr26_InstRmax1.26_bf4_r3d_B_chianti.ioneq_sun_coronal_1992_feldman_ext.abundaia3_171_gauss1_lin_Norm-median_singlStart'

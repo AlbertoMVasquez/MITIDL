@@ -15,8 +15,8 @@ pro convert_units_comp
   Bsun_1080 = 6.2250E-01 * 1.e+2 ; erg s-1 cm-2 A-1
 
 ; Median tomographic values in units of [erg s-1 cm-3 sr-1]
-  x_comp_1074 = x_comp_1074 * Bsun_1075 / (4.*!pi) / rsun
-  x_comp_1079 = x_comp_1079 * Bsun_1080 / (4.*!pi) / rsun
+  x_comp_1074 = x_comp_1074 * Bsun_1075 / (4.*!pi) / rsun 
+  x_comp_1079 = x_comp_1079 * Bsun_1080 / (4.*!pi) / rsun 
 
   print
   print,'CoMP tomographic emissivities [erg s-1 cm-3 sr-1]'

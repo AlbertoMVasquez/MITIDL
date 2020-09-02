@@ -21,7 +21,7 @@ pro analyze_xfiles
   
 ; Box to analyze:
   rad_range=[ 1.1 , 1.12]       ; Rsun
-  rad_range=[ 1.2 , 1.22]       ; Rsun
+  ;rad_range=[ 1.2 , 1.22]       ; Rsun
   lat_range=[- 40 ,   0.]       ; deg
   lon_range=[ 250 , 350.]       ; deg
 
@@ -32,7 +32,8 @@ pro analyze_xfiles
    win=0
 
 ; CoMP settings:
-   file = 'x.comp1074.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_1.7_IRMIN_1.09'
+   ;file = 'x.comp1074.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_1.7_IRMIN_1.09'
+   file = 'x.comp1074.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_1.7_IRMIN_1.09_ABBEY'
    Rmin   = 1.0
    Rmax   = 1.5
    Nr     =  50
@@ -40,6 +41,9 @@ pro analyze_xfiles
   titulo='CR-2198 CoMP 1074'
    xdisplay,dir=dir,map=comp1074,nr=nr,nt=nt,np=np,rmin=rmin,rmax=rmax,r0A=r0A,units=units,titulo=titulo,$
             rad_range=rad_range,lat_range=lat_range,lon_range=lon_range,file=file
+
+   return
+   
 
    file = 'x.comp1079.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_L3.0_IRMIN_1.09'
    Rmin   = 1.0
@@ -50,7 +54,7 @@ pro analyze_xfiles
    xdisplay,dir=dir,map=comp1079,nr=nr,nt=nt,np=np,rmin=rmin,rmax=rmax,r0A=r0A,units=units,titulo=titulo,$
             rad_range=rad_range,lat_range=lat_range,lon_range=lon_range,file=file
 
-   stop
+   
 
    
 ; KCOR settings:
