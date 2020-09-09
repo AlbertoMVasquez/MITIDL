@@ -108,6 +108,8 @@ pro exp_contrl,min_method=min_method,$
 
   par_in =dblarr(n1,n2,n3,6)
   par_out=dblarr(n1,n2,n3,6)
+  Rarray =dblarr(n1,n2,n3)
+  Rkarray=dblarr(n1,n2,n3,6)
 ;----------------------------------------------------------------------------------------------------------------   
 
 
@@ -177,8 +179,8 @@ pro exp_contrl,min_method=min_method,$
 
 
          ; INITIAL GUESS:
-           make_guess_ini,guess_ini,PHIguess
-         ; make_guess_ini_with_demt,nm_demt,tm_demt,wt_demt,guess_ini,PHIguess
+           ;make_guess_ini,guess_ini,PHIguess
+           make_guess_ini_with_demt,nm_demt,tm_demt,wt_demt,guess_ini,PHIguess
 
          ; Pass Ne and Te to units of 10^8 cm-3 and MK
            change_units,par_orig,guess_ini
@@ -263,16 +265,20 @@ pro exp_contrl,min_method=min_method,$
            ysynth  = synth_y_values_cs(P) & ysynth  = [P(0),ysynth]
            yv      = [y0, y]
            score = mean(abs((yv - ysynth)/yv))
+           rk    =          (yv - ysynth)/yv 
            print,'Score:',score
-           print,'R_k    :',abs((yv - ysynth)/yv)
+           print,'R_k    :',abs(rk)
            print
+           Rarray (i1,i2,i3  ) = score
+           Rkarray(i1,i2,i3,*) = rk
            ;stop
-   
+           
+
         endfor
      endfor
   endfor
 
-  save,filename='~/Downloads/exp_contr.out',par_in,par_out
+  save,filename='~/Downloads/exp_contr.out',par_in,par_out,Rarray,Rkarray
 
  
   return

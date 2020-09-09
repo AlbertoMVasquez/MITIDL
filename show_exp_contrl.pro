@@ -1,7 +1,7 @@
 pro show_exp_contrl
 
 
-  suffix = 'sin_ruido'
+  suffix = 'con_ruido'
 
   dir = '~/Downloads/exp_contrl/'+suffix+'/'
   suffix_file = '_'+suffix
@@ -21,7 +21,7 @@ pro show_exp_contrl
   sigN_out=reform(par_out (*,*,*,4))
   q_in    =reform(par_in  (*,*,*,5))
   q_out   =reform(par_out (*,*,*,5))
- 
+
 
   !PATH = Expand_Path('+~/idlfiles/coyote/') + ':' + !PATH
   !p.background=255

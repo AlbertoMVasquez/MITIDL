@@ -5,6 +5,10 @@
 ; uses the DEMT Nm, Tm and WT values. 
 ; Es significativamente mas rapida que make_guess_ini...
 ;
+; INPUT: 
+;
+; Nm_demt, Tm_demt, WT_demt: the values of DEMT Nm, TM, and WT
+;
 ; OUTPUT:
 
 ; GUESS_INI: initial guess. 
@@ -40,7 +44,13 @@ pro make_guess_ini_with_demt,nm_demt,tm_demt,wt_demt,guess_ini,PHIguess
   fipv  = fip_range (0) + (fip_range (1) -fip_range (0))*findgen(n2)/float(n2-1)
   Temv  = [Tm_demt]
   SigTv = [WT_demt]
-  SigNv = [sqrt(abs(y0^2 - Nm_demt^2))]
+  ; si y0 coincide con Nm_demt hace un sigN = 30% de Nm_demt
+  if abs((y0-Nm_demt)/y0) lt 0.01 then begin
+     SigNv = 0.3 * Nm_demt
+  endif else begin
+     SigNv = [sqrt(abs(y0^2 - Nm_demt^2))]
+  endelse
+  
      qv = q_range   (0) + (q_range   (1) -q_range   (0))*findgen(n6)/float(n6-1)
      
      
