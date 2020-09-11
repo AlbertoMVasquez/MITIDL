@@ -1,7 +1,15 @@
-pro show_exp_contrl
+; show_exp_contrl,dir='exp_contrl_old'
+; show_exp_contrl,dir='exp_contrl_old',/ruido
+; show_exp_contrl,dir='exp_contrl'
+; show_exp_contrl,dir='exp_contrl',/ruido
+pro show_exp_contrl,ruido=ruido,dir=dir
+
+
  
 ; Experiment suffix (con o sin ruido)
-  suffix = 'con_ruido'
+  if     keyword_set(ruido) then  suffix = 'con_ruido'
+  if NOT keyword_set(ruido) then  suffix = 'sin_ruido'
+
   suffix_file = '_'+suffix
   suffix_title =' ('+suffix+')'
 
@@ -11,8 +19,9 @@ pro show_exp_contrl
   
 ; Directory where is exp_contrl.out and 
 ; where the plots are saved.
-  dir = '~/Downloads/exp_contrl/'+suffix+'/'
-  
+  if not keyword_set(dir) then dir  = '~/Downloads/exp_contrl/'+suffix+'/'
+  if     keyword_set(dir) then dir  = '~/Downloads/'+dir+'/'+suffix+'/'
+
 ; Store the data in memory 
   restore,dir+'exp_contr.out'
 
