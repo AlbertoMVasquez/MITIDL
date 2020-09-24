@@ -2,6 +2,7 @@
 ; show_exp_contrl,dir='exp_contrl_old',/ruido
 ; show_exp_contrl,dir='exp_contrl'
 ; show_exp_contrl,dir='exp_contrl',/ruido
+; show_exp_contrl,dir='exp_contrl2'
 pro show_exp_contrl,ruido=ruido,dir=dir
 
 
@@ -39,6 +40,7 @@ pro show_exp_contrl,ruido=ruido,dir=dir
   sigN_out=reform(par_out (*,*,*,4))
   q_in    =reform(par_in  (*,*,*,5))
   q_out   =reform(par_out (*,*,*,5))
+  stop
 
 
 ; Plots settings

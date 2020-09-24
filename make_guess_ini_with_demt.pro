@@ -33,8 +33,10 @@ pro make_guess_ini_with_demt,nm_demt,tm_demt,wt_demt,guess_ini,PHIguess
   fip_range         = [0.1, 5.0]       & n2=5 ; 0.5 > 5.
                                          n3=1
                                          n4=1
-                                         n5=1
-  q_range           = [0.1,0.8]        & n6=5
+ ;                                       n5=1
+  sigN_range        = [0.01,0.5]*y0    & n5=5
+  q_range           = [0.1, 0.8]       & n6=5
+  
 
   ; array with the values of the cost function
   phiA = dblarr(n1,n2,n3,n4,n5,n6)
@@ -45,12 +47,12 @@ pro make_guess_ini_with_demt,nm_demt,tm_demt,wt_demt,guess_ini,PHIguess
   Temv  = [Tm_demt]
   SigTv = [WT_demt]
   ; si y0 coincide con Nm_demt hace un sigN = 30% de Nm_demt
-  if abs((y0-Nm_demt)/y0) lt 0.01 then begin
-     SigNv = 0.3 * Nm_demt
-  endif else begin
-     SigNv = [sqrt(abs(y0^2 - Nm_demt^2))]
-  endelse
-  
+  ;if abs((y0-Nm_demt)/y0) lt 0.01 then begin
+  ;   SigNv = 0.3 * Nm_demt
+  ;endif else begin
+  ;   SigNv = [sqrt(abs(y0^2 - Nm_demt^2))]
+  ;endelse
+  sigNv = sigN_range(0) + (sigN_range(1) -sigN_range(0))*findgen(n5)/float(n5-1)
      qv = q_range   (0) + (q_range   (1) -q_range   (0))*findgen(n6)/float(n6-1)
      
      
