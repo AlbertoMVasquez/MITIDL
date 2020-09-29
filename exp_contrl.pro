@@ -118,14 +118,34 @@ pro exp_contrl,min_method=min_method,$
 
 
 ;----------------------------------------------------------------------------------------------------------------   
-
+  
 
   for i1=0,n1-1 do begin
      for i2=0,n2-1 do begin
         for i3=0,n3-1 do begin
 
+
            set_tomroot
            load_tables
+           ;  Restricted Ne and Te ranges 
+           Ne0_Limits = [1.0e6,5.0e9]
+           Te0_Limits = [0.5e6,5.0e6]
+  
+           if keyword_set(Riemann) then begin
+              if not keyword_set(NNe_provided) then NNe_provided = 100
+              if not keyword_set(NTe_provided) then NTe_provided = 100
+              
+              if keyword_set(   uniform) then make_grid,   /uniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
+              if keyword_set(loguniform) then make_grid,/loguniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
+              if keyword_set( lnuniform) then make_grid, /lnuniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
+              if not keyword_set(uniform) and not keyword_set(loguniform) and not keyword_set(lnuniform) then begin
+                 print,'choose a grid (uniform, loguniform, or lnuniform)'
+                 return
+              endif
+              fip_factor = 1
+              make_sk_over_fip_factor
+           endif
+
   
          ; Test values for the parameters of the joint bivariate Te-Ne normal distribution:
            Nem        = Nm_box                 ; cm^-3
@@ -141,24 +161,7 @@ pro exp_contrl,min_method=min_method,$
            
            par_in(i1,i2,i3,*) = par_orig
 
-        ;  Restricted Ne and Te ranges 
-           Ne0_Limits = [1.0e6,5.0e9]
-           Te0_Limits = [0.5e6,5.0e6]
   
-           if keyword_set(Riemann) then begin
-              if not keyword_set(NNe_provided) then NNe_provided = 100
-              if not keyword_set(NTe_provided) then NTe_provided = 100
-              
-              if keyword_set(   uniform) then make_grid,   /uniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
-              if keyword_set(loguniform) then make_grid,/loguniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
-              if keyword_set( lnuniform) then make_grid, /lnuniform,NNe_provided=NNe_provided,NTe_provided=NTe_provided
-              if not keyword_set(uniform) and not keyword_set(loguniform) and not keyword_set(lnuniform) then begin
-                 print,'choose a grid (uniform, loguniform, or lnuniform)'
-                 return
-              endif
-              make_sk_over_fip_factor
-           endif
-
 
 
   ; Fractional error of each measurement:
@@ -201,7 +204,7 @@ pro exp_contrl,min_method=min_method,$
            tstart     = systime(/seconds)
            if min_method eq 1 then begin
               print,'Downhill simplex Method'
-             ;scale = [1.e8, 1., 1.e6, 1.e6, 1.e8, 1.]*0.5d
+              ;scale = [1.e8, 1., 1.e6, 1.e6, 1.e8, 1.]*0.5d
               scale = [1., 1., 1., 1., 1., 1.]*0.5d
               P = AMOEBA(ftol,scale=scale, P0 = guess_ini ,FUNCTION_VALUE=fval,function_name=Phi_name)
            endif
