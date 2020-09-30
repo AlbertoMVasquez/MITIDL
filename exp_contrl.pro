@@ -86,6 +86,9 @@ pro exp_contrl,min_method=min_method,$
 
 ; Test value for coronal heliocentric height:
   r0         = 1.11             ; Rsun
+  Nm_box = 0.61315012e8
+  Tm_box = 1.4769326e6
+  
 
   i_mea_vec           =[0       ,0       ,1    ,1    ,1    ]
   ion_label_vec       =['fexiii','fexiii',''   ,''   ,''   ]
@@ -94,22 +97,17 @@ pro exp_contrl,min_method=min_method,$
   band_label_vec      =[''      ,''      ,'171','193','211']
 
 
-  Nm_box = 0.61315012e8
-  Tm_box = 1.4769326e6
+  fip_factor_v = [0.25,0.50,1.00] & n1 = n_elements(fip_factor_v)
+  factor_sigma = [0.10,0.25,0.50] & n2 = n_elements(factor_sigma)
+  q_v          = [0.25,0.50,0.75] & n3 = n_elements(q_v)
 
-  fip_factor_v = [0.25,0.50,1.00]
-  factor_sigma = [0.10,0.25,0.50]
-  q_v          = [0.25,0.50,0.75]
 
-  n1 = n_elements(fip_factor_v)
-  n2 = n_elements(factor_sigma)
-  n3 = n_elements(q_v)
+  par_in =dblarr(n1,n2,n3,6) ; Input parameters
+  par_out=dblarr(n1,n2,n3,6) ; Output parameters
+  Rarray =dblarr(n1,n2,n3)   ; Score R
+  Rkarray=dblarr(n1,n2,n3,6) ; Score Rk
 
-  par_in =dblarr(n1,n2,n3,6)
-  par_out=dblarr(n1,n2,n3,6)
-  Rarray =dblarr(n1,n2,n3)
-  Rkarray=dblarr(n1,n2,n3,6)
-
+  ; load the LDEM to make the initial guess  
   restore,'~/Downloads/ldem_mit.out'
   ndat=(size(demt_A))(4)
   nmdemtA=reform(demt_A(*,*,*,ndat-4))
@@ -147,7 +145,7 @@ pro exp_contrl,min_method=min_method,$
            endif
 
   
-         ; Test values for the parameters of the joint bivariate Te-Ne normal distribution:
+        ; Test values for the parameters of the joint bivariate Te-Ne normal distribution:
            Nem        = Nm_box                 ; cm^-3
            fip_factor = fip_factor_v(i1)       ; Note that [Fe] = [Fe]_Feldman * fip_factor 
            Tem        = Tm_box                 ; K
@@ -186,7 +184,7 @@ pro exp_contrl,min_method=min_method,$
         ; Absolute error of each measurement:
            sig_WL = f_wl* y0 
            sig_y  = f_y * y  
-
+           
 
          ; INITIAL GUESS:
            ;make_guess_ini,guess_ini,PHIguess
