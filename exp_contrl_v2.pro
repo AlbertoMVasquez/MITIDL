@@ -30,9 +30,9 @@ pro wrapper
   file_demt='ldem2198.out'
   file_out ='mit.out'
   dir      ='~/Downloads/'
-  MIT,rmin,rmax,xfiles,/Riemann,min_method=method,$
-      file_demt=file_demt,file_out=file_out,dir=dir,$
-      /lnuniform,NNe_provided=50,NTe_provided=50
+  exp_contrl_v2,xfiles,/Riemann,min_method=method,$
+                file_demt=file_demt,file_out=file_out,dir=dir,$
+                /lnuniform,NNe_provided=50,NTe_provided=50
 
   return
 end

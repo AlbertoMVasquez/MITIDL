@@ -35,7 +35,9 @@ pro synth_x_exp_contrl, Riemann=Riemann,$
                         lnuniform=lnuniform,$
                         NNe_provided= NNe_provided,$
                         NTe_provided= NTe_provided,$
-                        noise=noise,dir=dir
+                        noise=noise,$
+                        dir=dir,$
+                        exp_suffix=exp_suffix
 
   common fraction_noise,f,f_suffix
   common G_table, G, T_e, N_e, r, photT
@@ -160,8 +162,10 @@ pro synth_x_exp_contrl, Riemann=Riemann,$
 
 
   if not keyword_set(dir) then dir='~/Downloads/'
+  if not keyword_set(exp_suffix) then exp_suffix=''
+
   datafiles=['xkcor','x.comp1074','x.comp1079','x.aia171','x.aia193','x.aia211']$
-            +'_exp_contrl_'+noise_suffix+'.out'
+            +'_exp_contrl_'+noise_suffix+exp_suffix+'.out'
   for i=0,nband-1 do begin
      openw,1,dir+datafiles(i)
      tmp = reform(x(*,*,*,i))
@@ -169,7 +173,8 @@ pro synth_x_exp_contrl, Riemann=Riemann,$
      close,1
   endfor
  
-  save,filename=dir+'param_input.sav',par_in,r0
+  file_par_input = 'param_input'+'_exp_contrl_'+noise_suffix+exp_suffix+'.out'
+  save,filename=dir+file_par_input,par_in,r0
 
   return
 end
