@@ -5,7 +5,9 @@ pro wrapper
   f_suffix='_0.1'
   f       =  0.1
   synth_x_exp_contrl,/Riemann,/lnuniform,$
-                     NNe_provided=50,NTe_provided=50,/noise
+                     NNe_provided=50,NTe_provided=50,$
+                     dir = '/data1/tomography/bindata/',$
+                     exp_suffix='_exp_B';,/noise
   return
 end
 
@@ -68,14 +70,14 @@ pro synth_x_exp_contrl, Riemann=Riemann,$
   instrument_label_vec=[''      ,''      ,'aia','aia','aia']
   band_label_vec      =[''      ,''      ,'171','193','211']
 
-  r0         = 1.11             ; Rsun
+  r0      = 1.11             ; Rsun
   Nm_demt = 0.61315012e8
   Tm_demt = 1.4769326e6
   wt_demt=  0.24922289e6
 
   fip_factor_v  = [0.25,0.50,1.00]
-  factor_sigmaN = [0.10,0.25,0.50]
-  factor_sigmaT = [0.10,0.25,0.50]
+  factor_sigmaN = [0.10,0.15,0.20];[0.10,0.25,0.50]
+  factor_sigmaT = [0.10,0.15,0.20];[0.10,0.25,0.50]
   q_v           = [0.25,0.50,0.75]
 
   n1    = n_elements(fip_factor_v)

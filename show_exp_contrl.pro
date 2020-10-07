@@ -4,6 +4,12 @@
 ; show_exp_contrl,dir='exp_contrl',/ruido
 ; show_exp_contrl,dir='exp_contrl2'
 ; show_exp_contrl,dir='exp_contrl_amoeba'
+; ::::::::::::::::::::V2::::::::::::::::
+; show_exp_contrl,dir='exp_contrl_v2'
+; show_exp_contrl,dir='exp_contrl_v2',/ruido
+; show_exp_contrl,dir='exp_contrl_v2_exp_B'
+; show_exp_contrl,dir='exp_contrl_v2_exp_B',/ruido
+
 pro show_exp_contrl,ruido=ruido,dir=dir
 
 
@@ -25,7 +31,8 @@ pro show_exp_contrl,ruido=ruido,dir=dir
   if     keyword_set(dir) then dir  = '~/Downloads/'+dir+'/'+suffix+'/'
 
 ; Store the data in memory 
-  restore,dir+'exp_contr.out'
+  ;restore,dir+'exp_contr.out'
+  restore,dir+'mit_exp_contrl.out'
 
 ; IN and OUT arrays of Nm, Tm, FIP, sigN, sigT, q  
  ;npar=(size(par_in))(4)

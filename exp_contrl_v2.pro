@@ -11,27 +11,26 @@ pro wrapper
   band_label_vec      =[''      ,''      ,'171','193','211']
   ;File name of x-tomographic products of all instruments 
   ;(need to be consistent with above)
-  xfiles   = ['',$
-              '',$
-              '',$
-              '',$
-              '',$
-              '']
+  xfiles      =['xkcor_exp_contrl_con_ruido_0.1_exp_B.out',$
+                'x.comp1074_exp_contrl_con_ruido_0.1_exp_B.out',$
+                'x.comp1079_exp_contrl_con_ruido_0.1_exp_B.out',$
+                'x.aia171_exp_contrl_con_ruido_0.1_exp_B.out',$
+                'x.aia193_exp_contrl_con_ruido_0.1_exp_B.out',$
+                'x.aia211_exp_contrl_con_ruido_0.1_exp_B.out']
+  file_par_in ='param_input_exp_contrl_con_ruido_0.1_exp_B.out'
+  file_demt   ='LDEM_AIA3_MIT_exp_contrl_con_ruido_exp_B.sav'
 
- file_par_in = ''
-
- 
 ; Restricted Ne and Te ranges 
   Ne0_Limits = [1.0e6,5.0e9]
   Te0_Limits = [0.5e6,5.0e6]
 
   method=4 ; Polak-Ribiere method
 
-  file_demt='ldem2198.out'
-  file_out ='mit.out'
-  dir      ='~/Downloads/'
+  file_out ='mit_exp_contrl.out'
+  dir_out  ='~/Downloads/'
   exp_contrl_v2,xfiles,/Riemann,min_method=method,$
-                file_demt=file_demt,file_out=file_out,dir=dir,$
+                file_demt=file_demt,file_out=file_out,dir_out=dir_out,$
+                file_par_in=file_par_in,$
                 /lnuniform,NNe_provided=50,NTe_provided=50
 
   return
@@ -39,14 +38,14 @@ end
 
 
 ;================================================================
-; Master code to Multi-Instrument Tomography (MIT)
+; 
 
 ;===============================================================
 
-pro exp_contrl_v2,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
-        uniform=uniform,loguniform=loguniform,lnuniform=lnuniform,$
-        NNe_provided=NNe_provided,NTe_provided=NTe_provided,$
-        file_demt=file_demt,file_out=file_out,dir=dir
+pro exp_contrl_v2,xfiles,min_method=min_method,riemann=riemann,$
+                  uniform=uniform,loguniform=loguniform,lnuniform=lnuniform,$
+                  NNe_provided=NNe_provided,NTe_provided=NTe_provided,$
+                  file_demt=file_demt,file_out=file_out,dir_out=dir_out,file_par_in=file_par_in
 
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common NT_limits, Ne0_Limits, Te0_Limits
@@ -55,9 +54,10 @@ pro exp_contrl_v2,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
   common tomographic_measurements, y0, y  
   common measurement_errors,sig_WL,sig_y
   common sk_over_fip_factor_array,sk_over_fip_factor
+  common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2,r3,r4,r5
+  common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
 
-
-  if not keyword_set(min_method) then begin
+   if not keyword_set(min_method) then begin
      print,'minimization method (min_method keyword) not selected:'
      print,'1: Downhill Simplex'
      print,'2: Powell          '
@@ -111,7 +111,7 @@ pro exp_contrl_v2,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
      endif
   endif
 
-
+  dir_par_in = '/data1/tomography/bindata/'
   restore,dir_par_in+file_par_in
   sz = size(par_in)
   nr = sz(1)
@@ -129,7 +129,7 @@ pro exp_contrl_v2,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
  
 
 
-  restore,'~/Downloads/ldem_mit.out'
+  restore,'/data1/DATA/ldem_files/'+file_demt
   ndat=(size(demt_A))(4)
   nm_demt_array=reform(demt_A(*,*,*,ndat-4))
   tm_demt_array=reform(demt_A(*,*,*,ndat-3))
@@ -180,9 +180,10 @@ pro exp_contrl_v2,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
 
             ;INITIAL GUESS:
             ;make_guess_ini_new_units,guess_ini,PHIguess
-            nm_demt = nm_demt_array(ir,ith,ip)
-            tm_demt = tm_demt_array(ir,ith,ip)
-            wt_demt = wt_demt_array(ir,ith,ip)
+            nm_demt = nm_demt_array(ir,ith,ip)/1.e8
+            tm_demt = tm_demt_array(ir,ith,ip)/1.e6
+            wt_demt = wt_demt_array(ir,ith,ip)/1.e6
+            
             make_guess_ini_with_demt,nm_demt,tm_demt,wt_demt,guess_ini,PHIguess
 
 
@@ -197,7 +198,7 @@ pro exp_contrl_v2,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
             score = mean(abs((yv - ysynth)/yv))
             print,'Score R:',score
             print,'R_k    :',abs((yv - ysynth)/yv)
-            
+
             skipmin:             
          endfor                 ; IP  loop
       endfor                    ; ITH loop
@@ -205,7 +206,9 @@ pro exp_contrl_v2,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
 
 ;--------------------------------
 
-   save,filename=dir+fileout,rat,lat,lon,parA,yA,ysynthA
+   par_out = parA
+
+   save,filename=dir_out+file_out,par_in,par_out
 
   
    RETURN

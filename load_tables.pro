@@ -32,6 +32,7 @@ pro  load_tables
   common G_table, G, T_e, N_e, r, photT
   common directories, tomroot
   common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2,r3,r4,r5
+  common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
    
   M      = n_elements(i_mea_vec)  
  
