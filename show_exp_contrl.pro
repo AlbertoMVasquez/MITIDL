@@ -49,6 +49,12 @@ pro show_exp_contrl,ruido=ruido,dir=dir
   q_in    =reform(par_in  (*,*,*,5))
   q_out   =reform(par_out (*,*,*,5))
 
+  ;plot_scatter_and_historatio,Q_in,Q_out
+
+  index = where (abs((sigN_in -sigN_out)/sigN_in) gt 0.5)
+
+  stop
+
 
 ; Plots settings
   !PATH = Expand_Path('+~/idlfiles/coyote/') + ':' + !PATH
