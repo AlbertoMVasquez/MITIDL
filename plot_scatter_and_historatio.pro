@@ -38,8 +38,8 @@
 
 
     ;================Scatter Plot=====================================================
-    plot,x,y,psym=8,xr=xr,yr=yr,xstyle=1,ystyle=1,xtitle=xsuffix,ytitle=ysuffix,$
-         title=titulo,color=0,background=255,xthick=3,ythick=3;,/xlog,/ylog
+    plot,x,y,psym=4,xr=xr,yr=yr,xstyle=1,ystyle=1,xtitle=xsuffix,ytitle=ysuffix,$
+         title=titulo,color=0,background=255,xthick=2,ythick=2,charsize=1.5;,/xlog,/ylog
     loadct,12
     oplot,xr,yr,linestyle=0,color=100,th=4
     xyouts,[.7],[.64],'!4q!3='+[strmid(string(correlate(x,y)),6,4)],/normal,col=[100];,charthick=[6]
