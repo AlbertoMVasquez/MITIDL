@@ -49,18 +49,20 @@ pro show_exp_contrl,ruido=ruido,dir=dir
   q_in    =reform(par_in  (*,*,*,5))
   q_out   =reform(par_out (*,*,*,5))
 
-  plot_scatter_and_historatio,nm_in,nm_out,xsuffix='modeled',ysuffix='reconstructed',filename='Nm_'+suffix,titulo='Nm ('+suffix+')'
-  plot_scatter_and_historatio,tm_in,tm_out,xsuffix='modeled',ysuffix='reconstructed',filename='Tm_'+suffix,titulo='Tm ('+suffix+')'
-  plot_scatter_and_historatio,fip_in,fip_out,xsuffix='modeled',ysuffix='reconstructed',filename='FIP_'+suffix,titulo='FIP ('+suffix+')'
-  plot_scatter_and_historatio,sigN_in,sigN_out,xsuffix='modeled',ysuffix='reconstructed',filename='sigN_'+suffix,titulo='sigN ('+suffix+')'
-  plot_scatter_and_historatio,sigT_in,sigT_out,xsuffix='modeled',ysuffix='reconstructed',filename='sigT_'+suffix,titulo='sigT ('+suffix+')'
-  plot_scatter_and_historatio,q_in,q_out,xsuffix='modeled',ysuffix='reconstructed',filename='q_'+suffix,titulo='q ('+suffix+')'
-  return
-  
 
+
+  ;plot_scatter_and_historatio,nm_in,nm_out,xsuffix='modeled',ysuffix='reconstructed',filename='Nm_'+suffix,titulo='Nm ('+suffix+')'
+  ;plot_scatter_and_historatio,tm_in,tm_out,xsuffix='modeled',ysuffix='reconstructed',filename='Tm_'+suffix,titulo='Tm ('+suffix+')'
+  ;plot_scatter_and_historatio,fip_in,fip_out,xsuffix='modeled',ysuffix='reconstructed',filename='FIP_'+suffix,titulo='FIP ('+suffix+')'
+  ;plot_scatter_and_historatio,sigN_in,sigN_out,xsuffix='modeled',ysuffix='reconstructed',filename='sigN_'+suffix,titulo='sigN ('+suffix+')'
+  ;plot_scatter_and_historatio,sigT_in,sigT_out,xsuffix='modeled',ysuffix='reconstructed',filename='sigT_'+suffix,titulo='sigT ('+suffix+')'
+  ;plot_scatter_and_historatio,q_in,q_out,xsuffix='modeled',ysuffix='reconstructed',filename='q_'+suffix,titulo='q ('+suffix+')'
+  ;return
+  
+  
   ;index = where (abs((sigN_in -sigN_out)/sigN_in) gt 0.5)
-
-  
+  ;index = where( abs(sigT_in/Tm_in - sigN_in/Nm_in) lt 1.e-1  )
+  ;stop
 
 
 ; Plots settings
@@ -70,7 +72,7 @@ pro show_exp_contrl,ruido=ruido,dir=dir
 
 ; =============== Nm ================== 
   print,'Nm comparison'
-  rel_diff = (nm_out-nm_in)/nm_in 
+  rel_diff = ((nm_out-nm_in)/nm_in);(index) 
   print_rel_diff,rel_diff,0.1
   print_rel_diff,rel_diff,0.2
   print_rel_diff,rel_diff,0.3
@@ -82,7 +84,7 @@ pro show_exp_contrl,ruido=ruido,dir=dir
   
 ; =============== Tm ================== 
   print,'Tm comparison'
-  rel_diff = (tm_out-tm_in)/tm_in
+  rel_diff = ((tm_out-tm_in)/tm_in);(index)
   print_rel_diff,rel_diff,0.1
   print_rel_diff,rel_diff,0.2
   print_rel_diff,rel_diff,0.3
@@ -94,7 +96,7 @@ pro show_exp_contrl,ruido=ruido,dir=dir
 
 ; =============== FIP ================== 
   print,'fip comparison'
-  rel_diff = (fip_out-fip_in)/fip_in
+  rel_diff = ((fip_out-fip_in)/fip_in);(index)
   print_rel_diff,rel_diff,0.1
   print_rel_diff,rel_diff,0.2
   print_rel_diff,rel_diff,0.3
@@ -106,7 +108,7 @@ pro show_exp_contrl,ruido=ruido,dir=dir
   
 ; =============== sigN ================== 
    print,'sigN comparison'
-   rel_diff = (sigN_out-sigN_in)/sigN_in
+   rel_diff = ((sigN_out-sigN_in)/sigN_in);(index)
    print_rel_diff,rel_diff,0.1
    print_rel_diff,rel_diff,0.2
    print_rel_diff,rel_diff,0.3
@@ -118,7 +120,7 @@ pro show_exp_contrl,ruido=ruido,dir=dir
    
 ; =============== sigT ================== 
    print,'sigT comparison'
-   rel_diff = (sigT_out-sigT_in)/sigT_in
+   rel_diff = ((sigT_out-sigT_in)/sigT_in);(index)
    print_rel_diff,rel_diff,0.1
    print_rel_diff,rel_diff,0.2
    print_rel_diff,rel_diff,0.3
@@ -131,7 +133,7 @@ pro show_exp_contrl,ruido=ruido,dir=dir
 
 ; =============== q ================== 
    print,'q comparison'
-   rel_diff = (q_out-q_in)/q_in
+   rel_diff = ((q_out-q_in)/q_in);(index)
    print_rel_diff,rel_diff,0.1
    print_rel_diff,rel_diff,0.2
    print_rel_diff,rel_diff,0.3

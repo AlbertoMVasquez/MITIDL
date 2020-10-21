@@ -11,14 +11,14 @@ pro wrapper
   band_label_vec      =[''      ,''      ,'171','193','211']
   ;File name of x-tomographic products of all instruments 
   ;(need to be consistent with above)
-  xfiles      =['xkcor_exp_contrl_con_ruido_0.1_exp_B.out',$
-                'x.comp1074_exp_contrl_con_ruido_0.1_exp_B.out',$
-                'x.comp1079_exp_contrl_con_ruido_0.1_exp_B.out',$
-                'x.aia171_exp_contrl_con_ruido_0.1_exp_B.out',$
-                'x.aia193_exp_contrl_con_ruido_0.1_exp_B.out',$
-                'x.aia211_exp_contrl_con_ruido_0.1_exp_B.out']
-  file_par_in ='param_input_exp_contrl_con_ruido_0.1_exp_B.out'
-  file_demt   ='LDEM_AIA3_MIT_exp_contrl_con_ruido_exp_B.sav'
+  xfiles      =['xkcor_exp_contrl_con_ruido_0.1.out',$
+                'x.comp1074_exp_contrl_con_ruido_0.1.out',$
+                'x.comp1079_exp_contrl_con_ruido_0.1.out',$
+                'x.aia171_exp_contrl_con_ruido_0.1.out',$
+                'x.aia193_exp_contrl_con_ruido_0.1.out',$
+                'x.aia211_exp_contrl_con_ruido_0.1.out']
+  file_par_in ='param_input_exp_contrl_con_ruido_0.1.out'
+  file_demt   ='LDEM_AIA3_MIT_exp_contrl_con_ruido.sav'
 
 ; Restricted Ne and Te ranges 
   Ne0_Limits = [1.0e6,5.0e9]
