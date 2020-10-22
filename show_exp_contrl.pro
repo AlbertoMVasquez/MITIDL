@@ -51,13 +51,13 @@ pro show_exp_contrl,ruido=ruido,dir=dir
 
 
 
-  ;plot_scatter_and_historatio,nm_in,nm_out,xsuffix='modeled',ysuffix='reconstructed',filename='Nm_'+suffix,titulo='Nm ('+suffix+')'
-  ;plot_scatter_and_historatio,tm_in,tm_out,xsuffix='modeled',ysuffix='reconstructed',filename='Tm_'+suffix,titulo='Tm ('+suffix+')'
-  ;plot_scatter_and_historatio,fip_in,fip_out,xsuffix='modeled',ysuffix='reconstructed',filename='FIP_'+suffix,titulo='FIP ('+suffix+')'
-  ;plot_scatter_and_historatio,sigN_in,sigN_out,xsuffix='modeled',ysuffix='reconstructed',filename='sigN_'+suffix,titulo='sigN ('+suffix+')'
-  ;plot_scatter_and_historatio,sigT_in,sigT_out,xsuffix='modeled',ysuffix='reconstructed',filename='sigT_'+suffix,titulo='sigT ('+suffix+')'
-  ;plot_scatter_and_historatio,q_in,q_out,xsuffix='modeled',ysuffix='reconstructed',filename='q_'+suffix,titulo='q ('+suffix+')'
-  ;return
+  plot_scatter_and_historatio,nm_in,nm_out,xsuffix='modeled',ysuffix='reconstructed',filename='Nm_'+suffix,titulo='Nm ('+suffix+')'
+  plot_scatter_and_historatio,tm_in,tm_out,xsuffix='modeled',ysuffix='reconstructed',filename='Tm_'+suffix,titulo='Tm ('+suffix+')'
+  plot_scatter_and_historatio,fip_in,fip_out,xsuffix='modeled',ysuffix='reconstructed',filename='FIP_'+suffix,titulo='FIP ('+suffix+')'
+  plot_scatter_and_historatio,sigN_in,sigN_out,xsuffix='modeled',ysuffix='reconstructed',filename='sigN_'+suffix,titulo='sigN ('+suffix+')'
+  plot_scatter_and_historatio,sigT_in,sigT_out,xsuffix='modeled',ysuffix='reconstructed',filename='sigT_'+suffix,titulo='sigT ('+suffix+')'
+  plot_scatter_and_historatio,q_in,q_out,xsuffix='modeled',ysuffix='reconstructed',filename='q_'+suffix,titulo='q ('+suffix+')'
+  return
   
   
   ;index = where (abs((sigN_in -sigN_out)/sigN_in) gt 0.5)

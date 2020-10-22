@@ -7,7 +7,7 @@ pro wrapper
   synth_x_exp_contrl,/Riemann,/lnuniform,$
                      NNe_provided=50,NTe_provided=50,$
                      dir = '/data1/tomography/bindata/',$
-                     exp_suffix='_exp_B';,/noise
+                     exp_suffix='',/noise
   return
 end
 
@@ -76,8 +76,8 @@ pro synth_x_exp_contrl, Riemann=Riemann,$
   wt_demt=  0.24922289e6
 
   fip_factor_v  = [0.25,0.50,1.00]
-  factor_sigmaN = [0.10,0.15,0.20];[0.10,0.25,0.50]
-  factor_sigmaT = [0.10,0.15,0.20];[0.10,0.25,0.50]
+  factor_sigmaN = [0.10,0.25,0.50];[0.10,0.15,0.20] 
+  factor_sigmaT = [0.10,0.25,0.50];[0.10,0.15,0.20]
   q_v           = [0.25,0.50,0.75]
 
   n1    = n_elements(fip_factor_v)
@@ -122,11 +122,11 @@ pro synth_x_exp_contrl, Riemann=Riemann,$
             
          ; Test values for the parameters of the joint bivariate Te-Ne normal distribution:
               Nem        = Nm_demt             ; cm^-3
-              fip_factor = fip_factor_v(i1)    ; Note that [Fe] = [Fe]_Feldman * fip_factor 
+              fip_factor = fip_factor_v (i1)   ; Note that [Fe] = [Fe]_Feldman * fip_factor 
               Tem        = Tm_demt             ; K
-              SigTe      = factor_sigmaN(i3) * Tem ; K
-              SigNe      = factor_sigmaT(i4) * Nem ; cm^-3
-              q          = q_v         (i2)
+              SigTe      = factor_sigmaT(i3) * Tem ; K
+              SigNe      = factor_sigmaN(i4) * Nem ; cm^-3
+              q          = q_v          (i2)
   
          ; Parameter vector for both e_function and cost_function:
          ; The order chosen for its elements follows Rich's notes, right after Eq. (2)
@@ -144,15 +144,13 @@ pro synth_x_exp_contrl, Riemann=Riemann,$
               endif
               
 
-              par_in(i1,i2,3*i3+i4,*)= par_orig
-
-
-              x(i1,i2,3*i3+i4,0)= y0
-              x(i1,i2,3*i3+i4,1)= y[0]
-              x(i1,i2,3*i3+i4,2)= y[1]
-              x(i1,i2,3*i3+i4,3)= y[2]
-              x(i1,i2,3*i3+i4,4)= y[3]
-              x(i1,i2,3*i3+i4,5)= y[4]
+              par_in(i1,i2,n4*i3+i4,*)= par_orig
+              x     (i1,i2,n4*i3+i4,0)= y0
+              x     (i1,i2,n4*i3+i4,1)= y[0]
+              x     (i1,i2,n4*i3+i4,2)= y[1]
+              x     (i1,i2,n4*i3+i4,3)= y[2]
+              x     (i1,i2,n4*i3+i4,4)= y[3]
+              x     (i1,i2,n4*i3+i4,5)= y[4]
            endfor
         endfor
      endfor
