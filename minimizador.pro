@@ -24,7 +24,7 @@ pro minimizador,Phi_name,grad_phi_name,guess_ini,P,min_method=min_method
      ;scale = [1.e8, 1., 1.e6, 1.e6, 1.e8, 1.]*0.5d
       scale = [1., 1., 1., 1., 1., 1.]*0.5d
       P = AMOEBA(ftol,scale=scale, P0 = guess_ini ,FUNCTION_VALUE=fval,function_name=Phi_name)
-      if P eq -1 then P = fltarr(6) -666.
+      ;if P eq -1 then P = fltarr(6) -666.
    endif
     
    if min_method eq 2 then begin
@@ -41,7 +41,7 @@ pro minimizador,Phi_name,grad_phi_name,guess_ini,P,min_method=min_method
   
    if min_method eq 3  then begin
    ;   print,'BFGS Method '
-      DFPMIN, P, ftol, Fmin, Phi_name, Grad_Phi_name, /double, itmax=1000
+      DFPMIN, P, ftol, Fmin, Phi_name, Grad_Phi_name, /double, itmax=1000.
    endif
 
    IF min_method eq 4 then begin

@@ -14,7 +14,7 @@ pro wrapper
   ;noise_suffix = 'sin_ruido'
   noise_suffix = 'con_ruido_0.1'  
     exp_suffix = ''               
-  ;  exp_suffix = 'exp_B'
+  ; exp_suffix = 'exp_B'
 
   xfiles      =['xkcor',$
                 'x.comp1074',$
@@ -30,7 +30,9 @@ pro wrapper
   Ne0_Limits = [1.0e6,5.0e9]
   Te0_Limits = [0.5e6,5.0e6]
 
-  method=4 ; Polak-Ribiere method
+  ;method=4 ; Polak-Ribiere method
+  ;method=1 ; Downhill-Simplex method
+  method=3  ; BFGS Method
 
   file_out ='mit_exp_contrl.out'
   dir_out  ='~/Downloads/'
@@ -62,6 +64,9 @@ pro exp_contrl_v2,xfiles,min_method=min_method,riemann=riemann,$
   common sk_over_fip_factor_array,sk_over_fip_factor
   common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2,r3,r4,r5
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
+
+
+  tstart_whole_exp     = systime(/seconds)
 
    if not keyword_set(min_method) then begin
      print,'minimization method (min_method keyword) not selected:'
@@ -191,8 +196,8 @@ pro exp_contrl_v2,xfiles,min_method=min_method,riemann=riemann,$
             wt_demt = wt_demt_array(ir,ith,ip)/1.e6
             
             make_guess_ini_with_demt,nm_demt,tm_demt,wt_demt,guess_ini,PHIguess
-
-
+            
+            print,'Minimization...'
            ;MINIMIZATION BLOCK
             tstart     = systime(/seconds)
             minimizador,phi_name,grad_phi_name,guess_ini,P,min_method=min_method
@@ -216,6 +221,12 @@ pro exp_contrl_v2,xfiles,min_method=min_method,riemann=riemann,$
 
    save,filename=dir_out+file_out,par_in,par_out
 
-  
+   print
+   print
+   t_elapsed_whole_exp  = systime(/seconds)-tstart_whole_exp
+   print,'Total elapsed time (whole experiment):',t_elapsed_whole_exp
+            
+
+
    RETURN
 END
