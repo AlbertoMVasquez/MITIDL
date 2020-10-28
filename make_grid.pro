@@ -75,17 +75,19 @@ pro make_grid,uniform=uniform,$
      Te_grid    = exp(ln_Te_grid)
   endif
 
+
 ; 1D-Arrays Ne_array and Te_array of Ne and Te values at NNe and NTe CELL-CENTERS:
   Ne_array  = (Ne_grid(0:NNe-1)+Ne_grid(1:NNe))/2.
   Te_array  = (Te_grid(0:NTe-1)+Te_grid(1:NTe))/2.
 
+  if not keyword_set(lnuniform) then begin
 ; 1D-Arrays dNe_array and dTe_array of NNe and NTe CELL-WIDTHS:
-  dNe_array = Ne_grid(1:NNe)-Ne_grid(0:NNe-1)
-  dTe_array = Te_grid(1:NTe)-Te_grid(0:NTe-1)
-
+     dNe_array = Ne_grid(1:NNe)-Ne_grid(0:NNe-1)
+     dTe_array = Te_grid(1:NTe)-Te_grid(0:NTe-1)
 ; 2D-Array dTN of NTe x NNe dimensions with elements
 ; dTN(i,j) = dTe_array(i)*dNe_array(j):
-  dTN = dTe_array#dNe_array     ; array NTe x NNe (col x row)
+     dTN = dTe_array#dNe_array  ; array NTe x NNe (col x row)
+  endif
 
 ; dTN is calculated using the jacobian of transformation: 
 ; d(lnNe) = 1/Ne * dNe 

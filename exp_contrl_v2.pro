@@ -30,9 +30,9 @@ pro wrapper
   Ne0_Limits = [1.0e6,5.0e9]
   Te0_Limits = [0.5e6,5.0e6]
 
-  ;method=4 ; Polak-Ribiere method
+   method=4 ; Polak-Ribiere method
   ;method=1 ; Downhill-Simplex method
-  method=3  ; BFGS Method
+  ;method=3  ; BFGS Method
 
   file_out ='mit_exp_contrl.out'
   dir_out  ='~/Downloads/'
@@ -159,6 +159,7 @@ pro exp_contrl_v2,xfiles,min_method=min_method,riemann=riemann,$
    fip_factor = 1.0
    make_sk_over_fip_factor
 
+   load_units
    change_units_grid
    
 

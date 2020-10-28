@@ -132,8 +132,11 @@ pro synth_x_exp_contrl, Riemann=Riemann,$
          ; The order chosen for its elements follows Rich's notes, right after Eq. (2)
               par_orig= [Nem, fip_factor, Tem, SigTe, SigNe, q]*1.d
               
-              y0 = Nem 
-              y  = synth_y_values_CS(par_orig)
+              y0 = Nem
+              if keyword_set(riemann) then $
+                 y  = synth_y_values_CS(par_orig)
+              if not keyword_set(riemann) then $
+                 y  = synth_y_values (par_orig)
 
                
               if keyword_set(noise) then begin
@@ -145,12 +148,13 @@ pro synth_x_exp_contrl, Riemann=Riemann,$
               
 
               par_in(i1,i2,n4*i3+i4,*)= par_orig
-              x     (i1,i2,n4*i3+i4,0)= y0
-              x     (i1,i2,n4*i3+i4,1)= y[0]
-              x     (i1,i2,n4*i3+i4,2)= y[1]
-              x     (i1,i2,n4*i3+i4,3)= y[2]
-              x     (i1,i2,n4*i3+i4,4)= y[3]
-              x     (i1,i2,n4*i3+i4,5)= y[4]
+              x     (i1,i2,n4*i3+i4,*)= [y0, y]
+              ;x     (i1,i2,n4*i3+i4,0)= y0
+              ;x     (i1,i2,n4*i3+i4,1)= y[0]
+              ;x     (i1,i2,n4*i3+i4,2)= y[1]
+              ;x     (i1,i2,n4*i3+i4,3)= y[2]
+              ;x     (i1,i2,n4*i3+i4,4)= y[3]
+              ;x     (i1,i2,n4*i3+i4,5)= y[4]
            endfor
         endfor
      endfor

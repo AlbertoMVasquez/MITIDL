@@ -1,7 +1,7 @@
 ; Brief description:
 ;
 ; This routine calculates the synthetic values of emissivities for a
-; given set of paramaters using the Riemann aproach.
+; given set of paramaters using the Riemann scheme.
 ;
 ; ARGUMENT:
 ; parameters: a 1D array of 6 elements: [Nem, fip_factor, Tem, SigTe, SigNe, q]
