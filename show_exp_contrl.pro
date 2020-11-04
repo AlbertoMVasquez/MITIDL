@@ -16,8 +16,8 @@
 ; show_exp_contrl,dir='exp_contrl_v2_amoeba_ftol1e-6'
 ; show_exp_contrl,dir='exp_contrl_v2_amoeba_ftol1e-6',/ruido
 ; show_exp_contrl,dir='exp_contrl_v2_amoeba_ftol1e-6_penalty',/ruido
-; show_exp_contrl,dir='exp_contrl_v2_ftol1e-6_penalty',/ruido
-pro show_exp_contrl,ruido=ruido,dir=dir
+; show_exp_contrl,file=file,dir='exp_contrl_v2_ftol1e-6_penalty',/ruido
+pro show_exp_contrl,ruido=ruido,dir=dir,file=file
 
 
   
@@ -40,7 +40,8 @@ pro show_exp_contrl,ruido=ruido,dir=dir
 
 ; Store the data in memory 
   ;restore,dir+'exp_contr.out'
-  restore,dir+'mit_exp_contrl.out'
+  if not keyword_set(file) then file = 'mit_exp_contrl.out'
+  restore,dir+file
 
 ; IN and OUT arrays of Nm, Tm, FIP, sigN, sigT, q  
  ;npar=(size(par_in))(4)

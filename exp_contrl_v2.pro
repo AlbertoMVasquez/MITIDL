@@ -11,10 +11,10 @@ pro wrapper
   band_label_vec      =[''      ,''      ,'171','193','211']
   ;File name of x-tomographic products of all instruments 
   ;(need to be consistent with above)
-  ;noise_suffix = 'sin_ruido'
-  noise_suffix = 'con_ruido_0.1'  
+  ;noise_suffix = 'sin_ruido' & flag_noise=0
+  noise_suffix = 'con_ruido_0.1'  & flag_noise=1
   exp_suffix = ''               
-  ; exp_suffix = 'exp_B'
+  ;exp_suffix = 'exp_B'
 
   xfiles      =['xkcor',$
                 'x.comp1074',$
@@ -23,22 +23,22 @@ pro wrapper
                 'x.aia193',$
                 'x.aia211']+'_exp_contrl_'+noise_suffix+exp_suffix+'.out'
 
-  file_par_in ='param_input_exp_contrl_' +noise_suffix+exp_suffix+'.out'
+  file_par_in ='param_input_exp_contrl_'  +noise_suffix+exp_suffix+'.out'
   file_demt   ='LDEM_AIA3_MIT_exp_contrl_'+noise_suffix+exp_suffix+'.sav'
 
 ; Restricted Ne and Te ranges 
   Ne0_Limits = [1.0e6,5.0e9]
   Te0_Limits = [0.5e6,5.0e6]
 
-   method=4 ; Polak-Ribiere method
-  ;method=1 ; Downhill-Simplex method
-  ;method=3  ; BFGS Method
+  ;method=4 ; Polak-Ribiere method
+   method=1 ; Downhill-Simplex method (AMOEBA)
+  ;method=3 ; BFGS Method
 
    file_out ='mit_exp_contrl.out'
-   dir_out  ='~/Downloads/'
+   dir_out  ='amoeba_test'
    exp_contrl_v2,xfiles,/Riemann,min_method=method,$
                  file_demt=file_demt,file_out=file_out,dir_out=dir_out,$
-                 file_par_in=file_par_in,$
+                 file_par_in=file_par_in,flag_noise=flag_noise,$
                  /lnuniform,NNe_provided=50,NTe_provided=50
 
    return
@@ -53,7 +53,8 @@ end
 pro exp_contrl_v2,xfiles,min_method=min_method,riemann=riemann,$
                   uniform=uniform,loguniform=loguniform,lnuniform=lnuniform,$
                   NNe_provided=NNe_provided,NTe_provided=NTe_provided,$
-                  file_demt=file_demt,file_out=file_out,dir_out=dir_out,file_par_in=file_par_in
+                  file_demt=file_demt,file_out=file_out,dir_out=dir_out,$
+                  file_par_in=file_par_in,flag_noise=flag_noise
 
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common NT_limits, Ne0_Limits, Te0_Limits
@@ -180,7 +181,6 @@ pro exp_contrl_v2,xfiles,min_method=min_method,riemann=riemann,$
    Dilon=1
   ; Triple lazo de experimentos
   ;--------------------------
-  
    for ir =irad1,irad2,Dirad do begin
       for ith=ilat1,ilat2,Dilat do begin
          for ip =ilon1,ilon2,Dilon do begin
@@ -235,12 +235,17 @@ pro exp_contrl_v2,xfiles,min_method=min_method,riemann=riemann,$
          endfor                 ; IP  loop
       endfor                    ; ITH loop
    endfor                       ; IR loop
-
 ;--------------------------------
 
    par_out = parA
 
-   save,filename=dir_out+file_out,par_in,par_out,scoreR,scoreRk
+  
+   dir_root ='/data1/DATA/MIT/'
+   if flag_noise eq 0 then dir_out=dir_out+'/sin_ruido/'
+   if flag_noise eq 1 then dir_out=dir_out+'/con_ruido/'
+   spawn,'mkdir -p '+dir_root+dir_out
+
+   save,filename=dir_root+dir_out+file_out,par_in,par_out,scoreR,scoreRk
 
    print
    print
