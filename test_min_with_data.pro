@@ -19,12 +19,12 @@ pro wrapper,method
   r0 = 1.11
   y0 = double(1.30e8 )
   y  = double([2.13e-10,   7.54e-11,       41.9,       109,       37.5])
-  nm_demt=0.6131501 & tm_demt=1.4769326 & wt_demt=0.24922289 ; 1.11 Rsun
-
+  nm_demt=0.6131501e8 & tm_demt=1.4769326e6 & wt_demt=0.24922289e6 ; 1.11 Rsun
+  
   ;r0 = 1.21
   ;y0 = double(0.64e8)
   ;y  = double([7.72e-11,   7.25e-11,       5.88,       23.72,       9.89])
-  ;nm_demt=0.27979984& tm_demt=1.5809454 & wt_demt=0.22113686 ; 1.21 Rsun
+  ;nm_demt=0.27979984e8 & tm_demt=1.5809454e6 & wt_demt=0.22113686e6 ; 1.21 Rsun
   
      
   hallar_min,min_method=method,/Riemann,/lnuniform,NNe_provided=50,NTe_provided=50
@@ -77,7 +77,9 @@ pro hallar_min,min_method=min_method,$
   common sk_over_fip_factor_array,sk_over_fip_factor
   common NT_arrays,Ne_array,Te_array,dNe_array,dTe_array,dTN
   common guess_demt,nm_demt,tm_demt,wt_demt
-  
+  common units,ne_unit,te_unit
+
+
   if not keyword_set(min_method) then begin
      print,'minimization method (min_method keyword) not selected:'
      print,'1: Downhill Simplex'
@@ -168,9 +170,13 @@ pro hallar_min,min_method=min_method,$
 
 ; Pass Ne-Te grid to units of 10^8 cm-3 and MK
   if keyword_set(Riemann) then begin
+     load_units
      change_units_grid  
-     y0 = y0/1.d8               ; WL measure [10^8 cm-3]              
-     sig_WL = sig_WL/1.d8       ; error of WL measure [10^8 cm-3]
+     y0 = y0/ne_unit               ; WL measure [10^8 cm-3]              
+     sig_WL = sig_WL/ne_unit       ; error of WL measure [10^8 cm-3]
+     nm_demt= nm_demt/Ne_unit
+     tm_demt= tm_demt/Te_unit
+     wt_demt= wt_demt/Te_unit
   endif
 
 ; INITIAL GUESS:

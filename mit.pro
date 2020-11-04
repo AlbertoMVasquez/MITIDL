@@ -58,6 +58,7 @@ pro MIT,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
   common tomographic_measurements, y0, y  
   common measurement_errors,sig_WL,sig_y
   common sk_over_fip_factor_array,sk_over_fip_factor
+  common units,ne_unit,te_unit
 
 
   if not keyword_set(min_method) then begin
@@ -171,10 +172,11 @@ pro MIT,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
    FBE171 = FBE171(i_aia,*,*) 
    FBE193 = FBE193(i_aia,*,*) 
    FBE211 = FBE211(i_aia,*,*) 
+   load_units
    load_demt,file_demt,nm_demt_array,tm_demt_array,wt_demt_array
-   nm_demt_array = nm_demt_array(i_aia,*,*) 
-   tm_demt_array = tm_demt_array(i_aia,*,*) 
-   wt_demt_array = wt_demt_array(i_aia,*,*)
+   nm_demt_array = nm_demt_array(i_aia,*,*) /ne_unit
+   tm_demt_array = tm_demt_array(i_aia,*,*) /te_unit
+   wt_demt_array = wt_demt_array(i_aia,*,*) /te_unit
 
 ;  tomographic grid common to all instrument:
    Nr  = n_elements(i_aia)
@@ -195,7 +197,6 @@ pro MIT,rmin,rmax,xfiles,min_method=min_method,riemann=riemann,$
 ;--------------------------------
 
    set_tomroot
-
    r_array = rad
    load_sk_array,Ne_array,Te_array,r_array,sk_A
    change_units_grid

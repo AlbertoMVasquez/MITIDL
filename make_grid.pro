@@ -92,8 +92,10 @@ pro make_grid,uniform=uniform,$
 ; dTN is calculated using the jacobian of transformation: 
 ; d(lnNe) = 1/Ne * dNe 
 ; d(lnTe) = 1/Te * dTe
-  if keyword_set(lnuniform) then $
-  dTN = (Te_array#Ne_array) * dlnNe * dlnTe
-  
+  if keyword_set(lnuniform) then begin
+     dNe_array = Ne_array * dlnNe
+     dTe_array = Te_array * dlnTe
+     dTN = (Te_array#Ne_array) * dlnNe * dlnTe
+  endif
   return
 end

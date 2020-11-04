@@ -15,7 +15,7 @@ pro minimizador,Phi_name,grad_phi_name,guess_ini,P,min_method=min_method
   common NT_arrays,Ne_array,Te_array,dNe_array,dTe_array,dTN
   
 
-   ftol = 1.0d-4
+   ftol = 1.0d-6;1.0d-4
    P = Guess_ini
 
 
@@ -24,7 +24,7 @@ pro minimizador,Phi_name,grad_phi_name,guess_ini,P,min_method=min_method
      ;scale = [1.e8, 1., 1.e6, 1.e6, 1.e8, 1.]*0.5d
       scale = [1., 1., 1., 1., 1., 1.]*0.5d
       P = AMOEBA(ftol,scale=scale, P0 = guess_ini ,FUNCTION_VALUE=fval,function_name=Phi_name)
-      ;if P eq -1 then P = fltarr(6) -666.
+      if P[0] eq -1 then P = fltarr(6) -666.
    endif
     
    if min_method eq 2 then begin

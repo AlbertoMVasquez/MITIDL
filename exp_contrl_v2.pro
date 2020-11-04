@@ -13,7 +13,7 @@ pro wrapper
   ;(need to be consistent with above)
   ;noise_suffix = 'sin_ruido'
   noise_suffix = 'con_ruido_0.1'  
-    exp_suffix = ''               
+  exp_suffix = ''               
   ; exp_suffix = 'exp_B'
 
   xfiles      =['xkcor',$
@@ -34,14 +34,14 @@ pro wrapper
   ;method=1 ; Downhill-Simplex method
   ;method=3  ; BFGS Method
 
-  file_out ='mit_exp_contrl.out'
-  dir_out  ='~/Downloads/'
-  exp_contrl_v2,xfiles,/Riemann,min_method=method,$
-                file_demt=file_demt,file_out=file_out,dir_out=dir_out,$
-                file_par_in=file_par_in,$
-                /lnuniform,NNe_provided=50,NTe_provided=50
+   file_out ='mit_exp_contrl.out'
+   dir_out  ='~/Downloads/'
+   exp_contrl_v2,xfiles,/Riemann,min_method=method,$
+                 file_demt=file_demt,file_out=file_out,dir_out=dir_out,$
+                 file_par_in=file_par_in,$
+                 /lnuniform,NNe_provided=50,NTe_provided=50
 
-  return
+   return
 end
 
 
@@ -64,11 +64,11 @@ pro exp_contrl_v2,xfiles,min_method=min_method,riemann=riemann,$
   common sk_over_fip_factor_array,sk_over_fip_factor
   common tables,Te1,Te2,Te3,Te4,Te5,Ne1,Ne2,Ne3,Ne4,Ne5,G1,G2,G3,G4,G5,r1,r2,r3,r4,r5
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
+  common units,ne_unit,te_unit
+  
+  tstart_whole_exp     = systime(/seconds) ; to compute the time of all experiment
 
-
-  tstart_whole_exp     = systime(/seconds)
-
-   if not keyword_set(min_method) then begin
+  if not keyword_set(min_method) then begin
      print,'minimization method (min_method keyword) not selected:'
      print,'1: Downhill Simplex'
      print,'2: Powell          '
@@ -122,15 +122,15 @@ pro exp_contrl_v2,xfiles,min_method=min_method,riemann=riemann,$
      endif
   endif
 
-  dir_par_in = '/data1/tomography/bindata/'
-  restore,dir_par_in+file_par_in
-  sz = size(par_in)
-  nr = sz(1)
+  dir_par_in = '/data1/tomography/bindata/' ; directory where is the input parameters file
+  restore,dir_par_in+file_par_in ; restore the input parameters file
+  sz = size(par_in) 
+  nr = sz(1) 
   nt = sz(2)
   np = sz(3)
 
 
-; Load tomographies into memory
+; Load synthetic tomographies into memory
   xread,file=xfiles(0),nr=nr,nt=nt,np=np,map=KCOR
   xread,file=xfiles(1),nr=nr,nt=nt,np=np,map=comp1074
   xread,file=xfiles(2),nr=nr,nt=nt,np=np,map=comp1079
@@ -139,26 +139,32 @@ pro exp_contrl_v2,xfiles,min_method=min_method,riemann=riemann,$
   xread,file=xfiles(5),nr=nr,nt=nt,np=np,map=FBE211
  
 
-
-  restore,'/data1/DATA/ldem_files/'+file_demt
+; Restore DEMT file to use as initial guess
+  restore,'/data1/DATA/ldem_files/'+file_demt 
   ndat=(size(demt_A))(4)
   nm_demt_array=reform(demt_A(*,*,*,ndat-4))
   tm_demt_array=reform(demt_A(*,*,*,ndat-3))
   wt_demt_array=reform(demt_A(*,*,*,ndat-2))
 
-  Npar      = 6
-  Ndat      = 6
-  parA      = dblarr(Nr,Nt,Np,npar) -666.
-  yA        = dblarr(Nr,Nt,Np,ndat) 
+  Npar      = 6 ; number of parameters
+  Ndat      = 6 ; number of measures
+  parA      = dblarr(Nr,Nt,Np,npar) -666. ;output parameters
+  yA        = dblarr(Nr,Nt,Np,ndat)       
   ysynthA   = dblarr(Nr,Nt,Np,ndat) 
+  scoreR    = dblarr(Nr,Nt,Np)
+  scoreRk   = dblarr(Nr,Nt,Np,ndat) 
 ;--------------------------------
 
 
    set_tomroot
+   ; load G tables in memory
    load_tables
+   ; make the sk array
    fip_factor = 1.0
    make_sk_over_fip_factor
-
+   
+   ; change units of Ne and Te grid
+   ; to e8 cm-3 and MK.
    load_units
    change_units_grid
    
@@ -172,13 +178,14 @@ pro exp_contrl_v2,xfiles,min_method=min_method,riemann=riemann,$
    ilon1=0
    ilon2=np-1
    Dilon=1
+  ; Triple lazo de experimentos
   ;--------------------------
   
    for ir =irad1,irad2,Dirad do begin
       for ith=ilat1,ilat2,Dilat do begin
          for ip =ilon1,ilon2,Dilon do begin
           ; Load y0 and y in the voxel
-            y0 = kcor(ir,ith,ip) /1.e8
+            y0 = kcor(ir,ith,ip) /ne_unit
             y  =[comp1074(ir,ith,ip),comp1079(ir,ith,ip),$
                  FBE171(ir,ith,ip),FBE193(ir,ith,ip),FBE211(ir,ith,ip)]
           ; Fractional error of each measurement:
@@ -192,12 +199,16 @@ pro exp_contrl_v2,xfiles,min_method=min_method,riemann=riemann,$
 
             ;INITIAL GUESS:
             ;make_guess_ini_new_units,guess_ini,PHIguess
-            nm_demt = nm_demt_array(ir,ith,ip)/1.e8
-            tm_demt = tm_demt_array(ir,ith,ip)/1.e6
-            wt_demt = wt_demt_array(ir,ith,ip)/1.e6
-            
+            nm_demt = nm_demt_array(ir,ith,ip)/ne_unit
+            tm_demt = tm_demt_array(ir,ith,ip)/te_unit
+            wt_demt = wt_demt_array(ir,ith,ip)/te_unit
             make_guess_ini_with_demt,nm_demt,tm_demt,wt_demt,guess_ini,PHIguess
             
+            ;Input parameters in the voxel
+            P_in=par_in(ir,ith,ip,*)/[ne_unit, 1., te_unit, te_unit, ne_unit, 1.]
+            
+
+            ;==========================================
             print,'Minimization...'
            ;MINIMIZATION BLOCK
             tstart     = systime(/seconds)
@@ -207,9 +218,18 @@ pro exp_contrl_v2,xfiles,min_method=min_method,riemann=riemann,$
             parA(ir,ith,ip,*) = P ; save the parameters vector in a 3D array
             ysynth  = synth_y_values_cs(P) & ysynth  = [P(0),ysynth]
             yv      = [y0, y]
-            score = mean(abs((yv - ysynth)/yv))
+            Rk      = abs((yv - ysynth)/yv) ; score R_k
+            score   = mean(Rk)              ; score R
+            ; save the scores R and R_k in a 3D array
+            scoreR (ir,ith,ip  ) = score
+            scoreRk(ir,ith,ip,*) = Rk
+            ;==========================================
             print,'Score R:',score
-            print,'R_k    :',abs((yv - ysynth)/yv)
+            print,'R_k    :',Rk
+            print
+            print,'in:',TRANSPOSE(P_in)
+            print,'(out-in)/in:',(P-P_in)/P_in
+            ;stop
 
             skipmin:             
          endfor                 ; IP  loop
@@ -220,7 +240,7 @@ pro exp_contrl_v2,xfiles,min_method=min_method,riemann=riemann,$
 
    par_out = parA
 
-   save,filename=dir_out+file_out,par_in,par_out
+   save,filename=dir_out+file_out,par_in,par_out,scoreR,scoreRk
 
    print
    print
