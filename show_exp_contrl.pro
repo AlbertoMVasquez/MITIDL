@@ -1,28 +1,20 @@
-; show_exp_contrl,dir='exp_contrl_old'
-; show_exp_contrl,dir='exp_contrl_old',/ruido
-; show_exp_contrl,dir='exp_contrl'
-; show_exp_contrl,dir='exp_contrl',/ruido
-; show_exp_contrl,dir='exp_contrl2'
-; show_exp_contrl,dir='exp_contrl_amoeba'
-; ::::::::::::::::::::V2::::::::::::::::
-; show_exp_contrl,dir='exp_contrl_v2'
-; show_exp_contrl,dir='exp_contrl_v2',/ruido
-; show_exp_contrl,dir='exp_contrl_v2_exp_B'
-; show_exp_contrl,dir='exp_contrl_v2_exp_B',/ruido
-; show_exp_contrl,dir='exp_contrl_v2_amoeba'
-; show_exp_contrl,dir='exp_contrl_v2_amoeba',/ruido
-; show_exp_contrl,dir='exp_contrl_v2_ftol1e-6'
-; show_exp_contrl,dir='exp_contrl_v2_ftol1e-6',/ruido
-; show_exp_contrl,dir='exp_contrl_v2_amoeba_ftol1e-6'
-; show_exp_contrl,dir='exp_contrl_v2_amoeba_ftol1e-6',/ruido
-; show_exp_contrl,dir='exp_contrl_v2_amoeba_ftol1e-6_penalty',/ruido
-; show_exp_contrl,file=file,dir='exp_contrl_v2_ftol1e-6_penalty',/ruido
-pro show_exp_contrl,ruido=ruido,dir=dir,file=file
+; Examples of call sequence:
+; show_exp_contrl,dir='exp_contrl_v2',suffix_exp='(SR) G.Conj ftol1e-4'
+; show_exp_contrl,dir='exp_contrl_v2',/ruido,suffix_exp='(CR) G.Conj ftol1e-4'
+; show_exp_contrl,dir='exp_contrl_v2_amoeba',suffix_exp='(SR) AMOEBA ftol1e-4'
+; show_exp_contrl,dir='exp_contrl_v2_amoeba',suffix_exp='(CR) AMOEBA ftol1e-4',/ruido
+; show_exp_contrl,dir='exp_contrl_v2_ftol1e-6',suffix_exp='(SR) G.Conj ftol1e-6'
+; show_exp_contrl,dir='exp_contrl_v2_ftol1e-6',/ruido,suffix_exp='(CR) G.Conj ftol1e-6'
+; show_exp_contrl,dir='exp_contrl_v2_amoeba_ftol1e-6',suffix_exp='(SR) AMOEBA ftol1e-6'
+; show_exp_contrl,dir='exp_contrl_v2_amoeba_ftol1e-6',/ruido,suffix_exp='(CR) AMOEBA ftol1e-6'
 
 
-  
+pro show_exp_contrl,ruido=ruido,dir=dir,file=file,suffix_exp=suffix_exp
+  common units,ne_unit,te_unit
+
+IF NOT keyword_set(suffix_exp) then suffix_exp=''
  
-; Experiment suffix (con o sin ruido)
+; (con o sin ruido)
   if     keyword_set(ruido) then  suffix = 'con_ruido'
   if NOT keyword_set(ruido) then  suffix = 'sin_ruido'
 
@@ -43,17 +35,19 @@ pro show_exp_contrl,ruido=ruido,dir=dir,file=file
   if not keyword_set(file) then file = 'mit_exp_contrl.out'
   restore,dir+file
 
+  load_units
+
 ; IN and OUT arrays of Nm, Tm, FIP, sigN, sigT, q  
  ;npar=(size(par_in))(4)
-  nm_in   =reform(par_in  (*,*,*,0))/1.e8
+  nm_in   =reform(par_in  (*,*,*,0))/ne_unit
   nm_out  =reform(par_out (*,*,*,0))
   fip_in  =reform(par_in  (*,*,*,1))
   fip_out =reform(par_out (*,*,*,1))
-  Tm_in   =reform(par_in  (*,*,*,2))/1.e6
+  Tm_in   =reform(par_in  (*,*,*,2))/te_unit
   Tm_out  =reform(par_out (*,*,*,2))
-  sigT_in =reform(par_in  (*,*,*,3))/1.e6
+  sigT_in =reform(par_in  (*,*,*,3))/te_unit
   sigT_out=reform(par_out (*,*,*,3))
-  sigN_in =reform(par_in  (*,*,*,4))/1.e8
+  sigN_in =reform(par_in  (*,*,*,4))/ne_unit 
   sigN_out=reform(par_out (*,*,*,4))
   q_in    =reform(par_in  (*,*,*,5))
   q_out   =reform(par_out (*,*,*,5))
@@ -74,12 +68,12 @@ pro show_exp_contrl,ruido=ruido,dir=dir,file=file
   print,'N=',n_elements(index)
   print
 
-  ;plot_scatter_and_historatio,nm_in,nm_out,xsuffix='modeled',ysuffix='reconstructed',filename='Nm_'+suffix,titulo='Nm ('+suffix+')'
-  ;plot_scatter_and_historatio,tm_in,tm_out,xsuffix='modeled',ysuffix='reconstructed',filename='Tm_'+suffix,titulo='Tm ('+suffix+')'
-  ;plot_scatter_and_historatio,fip_in,fip_out,xsuffix='modeled',ysuffix='reconstructed',filename='FIP_'+suffix,titulo='FIP ('+suffix+')'
-  ;plot_scatter_and_historatio,sigN_in,sigN_out,xsuffix='modeled',ysuffix='reconstructed',filename='sigN_'+suffix,titulo='sigN ('+suffix+')'
-  ;plot_scatter_and_historatio,sigT_in,sigT_out,xsuffix='modeled',ysuffix='reconstructed',filename='sigT_'+suffix,titulo='sigT ('+suffix+')'
-  ;plot_scatter_and_historatio,q_in,q_out,xsuffix='modeled',ysuffix='reconstructed',filename='q_'+suffix,titulo='q ('+suffix+')'
+  plot_scatter_and_historatio,nm_in,nm_out,xsuffix='modeled',ysuffix='reconstructed',filename='Nm_'+suffix,titulo='Nm '+suffix_exp,dir=dir
+  plot_scatter_and_historatio,tm_in,tm_out,xsuffix='modeled',ysuffix='reconstructed',filename='Tm_'+suffix,titulo='Tm '+suffix_exp,dir=dir
+  plot_scatter_and_historatio,fip_in,fip_out,xsuffix='modeled',ysuffix='reconstructed',filename='FIP_'+suffix,titulo='FIP '+suffix_exp,dir=dir
+  plot_scatter_and_historatio,sigN_in,sigN_out,xsuffix='modeled',ysuffix='reconstructed',filename='sigN_'+suffix,titulo='sigN '+suffix_exp,dir=dir
+  plot_scatter_and_historatio,sigT_in,sigT_out,xsuffix='modeled',ysuffix='reconstructed',filename='sigT_'+suffix,titulo='sigT '+suffix_exp,dir=dir
+  plot_scatter_and_historatio,q_in,q_out,xsuffix='modeled',ysuffix='reconstructed',filename='q_'+suffix,titulo='q '+suffix_exp,dir=dir
   ;return
   ;index = where (abs((sigN_in -sigN_out)/sigN_in) gt 0.5)
   ;index = where( abs(sigT_in/Tm_in - sigN_in/Nm_in) lt 1.e-1  )
@@ -91,71 +85,88 @@ pro show_exp_contrl,ruido=ruido,dir=dir,file=file
   !p.background=255
   !p.color=0
 
-  ;goto,skip_scatter
+  goto,skip_scatter_R
   ; SCATTER-PLOTS: Rel Diff. VS score R
-  plot,abs(rel_diff_Nm),scoreR,psym=4,xtitle='rel diff.',ytitle='score R',title='Nm',/xlog,/ylog,charsize=1.5
-  record_jpg,dir,'Nm_scatter'+suffix_file+'.jpg'
-  plot,abs(rel_diff_Tm),scoreR,psym=4,xtitle='rel diff.',ytitle='score R',title='Tm',/xlog,/ylog,charsize=1.5
+  plot,abs(rel_diff_Nm),scoreR,psym=4,xtitle='rel diff.',ytitle='score R',title='Nm '+suffix_exp,/xlog,/ylog,charsize=1.5
+  record_jpg,dir,'Nm_scatter'+suffix_title+'.jpg'
+  plot,abs(rel_diff_Tm),scoreR,psym=4,xtitle='rel diff.',ytitle='score R',title='Tm '+suffix_exp,/xlog,/ylog,charsize=1.5
   record_jpg,dir,'Tm_scatter'+suffix_file+'.jpg'
-  plot,abs(rel_diff_fip),scoreR,psym=4,xtitle='rel diff.',ytitle='score R',title='FIP',/xlog,/ylog,charsize=1.5
+  plot,abs(rel_diff_fip),scoreR,psym=4,xtitle='rel diff.',ytitle='score R',title='FIP '+suffix_exp,/xlog,/ylog,charsize=1.5
   record_jpg,dir,'FIP_scatter'+suffix_file+'.jpg'
-  plot,abs(rel_diff_sigT),scoreR,psym=4,xtitle='rel diff.',ytitle='score R',title='sigT',/xlog,/ylog,charsize=1.5
+  plot,abs(rel_diff_sigT),scoreR,psym=4,xtitle='rel diff.',ytitle='score R',title='sigT '+suffix_exp,/xlog,/ylog,charsize=1.5
   record_jpg,dir,'sigT_scatter'+suffix_file+'.jpg'
-  plot,abs(rel_diff_sigN),scoreR,psym=4,xtitle='rel diff.',ytitle='score R',title='sigN',/xlog,/ylog,charsize=1.5
+  plot,abs(rel_diff_sigN),scoreR,psym=4,xtitle='rel diff.',ytitle='score R',title='sigN '+suffix_exp,/xlog,/ylog,charsize=1.5
   record_jpg,dir,'sigN_scatter'+suffix_file+'.jpg'
-  plot,abs(rel_diff_q),scoreR,psym=4,xtitle='rel diff.',ytitle='score R',title='q',/xlog,/ylog,charsize=1.5
+  plot,abs(rel_diff_q),scoreR,psym=4,xtitle='rel diff.',ytitle='score R',title='q '+suffix_exp,/xlog,/ylog,charsize=1.5
   record_jpg,dir,'q_scatter'+suffix_file+'.jpg'
-  skip_scatter:
+  skip_scatter_R:
 
-
-
+ openw,1,dir+'tabla.txt'
+ printf,1,'======================'
+ printf,1,suffix_exp
+ printf,1,'======================'
+ printf,1,''
 ; =============== Nm ================== 
   print,'Nm comparison'
+  printf,1,'Nm comparison'
   rel_diff = rel_diff_Nm(index) 
   print_rel_diff,rel_diff,0.1
   print_rel_diff,rel_diff,0.2
   print_rel_diff,rel_diff,0.3
-  window,xs=500,ys=500
-  cghistoplot,rel_diff,title='Nm rel diff.'+suffix_title,xrange=[-1,1],binsize=1.e-1
-  record_jpg,dir,'Nm'+suffix_file+'.jpg'
+  ;window,xs=500,ys=500
+  ;cghistoplot,rel_diff,title='d_Nm '+suffix_exp,xrange=[-1,1],binsize=1.e-1
+  ;record_jpg,dir,'Nm'+suffix_file+'.jpg'
   print,'--------------------------------------------------------------'
+  printf,1,'--------------------------------------------------------------'
   print
-  
+  printf,1,''
+ 
+ 
+
 ; =============== Tm ================== 
   print,'Tm comparison'
+  printf,1,'Tm comparison'
   rel_diff = rel_diff_Tm(index)
   print_rel_diff,rel_diff,0.1
   print_rel_diff,rel_diff,0.2
   print_rel_diff,rel_diff,0.3
-  window,xs=500,ys=500
-  cghistoplot,rel_diff,title='Tm rel diff.'+suffix_title,xrange=[-1,1],binsize=1.e-1
-  record_jpg,dir,'Tm'+suffix_file+'.jpg'
+  ;window,xs=500,ys=500
+  ;cghistoplot,rel_diff,title='d_Tm '+suffix_exp,xrange=[-1,1],binsize=1.e-1
+  ;record_jpg,dir,'Tm'+suffix_file+'.jpg'
   print,'--------------------------------------------------------------'
+  printf,1,'--------------------------------------------------------------'
   print
+  printf,1,''
 
 ; =============== FIP ================== 
   print,'fip comparison'
+  printf,1,'fip comparison'
   rel_diff = rel_diff_fip(index)
   print_rel_diff,rel_diff,0.1
   print_rel_diff,rel_diff,0.2
   print_rel_diff,rel_diff,0.3
-  window,xs=500,ys=500
-  cghistoplot,rel_diff,title='FIP rel diff.'+suffix_title,xrange=[-2,2],binsize=1.e-1
-  record_jpg,dir,'fip_factor'+suffix_file+'.jpg'
+  ;window,xs=500,ys=500
+  ;cghistoplot,rel_diff,title='d_FIP '+suffix_exp,xrange=[-2,2],binsize=1.e-1
+  ;record_jpg,dir,'fip_factor'+suffix_file+'.jpg'
   print,'--------------------------------------------------------------'
+  printf,1,'--------------------------------------------------------------'
   print
-  
+  printf,1,''
+
 ; =============== sigN ================== 
    print,'sigN comparison'
+   printf,1,'sigN comparison'
    rel_diff = rel_diff_sigN(index)
    print_rel_diff,rel_diff,0.1
    print_rel_diff,rel_diff,0.2
    print_rel_diff,rel_diff,0.3
-   window,xs=500,ys=500
-   cghistoplot,rel_diff,title='sigN rel diff'+suffix_title,xrange=[-2,2],binsize=1.e-1
-   record_jpg,dir,'sigN'+suffix_file+'.jpg'
-   print,'--------------------------------------------------------------'
+   ;window,xs=500,ys=500
+   ;cghistoplot,rel_diff,title='d_sigN '+suffix_exp,xrange=[-2,2],binsize=1.e-1
+   ;record_jpg,dir,'sigN'+suffix_file+'.jpg'
+   print   ,'--------------------------------------------------------------'
+   printf,1,'--------------------------------------------------------------'
    print
+   printf,1,''
    
 ; =============== sigT ================== 
    print,'sigT comparison'
@@ -163,24 +174,31 @@ pro show_exp_contrl,ruido=ruido,dir=dir,file=file
    print_rel_diff,rel_diff,0.1
    print_rel_diff,rel_diff,0.2
    print_rel_diff,rel_diff,0.3
-   window,xs=500,ys=500
-   cghistoplot,rel_diff,title='sigT rel diff'+suffix_title,xrange=[-2,2],binsize=1.e-1
-   record_jpg,dir,'sigT'+suffix_file+'.jpg'
+   ;window,xs=500,ys=500
+   ;cghistoplot,rel_diff,title='d_sigT '+suffix_exp,xrange=[-2,2],binsize=1.e-1
+   ;record_jpg,dir,'sigT'+suffix_file+'.jpg'
    print,'--------------------------------------------------------------'
+   printf,1,'--------------------------------------------------------------'
    print
-
+   printf,1,''
+   
 
 ; =============== q ================== 
    print,'q comparison'
+   printf,1,'q comparison'
    rel_diff = rel_diff_q(index)
    print_rel_diff,rel_diff,0.1
    print_rel_diff,rel_diff,0.2
    print_rel_diff,rel_diff,0.3
-   window,xs=500,ys=500
-   cghistoplot,rel_diff,title='q rel diff'+suffix_title,xrange=[-2,2],binsize=1.e-1
-   record_jpg,dir,'q'+suffix_file+'.jpg'
+   ;window,xs=500,ys=500
+   ;cghistoplot,rel_diff,title='d_q '+suffix_exp,xrange=[-2,2],binsize=1.e-1
+   ;record_jpg,dir,'q'+suffix_file+'.jpg'
    print,'--------------------------------------------------------------'
+   printf,1,'--------------------------------------------------------------'
    print
+   printf,1,''
+
+   close,1
 
   return
 end
@@ -190,10 +208,14 @@ pro print_rel_diff,rel_diff,frac
 
 
   print,'--------------------------------------------------------------'
+  printf,1,'--------------------------------------------------------------'
   index = where (abs(rel_diff) lt frac)
   print,'fraction of voxel with rel. diff. within ',frac*100,' %:',$
      float(n_elements(index))/n_elements(rel_diff)
-  
+
+  printf,1,'fraction of voxel with rel. diff. within ',frac*100,' %:',$
+         float(n_elements(index))/n_elements(rel_diff)
+
 
   return
 end

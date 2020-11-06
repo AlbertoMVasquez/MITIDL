@@ -1,53 +1,74 @@
+; COMENTARIOS:
+; si flag_noise=0 EL OUTPUT se guarda en /data1/DATA/MIT/dir_out/sin_ruido/ 
+; si flag_noise=1 EL OUTPUT se guarda en /data1/DATA/MIT/dir_out/con_ruido/ 
+; para modificar ftol "global" > L18 minimizador.pro
+; para modificar TOL de dbrent > L8 linmin.pro
 
 pro wrapper
   common measurement_vectors,i_mea_vec,ion_label_vec,line_wavelength_vec,instrument_label_vec,band_label_vec
   common NT_limits, Ne0_Limits, Te0_Limits
 
-  ;This vectors define the order of the measurement
+;--------------------------------------------------------
+
+ ;Suffixs to make the mame of x-tomographic products 
+ ;used as input file
+  noise_suffix = 'sin_ruido'      & flag_noise=0
+ ;noise_suffix = 'con_ruido_0.1'  & flag_noise=1
+  exp_suffix   = ''               
+ ;exp_suffix   = 'exp_B'
+
+ ;Name of output file  
+  file_out ='mit_exp_contrl.out'
+ ;Directory where is writed the output file
+  dir_out  ='amoeba_test'
+ 
+ 
+ ;Use this flag to select the minimization method
+  method=1 ; Downhill-Simplex method (AMOEBA)
+ ;method=4 ; Polak-Ribiere method 
+ ;method=3 ; BFGS Method
+
+;------------------------------------------------------  
+
+
+ ;This vectors define the order of the measurement
   i_mea_vec           =[0       ,0       ,1    ,1    ,1    ]
   ion_label_vec       =['fexiii','fexiii',''   ,''   ,''   ]
   line_wavelength_vec =['10747' ,'10801' ,''   ,''   ,''   ]
   instrument_label_vec=[''      ,''      ,'aia','aia','aia']
   band_label_vec      =[''      ,''      ,'171','193','211']
-  ;File name of x-tomographic products of all instruments 
-  ;(need to be consistent with above)
-  ;noise_suffix = 'sin_ruido' & flag_noise=0
-  noise_suffix = 'con_ruido_0.1'  & flag_noise=1
-  exp_suffix = ''               
-  ;exp_suffix = 'exp_B'
 
+
+ ;File names of x-tomographic products of all instruments 
+ ;In /data1/tomography/bindata/
+ ;(need to be consistent with above)
   xfiles      =['xkcor',$
                 'x.comp1074',$
                 'x.comp1079',$
                 'x.aia171',$
                 'x.aia193',$
                 'x.aia211']+'_exp_contrl_'+noise_suffix+exp_suffix+'.out'
-
-  file_par_in ='param_input_exp_contrl_'  +noise_suffix+exp_suffix+'.out'
+  
+ ;Input parameters used to calculate the synthetic x-tomographic products
+  file_par_in ='param_input_exp_contrl_'  +noise_suffix+exp_suffix+'.out' 
+ ;LDEM file to use as initial guess in the minimization
   file_demt   ='LDEM_AIA3_MIT_exp_contrl_'+noise_suffix+exp_suffix+'.sav'
 
-; Restricted Ne and Te ranges 
+ ;Restricted Ne and Te ranges 
   Ne0_Limits = [1.0e6,5.0e9]
   Te0_Limits = [0.5e6,5.0e6]
-
-  ;method=4 ; Polak-Ribiere method
-   method=1 ; Downhill-Simplex method (AMOEBA)
-  ;method=3 ; BFGS Method
-
-   file_out ='mit_exp_contrl.out'
-   dir_out  ='amoeba_test'
-   exp_contrl_v2,xfiles,/Riemann,min_method=method,$
-                 file_demt=file_demt,file_out=file_out,dir_out=dir_out,$
-                 file_par_in=file_par_in,flag_noise=flag_noise,$
-                 /lnuniform,NNe_provided=50,NTe_provided=50
-
+  
+  exp_contrl_v2,xfiles,/Riemann,min_method=method,$
+                file_demt=file_demt,file_out=file_out,dir_out=dir_out,$
+                file_par_in=file_par_in,flag_noise=flag_noise,$
+                /lnuniform,NNe_provided=50,NTe_provided=50
    return
 end
 
 
 ;================================================================
-; 
-
+; This routine calculate the MIT inversion using the 
+; synthetic x-tomographic products (see synth_x_exp_contrl.pro)
 ;===============================================================
 
 pro exp_contrl_v2,xfiles,min_method=min_method,riemann=riemann,$
@@ -67,7 +88,7 @@ pro exp_contrl_v2,xfiles,min_method=min_method,riemann=riemann,$
   common parameters, r0, fip_factor, Tem, Nem, SigTe, SigNe, q
   common units,ne_unit,te_unit
   
-  tstart_whole_exp     = systime(/seconds) ; to compute the time of all experiment
+  tstart_whole_exp     = systime(/seconds) ; to compute the time of all experiments
 
   if not keyword_set(min_method) then begin
      print,'minimization method (min_method keyword) not selected:'

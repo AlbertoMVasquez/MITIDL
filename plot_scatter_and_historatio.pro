@@ -25,7 +25,7 @@
     ; se definen automaticamente para que haya el
     ; mismo rango en x y en y.
     ;==============================================
-    xr=[min([min(x),min(y)]),max([max(x),max(y)])]
+    xr=[0.8*min([min(x),min(y)]),1.2*max([max(x),max(y)])]
     yr=xr
     ;==============================================
     ;ps1,dir+filename+'.eps',0
@@ -38,10 +38,10 @@
 
 
     ;================Scatter Plot=====================================================
-    plot,x,y,psym=4,xr=xr,yr=yr,xstyle=1,ystyle=1,xtitle=xsuffix,ytitle=ysuffix,$
+    plot,x,y,psym=8,xr=xr,yr=yr,xstyle=1,ystyle=1,xtitle=xsuffix,ytitle=ysuffix,$
          title=titulo,color=0,background=255,xthick=2,ythick=2,charsize=1.5;,/xlog,/ylog
     loadct,12
-    oplot,xr,yr,linestyle=0,color=100,th=4
+    oplot,xr,yr,linestyle=2,color=100,th=1
     xyouts,[.7],[.64],'!4q!3='+[strmid(string(correlate(x,y)),6,4)],/normal,col=[100];,charthick=[6]
     loadct,0
 
@@ -69,7 +69,7 @@
                  xrange=[valmin-binsize,valmax+binsize],/frequency,/fill,xstyle=1
     
     loadct,12
-    oplot,[1,1],[0,10],th=6,color=100
+    oplot,[1,1],[0,10],th=1,color=100
    ;nstat=3
     nstat=2
     i0med=6
