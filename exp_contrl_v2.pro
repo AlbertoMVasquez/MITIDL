@@ -20,11 +20,12 @@ pro wrapper
  ;Name of output file  
   file_out ='mit_exp_contrl.out'
  ;Directory where is writed the output file
-  dir_out  ='amoeba_test'
+  dir_out  ='exp_contrl_v2_Powell'
  
  
  ;Use this flag to select the minimization method
-  method=1 ; Downhill-Simplex method (AMOEBA)
+ ; method=1 ; Downhill-Simplex method (AMOEBA)
+  method=2  ; Powell method
  ;method=4 ; Polak-Ribiere method 
  ;method=3 ; BFGS Method
 
