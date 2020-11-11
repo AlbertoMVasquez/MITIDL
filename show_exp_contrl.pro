@@ -7,7 +7,9 @@
 ; show_exp_contrl,dir='exp_contrl_v2_ftol1e-6',/ruido,suffix_exp='(CR) G.Conj ftol1e-6'
 ; show_exp_contrl,dir='exp_contrl_v2_amoeba_ftol1e-6',suffix_exp='(SR) AMOEBA ftol1e-6'
 ; show_exp_contrl,dir='exp_contrl_v2_amoeba_ftol1e-6',/ruido,suffix_exp='(CR) AMOEBA ftol1e-6'
-
+; show_exp_contrl,dir='exp_contrl_v2_ftol1e-1e-4_TOL1e-7',suffix_exp='(SR) G.Conj ftol1e-4 tol1e-7'
+; show_exp_contrl,dir='exp_contrl_v2_ftol1e-1e-6_TOL1e-4',suffix_exp='(SR) G.Conj ftol1e-6 tol1e-4'
+; show_exp_contrl,dir='exp_contrl_v2_ftol1e-1e-5_TOL1e-4',suffix_exp='(SR) G.Conj ftol1e-5 tol1e-4'
 
 pro show_exp_contrl,ruido=ruido,dir=dir,file=file,suffix_exp=suffix_exp
   common units,ne_unit,te_unit
@@ -170,6 +172,7 @@ IF NOT keyword_set(suffix_exp) then suffix_exp=''
    
 ; =============== sigT ================== 
    print,'sigT comparison'
+   printf,1,'sigT comparison'
    rel_diff = rel_diff_sigT(index)
    print_rel_diff,rel_diff,0.1
    print_rel_diff,rel_diff,0.2
