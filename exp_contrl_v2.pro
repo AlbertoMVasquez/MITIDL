@@ -20,7 +20,7 @@ pro wrapper
  ;Name of output file  
   file_out ='mit_exp_contrl.out'
  ;Directory where is writed the output file
-  dir_out  ='exp_contrl_v2_amoeba_ftol1e-7'
+  dir_out  ='exp_contrl_v2_amoeba_ftol1e-10'
  
  
  ;Use this flag to select the minimization method
