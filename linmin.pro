@@ -5,7 +5,7 @@ pro linmin,p,xi,fret
   common f1com,pcom,xicom
   common iteracionesdbrent,iter
 ;
-  TOL=1.d-7;1.d-4                     ; fractional precision of 1D minimization = Sqrt(machine-precision)
+  TOL=1.d-2                     ; fractional precision of 1D minimization = Sqrt(machine-precision)
 ;
   pcom=p
   xicom=xi
