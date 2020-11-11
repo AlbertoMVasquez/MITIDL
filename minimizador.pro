@@ -15,7 +15,7 @@ pro minimizador,Phi_name,grad_phi_name,guess_ini,P,min_method=min_method
   common NT_arrays,Ne_array,Te_array,dNe_array,dTe_array,dTN
   
 
-   ftol = 1.0d-6;1.0d-4
+   ftol = 1.0d-7;1.0d-4
    P = Guess_ini
 
 
