@@ -12,6 +12,9 @@
 ; show_exp_contrl,dir='exp_contrl_v2_ftol1e-1e-5_TOL1e-4',suffix_exp='(SR) G.Conj ftol1e-5 tol1e-4'
 ; show_exp_contrl,dir='exp_contrl_v2_amoeba_ftol1e-8',suffix_exp='(SR) AMOEBA ftol1e-8'
 ; show_exp_contrl,dir='exp_contrl_v2_amoeba_ftol1e-10',suffix_exp='(SR) AMOEBA ftol1e-10'
+; show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-4',suffix_exp='(SR) G.Conj ftol1e-8 tol=1e-4'
+; show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(SR) G.Conj ftol1e-8 tol=1e-6'
+; show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-2',suffix_exp='(SR) G.Conj ftol1e-8 tol=1e-2'
 
 pro show_exp_contrl,ruido=ruido,dir=dir,file=file,suffix_exp=suffix_exp
   common units,ne_unit,te_unit
