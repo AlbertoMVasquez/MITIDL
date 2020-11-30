@@ -1,0 +1,1074 @@
+IDL Version 7.1 (linux x86_64 m64). (c) 2009, ITT Visual Information Solutions
+Installation number: .
+Licensed for use by: IA-BAS
+
+% Compiled module: WRAPPER.
+% Compiled module: EXP_CONTRL_V2.
+Minimization of cost_function_cs
+
+Polak-Ribiere method
+cp phi2.pro phi.pro
+cp gradphi2.pro gradphi.pro
+
+% Compiled module: MAKE_GRID.
+Created  Ln-Uniform Grid NTe x NNe = :      50    x      50
+
+% Compiled module: XREAD.
+% Compiled module: SET_TOMROOT.
+% Compiled module: LOAD_TABLES.
+% Compiled module: LOAD_G_TABLE.
+% Compiled module: MAKE_SK_OVER_FIP_FACTOR.
+% Compiled module: S_FUNCTION.
+% Compiled module: G_FUNCTION.
+% Compiled module: FINDVAL3D_FUNCTION.
+% Compiled module: FINDVAL2D_FUNCTION.
+% Compiled module: INTERPOL.
+% Compiled module: LOAD_UNITS.
+% Compiled module: CHANGE_UNITS_GRID.
+% Compiled module: MAKE_GUESS_INI_WITH_DEMT.
+calculating initial guess...
+% Compiled module: COST_FUNCTION_CS.
+% Compiled module: E_FUNCTION_CS.
+% Compiled module: P_FUNCTION_CS.
+% Compiled module: ARRAY_INDICES.
+Elapsed time:     0.034484148
+Minimization...
+% Compiled module: MINIMIZADOR.
+% Compiled module: PR_MIN.
+% Compiled module: FRPRMN.
+% Compiled module: PHI.
+% Compiled module: GRADPHI.
+% Compiled module: GRAD_E_FUNCTION_CS.
+% Compiled module: GRAD_P_FUNCTION_CS.
+% Compiled module: LINMIN.
+% Compiled module: MNBRAK.
+% Compiled module: F1DIM.
+% Compiled module: DBRENT.
+% Compiled module: DF1DIM.
+Elapsed time:       20.381184
+% Compiled module: SYNTH_Y_VALUES_CS.
+% Compiled module: MEAN.
+% Compiled module: MOMENT.
+Score R:   2.5984681e-10
+R_k    :   4.7453764e-11   2.2914613e-10   6.9229108e-10   6.3494953e-11
+   1.1703962e-10   4.0965532e-10
+
+in:      0.61315012      0.25000000       1.4769326      0.14769327
+     0.061315015      0.25000000
+(out-in)/in:  -4.7453764e-11  -1.6846402e-07  -2.5797473e-08   2.4452223e-08
+  -3.7968431e-06   4.7457761e-06
+calculating initial guess...
+Elapsed time:     0.014947891
+Minimization...
+Elapsed time:       13.654856
+Score R:   1.8999787e-10
+R_k    :   1.7336786e-11   1.3739743e-10   5.1362427e-10   4.8869650e-11
+   9.9605031e-11   3.2315402e-10
+
+in:      0.61315012      0.25000000       1.4769326      0.14769327
+      0.15328753      0.25000000
+(out-in)/in:   1.7336786e-11   8.0862066e-07  -4.1986200e-07   1.0618054e-07
+  -6.7037951e-06   4.0533975e-05
+calculating initial guess...
+Elapsed time:     0.014953136
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       22.495214
+Score R:   9.1116291e-11
+R_k    :   1.0856518e-11   1.4138944e-11   2.2205331e-10   3.6913062e-11
+   9.4416578e-11   1.6831934e-10
+
+in:      0.61315012      0.25000000       1.4769326      0.14769327
+      0.30657506      0.25000000
+(out-in)/in:  -1.0856518e-11   7.7451996e-08  -5.7491369e-08   3.2444294e-08
+  -2.5919808e-07   2.8705840e-06
+calculating initial guess...
+Elapsed time:     0.014749050
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       26.251473
+Score R:   1.4865663e-07
+R_k    :   1.1611585e-07   1.5116749e-07   3.1855690e-07   8.5917064e-09
+   1.3112213e-07   1.6638569e-07
+
+in:      0.61315012      0.25000000       1.4769326      0.36923316
+     0.061315015      0.25000000
+(out-in)/in:   1.1611585e-07   8.1885865e-06   4.1148917e-06  -2.9016143e-06
+   0.00020218869  -0.00031360620
+calculating initial guess...
+Elapsed time:     0.015112877
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       25.101627
+Score R:   2.8539600e-07
+R_k    :   2.5613850e-08   2.2419236e-07   7.6531329e-07   7.7215333e-08
+   2.0496620e-07   4.1507496e-07
+
+in:      0.61315012      0.25000000       1.4769326      0.36923316
+      0.15328753      0.25000000
+(out-in)/in:  -2.5613850e-08   1.8978771e-05  -2.0419375e-05   4.3991625e-06
+  -0.00016309716   0.00083210791
+calculating initial guess...
+Elapsed time:     0.014811993
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       25.706625
+Score R:   1.9935802e-06
+R_k    :   9.8785555e-07   1.3384970e-06   3.7040930e-06   7.0276668e-07
+   1.8484207e-06   3.3798481e-06
+
+in:      0.61315012      0.25000000       1.4769326      0.36923316
+      0.30657506      0.25000000
+(out-in)/in:   9.8785555e-07   0.00011969246  -0.00014056674   4.6143884e-05
+  -0.00031429452    0.0029499759
+calculating initial guess...
+Elapsed time:     0.014673948
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       26.047197
+Score R:   3.7457542e-05
+R_k    :   1.0759657e-05   3.8835285e-05   9.3167704e-05   1.1679945e-05
+   2.5560589e-05   4.4742071e-05
+
+in:      0.61315012      0.25000000       1.4769326      0.73846631
+     0.061315015      0.25000000
+(out-in)/in:   1.0759657e-05    0.0022727318    0.0040188543   -0.0015150365
+     0.086881215     -0.17199609
+calculating initial guess...
+Elapsed time:     0.014827013
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       23.563229
+Score R:   5.0021761e-09
+R_k    :   8.0738242e-09   1.8549133e-09   6.5306621e-09   3.8751752e-09
+   7.0280800e-09   2.6504019e-09
+
+in:      0.61315012      0.25000000       1.4769326      0.73846631
+      0.15328753      0.25000000
+(out-in)/in:   8.0738242e-09   1.2360945e-07  -1.7480760e-07   6.5403683e-08
+  -9.9418997e-07   3.6011633e-06
+calculating initial guess...
+Elapsed time:     0.014780998
+Minimization...
+Elapsed time:       16.356110
+Score R:   8.4872632e-11
+R_k    :   1.1066920e-11   7.3957667e-11   2.1646838e-10   3.2752100e-11
+   8.1237657e-11   9.3753068e-11
+
+in:      0.61315012      0.25000000       1.4769326      0.73846631
+      0.30657506      0.25000000
+(out-in)/in:  -1.1066920e-11   7.6209042e-07  -2.4351332e-06   5.0690090e-07
+  -1.8339513e-06   2.5228883e-05
+calculating initial guess...
+Elapsed time:     0.014991999
+Minimization...
+Elapsed time:       12.433346
+Score R:   3.1307166e-10
+R_k    :   1.2267532e-10   4.0198340e-10   8.2772213e-10   5.3282319e-11
+   1.0192937e-10   3.7083742e-10
+
+in:      0.61315012      0.25000000       1.4769326      0.14769327
+     0.061315015      0.50000000
+(out-in)/in:  -1.2267532e-10  -4.9349467e-07  -1.2647152e-07   3.9149458e-07
+  -1.0344304e-05   1.2584109e-05
+calculating initial guess...
+Elapsed time:     0.014878035
+Minimization...
+Elapsed time:       17.170817
+Score R:   9.1941603e-10
+R_k    :   8.5407576e-11   7.0917318e-10   2.4918905e-09   2.2607937e-10
+   5.1148624e-10   1.4924593e-09
+
+in:      0.61315012      0.25000000       1.4769326      0.14769327
+      0.15328753      0.50000000
+(out-in)/in:  -8.5407576e-11  -7.5940347e-07   3.9220070e-07  -3.0429432e-07
+   6.4768060e-06  -2.1733736e-05
+calculating initial guess...
+Elapsed time:     0.015029907
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       22.688330
+Score R:   3.8874321e-08
+R_k    :   1.3438464e-08   1.0539126e-07   9.3706505e-08   1.0548721e-09
+   4.1898544e-09   1.5464976e-08
+
+in:      0.61315012      0.25000000       1.4769326      0.14769327
+      0.30657506      0.50000000
+(out-in)/in:   1.3438464e-08  -3.1045592e-06   1.8918327e-06  -3.2120725e-06
+   7.8020862e-06  -4.8918530e-05
+calculating initial guess...
+Elapsed time:     0.014817953
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       24.571197
+Score R:   1.4848846e-09
+R_k    :   2.9912754e-09   1.0655320e-09   1.5465714e-09   1.1490836e-10
+   1.0471277e-09   2.1438929e-09
+
+in:      0.61315012      0.25000000       1.4769326      0.36923316
+     0.061315015      0.50000000
+(out-in)/in:  -2.9912754e-09  -1.5217990e-07  -1.5026553e-07   1.2499321e-07
+  -2.4011758e-06   4.5017686e-06
+calculating initial guess...
+Elapsed time:     0.014894962
+Minimization...
+Elapsed time:       21.383039
+Score R:   1.2286861e-09
+R_k    :   6.7240047e-11   9.0819541e-10   3.3412816e-09   3.1196777e-10
+   9.5593640e-10   1.7874955e-09
+
+in:      0.61315012      0.25000000       1.4769326      0.36923316
+      0.15328753      0.50000000
+(out-in)/in:  -6.7240047e-11   6.0932787e-07  -6.6122975e-07   3.4453132e-07
+  -5.0598950e-06   1.5579149e-05
+calculating initial guess...
+Elapsed time:     0.014786959
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       22.265966
+Score R:   1.6961629e-09
+R_k    :   8.1659834e-10   9.1201171e-10   3.0484137e-09   1.4735313e-09
+   3.1082646e-09   8.1815766e-10
+
+in:      0.61315012      0.25000000       1.4769326      0.36923316
+      0.30657506      0.50000000
+(out-in)/in:   8.1659834e-10   9.0867149e-08  -2.2641392e-08   6.9780342e-08
+  -2.0343401e-07   4.7318210e-07
+calculating initial guess...
+Elapsed time:     0.014792919
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       26.616973
+Score R:   1.9270648e-05
+R_k    :   2.0816254e-05   2.8961178e-05   2.7291070e-05   1.2155622e-05
+   2.0019756e-05   6.3800099e-06
+
+in:      0.61315012      0.25000000       1.4769326      0.73846631
+     0.061315015      0.50000000
+(out-in)/in:   2.0816254e-05   6.5316680e-05   0.00047758036  -0.00012125551
+    0.0017468769   -0.0047210037
+calculating initial guess...
+Elapsed time:     0.014786005
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       24.951753
+Score R:   4.0854646e-06
+R_k    :   3.3600865e-07   2.9292834e-06   1.0520781e-05   1.5627364e-06
+   4.6110235e-06   4.5529551e-06
+
+in:      0.61315012      0.25000000       1.4769326      0.73846631
+      0.15328753      0.50000000
+(out-in)/in:  -3.3600865e-07   0.00019803533  -0.00056959531   0.00013762525
+   -0.0016662733    0.0062988206
+calculating initial guess...
+Elapsed time:     0.014875889
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       24.421376
+Score R:   1.7186949e-06
+R_k    :   1.6872136e-07   1.4735727e-06   4.5112400e-06   5.8638690e-07
+   1.8013327e-06   1.7709154e-06
+
+in:      0.61315012      0.25000000       1.4769326      0.73846631
+      0.30657506      0.50000000
+(out-in)/in:  -1.6872136e-07   7.8878457e-05  -0.00028850703   0.00010624102
+  -0.00018772369    0.0015162655
+calculating initial guess...
+Elapsed time:     0.014836073
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       24.921877
+Score R:   1.1898510e-08
+R_k    :   9.1498507e-09   2.4362215e-08   2.5860611e-09   3.3803968e-09
+   1.8114305e-08   1.3798234e-08
+
+in:      0.61315012      0.25000000       1.4769326      0.14769327
+     0.061315015      0.75000000
+(out-in)/in:   9.1498507e-09   2.7097484e-08   1.2343670e-08  -1.0639312e-07
+   6.2970651e-07  -9.0157163e-07
+calculating initial guess...
+Elapsed time:     0.014789104
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       23.632570
+Score R:   5.7100675e-09
+R_k    :   3.7207321e-10   4.3109611e-09   1.5622824e-08   1.3141059e-09
+   3.4137849e-09   9.2266562e-09
+
+in:      0.61315012      0.25000000       1.4769326      0.14769327
+      0.15328753      0.75000000
+(out-in)/in:   3.7207321e-10  -2.9739955e-07   1.3107956e-07  -4.0861648e-07
+   2.7335770e-06  -5.8672336e-06
+calculating initial guess...
+Elapsed time:     0.014931917
+Minimization...
+Elapsed time:       19.196145
+Score R:   3.9983157e-10
+R_k    :   3.0143595e-11   3.0661319e-10   1.0847964e-09   9.7574346e-11
+   2.8804850e-10   5.9181344e-10
+
+in:      0.61315012      0.25000000       1.4769326      0.14769327
+      0.30657506      0.75000000
+(out-in)/in:   3.0143595e-11   1.0145187e-06  -5.5669173e-07   1.5490758e-06
+  -2.5793388e-06   9.4154907e-06
+calculating initial guess...
+Elapsed time:     0.014724016
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       27.288040
+Score R:   0.00024865750
+R_k    :   0.00026382309   0.00059824847   0.00021827425   1.9686234e-05
+   0.00010021651   0.00029169644
+
+in:      0.61315012      0.25000000       1.4769326      0.36923316
+     0.061315015      0.75000000
+(out-in)/in:  -0.00026382309     0.036898955    -0.029308904    -0.055048526
+     -0.38316873     -0.29493377
+calculating initial guess...
+Elapsed time:     0.014963865
+Minimization...
+Elapsed time:       19.202226
+Score R:   1.2046520e-09
+R_k    :   4.7296234e-11   8.7268397e-10   3.2978253e-09   2.9400439e-10
+   9.7979415e-10   1.7363080e-09
+
+in:      0.61315012      0.25000000       1.4769326      0.36923316
+      0.15328753      0.75000000
+(out-in)/in:  -4.7296234e-11  -8.7815083e-07   9.3180207e-07  -7.5396498e-07
+   7.0859025e-06  -1.6451900e-05
+calculating initial guess...
+Elapsed time:     0.014740944
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       22.714468
+Score R:   2.3386215e-05
+R_k    :   2.7762202e-06   1.9516842e-05   6.5593188e-05   3.7880152e-06
+   1.8605153e-05   3.0037870e-05
+
+in:      0.61315012      0.25000000       1.4769326      0.36923316
+      0.30657506      0.75000000
+(out-in)/in:   2.7762202e-06   -0.0026467179    0.0027673086   -0.0035101311
+    0.0060613607    -0.019928357
+calculating initial guess...
+Elapsed time:     0.014633894
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       28.536126
+Score R:    0.0025149873
+R_k    :   5.2859920e-05    0.0014274457    0.0065506083   0.00099815116
+    0.0030005352    0.0030603235
+
+in:      0.61315012      0.25000000       1.4769326      0.73846631
+     0.061315015      0.75000000
+(out-in)/in:  -5.2859920e-05     0.073010869      0.10262603    -0.024667719
+     -0.40468976     -0.87449699
+calculating initial guess...
+Elapsed time:     0.014671087
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       23.465701
+Score R:   5.6977815e-07
+R_k    :   5.1093574e-08   4.1927931e-07   1.4889987e-06   1.8750443e-07
+   6.2383932e-07   6.4795353e-07
+
+in:      0.61315012      0.25000000       1.4769326      0.73846631
+      0.15328753      0.75000000
+(out-in)/in:   5.1093574e-08  -2.4482174e-05   7.0436061e-05  -2.6710085e-05
+   0.00019955343  -0.00057318701
+calculating initial guess...
+Elapsed time:     0.014556170
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       23.608880
+Score R:   6.0733411e-07
+R_k    :   5.7802269e-08   6.5563276e-08   1.5125816e-06   3.0732543e-07
+   9.2868244e-07   7.7204960e-07
+
+in:      0.61315012      0.25000000       1.4769326      0.73846631
+      0.30657506      0.75000000
+(out-in)/in:   5.7802269e-08   3.1278535e-05  -8.5499637e-05   5.6633512e-05
+  -6.0208420e-05   0.00030746153
+calculating initial guess...
+Elapsed time:     0.014898062
+Minimization...
+Elapsed time:       18.807568
+Score R:   6.3973475e-10
+R_k    :   1.2055374e-10   5.9342917e-10   1.7062965e-09   1.5326406e-10
+   2.8746663e-10   9.7739841e-10
+
+in:      0.61315012      0.50000000       1.4769326      0.14769327
+     0.061315015      0.25000000
+(out-in)/in:  -1.2055374e-10  -2.0334235e-07  -3.3091080e-08   3.5852998e-08
+  -4.6530990e-06   6.2435185e-06
+calculating initial guess...
+Elapsed time:     0.014932871
+Minimization...
+Elapsed time:       9.4256001
+Score R:   8.4112295e-10
+R_k    :   8.6585610e-11   6.6296570e-10   2.2666869e-09   2.1247155e-10
+   4.2770949e-10   1.3903184e-09
+
+in:      0.61315012      0.50000000       1.4769326      0.14769327
+      0.15328753      0.25000000
+(out-in)/in:   8.6585610e-11   7.6296037e-07  -3.9617051e-07   9.3924440e-08
+  -6.3129078e-06   3.8200351e-05
+calculating initial guess...
+Elapsed time:     0.014838934
+Minimization...
+Elapsed time:       9.4986758
+Score R:   1.7905723e-10
+R_k    :   1.7289527e-11   1.3533499e-10   4.8555503e-10   4.5886887e-11
+   9.2880871e-11   2.9739609e-10
+
+in:      0.61315012      0.50000000       1.4769326      0.14769327
+      0.30657506      0.25000000
+(out-in)/in:  -1.7289527e-11   8.6137024e-08  -6.2491979e-08   3.6279150e-08
+  -2.8143987e-07   3.1285541e-06
+calculating initial guess...
+Elapsed time:     0.014894009
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       30.704906
+Score R:   2.7694547e-05
+R_k    :   4.7803435e-06   2.0287923e-05   7.2602369e-05   8.2198786e-06
+   1.9568792e-05   4.0707976e-05
+
+in:      0.61315012      0.50000000       1.4769326      0.36923316
+     0.061315015      0.25000000
+(out-in)/in:  -4.7803435e-06     0.017037906    0.0089531490   -0.0027486008
+     -0.34673037     -0.85273241
+calculating initial guess...
+Elapsed time:     0.014739990
+Minimization...
+Elapsed time:       7.4625609
+Score R:   1.3789714e-10
+R_k    :   2.6476410e-11   1.2923798e-10   3.6239022e-10   3.4292792e-11
+   9.4465478e-11   1.8051995e-10
+
+in:      0.61315012      0.50000000       1.4769326      0.36923316
+      0.15328753      0.25000000
+(out-in)/in:  -2.6476410e-11   6.2241796e-07  -7.3286276e-07   5.9355284e-08
+  -5.4581034e-06   2.9291385e-05
+calculating initial guess...
+Elapsed time:     0.014679909
+Minimization...
+Elapsed time:       5.7451198
+Score R:   3.9562989e-10
+R_k    :   1.5052604e-11   3.0679802e-10   1.0755612e-09   1.0116521e-10
+   3.0285512e-10   5.7234716e-10
+
+in:      0.61315012      0.50000000       1.4769326      0.36923316
+      0.30657506      0.25000000
+(out-in)/in:   1.5052604e-11  -1.0870425e-07   1.3952112e-07  -1.1866257e-07
+   2.2013044e-07  -2.9876427e-06
+calculating initial guess...
+Elapsed time:     0.014622927
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       26.276841
+Score R:   1.4552166e-05
+R_k    :   2.4997401e-06   6.7508793e-06   3.5858752e-05   6.3888351e-06
+   1.5475572e-05   2.0339219e-05
+
+in:      0.61315012      0.50000000       1.4769326      0.73846631
+     0.061315015      0.25000000
+(out-in)/in:  -2.4997401e-06    0.0011763687    0.0013739610  -0.00060992986
+     0.034523567    -0.053090435
+calculating initial guess...
+Elapsed time:     0.014668941
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       22.183592
+Score R:   2.2001625e-08
+R_k    :   6.7264329e-10   1.6452173e-08   5.8275153e-08   6.9507307e-09
+   2.3111828e-08   2.6547222e-08
+
+in:      0.61315012      0.50000000       1.4769326      0.73846631
+      0.15328753      0.25000000
+(out-in)/in:   6.7264329e-10  -1.2896687e-06   3.8759717e-06  -4.3084857e-07
+   1.1115633e-05  -7.5715568e-05
+calculating initial guess...
+Elapsed time:     0.014694929
+Minimization...
+Elapsed time:       19.416777
+Score R:   6.1185931e-11
+R_k    :   1.5379252e-11   4.7533932e-11   1.4710121e-10   3.3212692e-11
+   9.2813519e-11   3.1074977e-11
+
+in:      0.61315012      0.50000000       1.4769326      0.73846631
+      0.30657506      0.25000000
+(out-in)/in:   1.5379252e-11   7.6351978e-07  -2.4407602e-06   5.0763504e-07
+  -1.8380592e-06   2.5286643e-05
+calculating initial guess...
+Elapsed time:     0.014854908
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       29.147892
+Score R:   4.5200179e-05
+R_k    :   1.1953145e-05   3.6726379e-05   0.00011799787   1.2316781e-05
+   2.2396496e-05   6.9810401e-05
+
+in:      0.61315012      0.50000000       1.4769326      0.14769327
+     0.061315015      0.50000000
+(out-in)/in:   1.1953145e-05     0.078147550    0.0070870191    -0.010007921
+     -0.43001441     -0.89402238
+calculating initial guess...
+Elapsed time:     0.014866114
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       24.434859
+Score R:   6.0149453e-08
+R_k    :   6.3121087e-09   1.2551713e-08   1.6745857e-07   1.1579506e-08
+   3.8255207e-08   1.2473962e-07
+
+in:      0.61315012      0.50000000       1.4769326      0.14769327
+      0.15328753      0.50000000
+(out-in)/in:  -6.3121087e-09  -5.3372685e-06   2.7366116e-06  -2.9034284e-06
+   4.5871501e-05  -0.00015289749
+calculating initial guess...
+Elapsed time:     0.014778852
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       21.928924
+Score R:   1.4956887e-07
+R_k    :   4.6239820e-08   1.5448451e-07   3.4717590e-07   4.9606743e-08
+   9.7167304e-08   2.0273896e-07
+
+in:      0.61315012      0.50000000       1.4769326      0.14769327
+      0.30657506      0.50000000
+(out-in)/in:  -4.6239820e-08  -1.2532911e-05   7.2748357e-06  -1.2479286e-05
+   3.2227503e-05  -0.00018891029
+calculating initial guess...
+Elapsed time:     0.014658213
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       25.795500
+Score R:   4.3449089e-08
+R_k    :   1.9857012e-08   5.9144794e-08   1.1240756e-07   8.6944224e-09
+   2.1591888e-08   3.8998853e-08
+
+in:      0.61315012      0.50000000       1.4769326      0.36923316
+     0.061315015      0.50000000
+(out-in)/in:  -1.9857012e-08  -5.9815092e-07  -7.6349800e-07   5.8784810e-07
+  -9.9033592e-06   2.2561445e-05
+calculating initial guess...
+Elapsed time:     0.014772892
+Minimization...
+Elapsed time:       12.829031
+Score R:   1.1964422e-10
+R_k    :   1.8365256e-11   9.7220158e-11   3.1859859e-10   3.4914088e-11
+   8.9487100e-11   1.5928012e-10
+
+in:      0.61315012      0.50000000       1.4769326      0.36923316
+      0.15328753      0.50000000
+(out-in)/in:   1.8365256e-11   5.2393451e-07  -5.7014441e-07   3.0204554e-07
+  -4.3311864e-06   1.3417820e-05
+calculating initial guess...
+Elapsed time:     0.014700890
+Minimization...
+Elapsed time:       15.078007
+Score R:   1.9810467e-10
+R_k    :   8.5870026e-12   1.6095052e-10   5.4837527e-10   4.1349680e-11
+   1.6389681e-10   2.6546875e-10
+
+in:      0.61315012      0.50000000       1.4769326      0.36923316
+      0.30657506      0.50000000
+(out-in)/in:   8.5870026e-12   1.5539252e-07  -9.7812744e-08   1.3252726e-07
+  -3.5539947e-07   1.2870038e-06
+calculating initial guess...
+Elapsed time:     0.014766932
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       25.873386
+Score R:   1.9140175e-07
+R_k    :   3.8360530e-08   3.9257242e-07   4.0603170e-07   8.0943589e-08
+   1.3704094e-07   9.3461295e-08
+
+in:      0.61315012      0.50000000       1.4769326      0.73846631
+     0.061315015      0.50000000
+(out-in)/in:   3.8360530e-08   1.8630867e-06   6.6307454e-06  -2.2696061e-06
+   4.0286833e-05  -5.5846892e-05
+calculating initial guess...
+Elapsed time:     0.014676809
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       24.829723
+Score R:   8.1318711e-08
+R_k    :   3.2266807e-08   2.9783745e-08   1.5703805e-07   1.0127706e-07
+   6.2454795e-08   1.0509181e-07
+
+in:      0.61315012      0.50000000       1.4769326      0.73846631
+      0.15328753      0.50000000
+(out-in)/in:   3.2266807e-08   1.9396288e-06  -6.0496320e-06   1.1279123e-06
+  -1.8738196e-05   6.7707417e-05
+calculating initial guess...
+Elapsed time:     0.014649868
+Minimization...
+Elapsed time:       21.476714
+Score R:   4.3910929e-10
+R_k    :   3.0534522e-11   3.4382470e-10   1.1512839e-09   1.4556932e-10
+   4.6183446e-10   5.0160891e-10
+
+in:      0.61315012      0.50000000       1.4769326      0.73846631
+      0.30657506      0.50000000
+(out-in)/in:  -3.0534522e-11   4.3826438e-07  -1.6097647e-06   6.1019957e-07
+  -1.0516684e-06   8.3803320e-06
+calculating initial guess...
+Elapsed time:     0.014809132
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       28.344403
+Score R:   0.00032794626
+R_k    :   1.1839933e-05   0.00019224863   0.00088107678   9.6873554e-05
+   0.00020076609   0.00058487260
+
+in:      0.61315012      0.50000000       1.4769326      0.14769327
+     0.061315015      0.75000000
+(out-in)/in:  -1.1839933e-05      0.18143242    0.0083566614    -0.022172329
+     -0.49497909     -0.87953949
+calculating initial guess...
+Elapsed time:     0.014832020
+Minimization...
+Elapsed time:       17.117853
+Score R:   3.3382498e-10
+R_k    :   1.6798831e-11   2.4012075e-10   9.1708953e-10   8.1160865e-11
+   2.0246063e-10   5.4531927e-10
+
+in:      0.61315012      0.50000000       1.4769326      0.14769327
+      0.15328753      0.75000000
+(out-in)/in:   1.6798831e-11   1.1942093e-07  -8.2528586e-08  -2.6524402e-08
+  -8.0999052e-07   2.9173667e-06
+calculating initial guess...
+Elapsed time:     0.014844894
+Minimization...
+Elapsed time:       4.7875960
+Score R:   2.2774871e-10
+R_k    :   1.6017700e-11   1.8418714e-10   6.2119148e-10   5.1329025e-11
+   1.5718491e-10   3.3658201e-10
+
+in:      0.61315012      0.50000000       1.4769326      0.14769327
+      0.30657506      0.75000000
+(out-in)/in:  -1.6017700e-11   1.0836906e-06  -5.9531533e-07   1.6560368e-06
+  -2.7538192e-06   1.0063949e-05
+calculating initial guess...
+Elapsed time:     0.014665842
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       28.480420
+Score R:    0.0022184658
+R_k    :   7.8642358e-05    0.0014788517    0.0059936040   0.00064410074
+    0.0017320217    0.0033835742
+
+in:      0.61315012      0.50000000       1.4769326      0.36923316
+     0.061315015      0.75000000
+(out-in)/in:   7.8642358e-05      0.11658233     0.034533975    -0.015229082
+     -0.45127803     -0.92039682
+calculating initial guess...
+Elapsed time:     0.014786959
+Minimization...
+Elapsed time:       11.371849
+Score R:   1.4531182e-10
+R_k    :   1.1314803e-11   1.0977478e-10   3.9538354e-10   3.5005919e-11
+   1.1510464e-10   2.0528725e-10
+
+in:      0.61315012      0.50000000       1.4769326      0.36923316
+      0.15328753      0.75000000
+(out-in)/in:   1.1314803e-11  -9.7304128e-07   1.0306034e-06  -8.2826067e-07
+   7.8771750e-06  -1.8228321e-05
+calculating initial guess...
+Elapsed time:     0.014684916
+Minimization...
+Elapsed time:       16.953246
+Score R:   1.1740153e-10
+R_k    :   2.2405442e-12   7.6078872e-11   3.2375709e-10   2.7018973e-11
+   1.1693640e-10   1.5837730e-10
+
+in:      0.61315012      0.50000000       1.4769326      0.36923316
+      0.30657506      0.75000000
+(out-in)/in:   2.2405442e-12   7.2648393e-07  -7.7912002e-07   1.0025457e-06
+  -1.6864877e-06   5.5989705e-06
+calculating initial guess...
+Elapsed time:     0.014666080
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       28.153678
+Score R:   1.2861797e-06
+R_k    :   2.8014037e-07   3.4486408e-06   1.7524607e-06   2.1699995e-07
+   1.5703486e-07   1.8618014e-06
+
+in:      0.61315012      0.50000000       1.4769326      0.73846631
+     0.061315015      0.75000000
+(out-in)/in:  -2.8014037e-07   -0.0018172511   -0.0019085533   -0.0025349209
+    -0.021421991    -0.010867765
+calculating initial guess...
+Elapsed time:     0.014743090
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       23.437473
+Score R:   3.6810796e-08
+R_k    :   2.1956658e-09   2.6776193e-08   9.3474138e-08   1.5274975e-08
+   4.8740488e-08   3.4403314e-08
+
+in:      0.61315012      0.50000000       1.4769326      0.73846631
+      0.15328753      0.75000000
+(out-in)/in:  -2.1956658e-09  -1.5862613e-06   4.1848811e-06  -1.7482222e-06
+   1.2121441e-05  -3.4393318e-05
+calculating initial guess...
+Elapsed time:     0.014542103
+Minimization...
+Elapsed time:       9.2603478
+Score R:   2.8980108e-10
+R_k    :   1.9207407e-11   2.2462269e-10   7.6856734e-10   9.1176082e-11
+   3.4132717e-10   2.9390578e-10
+
+in:      0.61315012      0.50000000       1.4769326      0.73846631
+      0.30657506      0.75000000
+(out-in)/in:   1.9207407e-11  -6.5380614e-08   1.7515822e-08  -5.0579872e-08
+   1.1726942e-07  -1.2184160e-07
+calculating initial guess...
+Elapsed time:     0.014719963
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       24.270965
+Score R:   1.7072505e-10
+R_k    :   9.8994067e-11   4.5379205e-11   3.2880797e-10   6.8301942e-11
+   1.0539855e-10   3.7746858e-10
+
+in:      0.61315012       1.0000000       1.4769326      0.14769327
+     0.061315015      0.25000000
+(out-in)/in:  -9.8994067e-11  -1.3010011e-07  -1.8159382e-08   1.2556422e-08
+  -2.8630776e-06   3.1786009e-06
+calculating initial guess...
+Elapsed time:     0.014676094
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       23.251992
+Score R:   1.6870420e-08
+R_k    :   6.1791949e-09   1.0934890e-08   3.9988069e-08   3.8342379e-09
+   1.1795154e-08   2.8490976e-08
+
+in:      0.61315012       1.0000000       1.4769326      0.14769327
+      0.15328753      0.25000000
+(out-in)/in:  -6.1791949e-09  -2.6151664e-07   1.3751739e-07  -1.8804661e-07
+   2.6079802e-06  -1.4464827e-05
+calculating initial guess...
+Elapsed time:     0.014856815
+Minimization...
+Elapsed time:       5.1789989
+Score R:   7.2584889e-10
+R_k    :   2.5482705e-11   5.8286324e-10   1.9796955e-09   1.7959166e-10
+   4.0178629e-10   1.1856739e-09
+
+in:      0.61315012       1.0000000       1.4769326      0.14769327
+      0.30657506      0.25000000
+(out-in)/in:   2.5482705e-11   3.7540304e-10  -1.3660309e-08  -2.4581744e-09
+  -6.0988035e-08   6.0787055e-07
+calculating initial guess...
+Elapsed time:     0.019405842
+Minimization...
+Elapsed time:       14.625899
+Score R:   4.0032397e-11
+R_k    :   5.6055795e-11   8.0995402e-11   8.0648532e-11   3.8866470e-12
+   5.7933016e-12   1.2814701e-11
+
+in:      0.61315012       1.0000000       1.4769326      0.36923316
+     0.061315015      0.25000000
+(out-in)/in:   5.6055795e-11  -7.8355235e-07  -4.5703683e-07   3.5477556e-07
+  -1.9232996e-05   3.5664388e-05
+calculating initial guess...
+Elapsed time:     0.014837027
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       22.175958
+Score R:   2.9333875e-09
+R_k    :   2.3375768e-09   1.7987805e-09   7.5164292e-09   6.2587919e-10
+   2.1423539e-09   3.1793052e-09
+
+in:      0.61315012       1.0000000       1.4769326      0.36923316
+      0.15328753      0.25000000
+(out-in)/in:   2.3375768e-09   4.4174708e-07  -5.4127331e-07   1.6525430e-08
+  -3.9413076e-06   2.1482843e-05
+calculating initial guess...
+Elapsed time:     0.014764071
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       22.721929
+Score R:   2.4775753e-09
+R_k    :   1.6467053e-09   1.7708674e-09   6.0931209e-09   1.2965445e-09
+   2.7910369e-09   1.2671765e-09
+
+in:      0.61315012       1.0000000       1.4769326      0.36923316
+      0.30657506      0.25000000
+(out-in)/in:   1.6467053e-09  -2.4680490e-07   3.0502060e-07  -1.7824527e-07
+   5.6484597e-07  -6.4619602e-06
+calculating initial guess...
+Elapsed time:     0.014678001
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       26.538408
+Score R:   3.2004496e-05
+R_k    :   4.5036281e-08   1.8781589e-05   8.1812616e-05   1.4186276e-05
+   3.6398598e-05   4.0802862e-05
+
+in:      0.61315012       1.0000000       1.4769326      0.73846631
+     0.061315015      0.25000000
+(out-in)/in:  -4.5036281e-08    0.0035040522     0.019455596   -0.0029267634
+     -0.30818686     -0.85784415
+calculating initial guess...
+Elapsed time:     0.014877081
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       23.690929
+Score R:   5.5348023e-07
+R_k    :   1.5906802e-07   5.3522487e-07   1.4732251e-06   5.1089580e-08
+   3.0765087e-07   7.9462293e-07
+
+in:      0.61315012       1.0000000       1.4769326      0.73846631
+      0.15328753      0.25000000
+(out-in)/in:  -1.5906802e-07  -2.9609593e-05   8.9125717e-05  -9.0675551e-06
+   0.00026286423   -0.0017391336
+calculating initial guess...
+Elapsed time:     0.014790058
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       22.428773
+Score R:   1.1531557e-09
+R_k    :   4.4290367e-10   5.3865881e-10   2.5767919e-09   5.4734225e-10
+   1.2126220e-09   1.6006155e-09
+
+in:      0.61315012       1.0000000       1.4769326      0.73846631
+      0.30657506      0.25000000
+(out-in)/in:   4.4290367e-10   8.3245937e-07  -2.6806734e-06   5.4850012e-07
+  -2.0158586e-06   2.7762663e-05
+calculating initial guess...
+Elapsed time:     0.014711142
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       25.122896
+Score R:   3.1441461e-06
+R_k    :   3.1874768e-07   2.1604337e-06   7.8425767e-06   1.4558538e-06
+   1.6326820e-06   5.4545824e-06
+
+in:      0.61315012       1.0000000       1.4769326      0.14769327
+     0.061315015      0.50000000
+(out-in)/in:  -3.1874768e-07   8.1943837e-05   3.1603528e-05  -7.9535228e-05
+    0.0018058694   -0.0030784925
+calculating initial guess...
+Elapsed time:     0.014736891
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       22.328009
+Score R:   4.1732741e-09
+R_k    :   1.3194390e-09   3.5109658e-09   6.9192911e-09   1.2271969e-09
+   4.1012435e-09   7.9615080e-09
+
+in:      0.61315012       1.0000000       1.4769326      0.14769327
+      0.15328753      0.50000000
+(out-in)/in:  -1.3194390e-09  -1.0624960e-06   5.4976845e-07  -4.8392002e-07
+   9.1084833e-06  -3.0533009e-05
+calculating initial guess...
+Elapsed time:     0.014875889
+Minimization...
+Elapsed time:       9.5679538
+Score R:   2.4565449e-10
+R_k    :   1.3846324e-11   2.0180995e-10   6.7083479e-10   5.7832178e-11
+   1.5347198e-10   3.7613173e-10
+
+in:      0.61315012       1.0000000       1.4769326      0.14769327
+      0.30657506      0.50000000
+(out-in)/in:  -1.3846324e-11  -3.3672033e-08   4.9167491e-08  -4.2426355e-08
+   5.3385908e-08  -1.2537256e-06
+calculating initial guess...
+Elapsed time:     0.014648914
+Minimization...
+Elapsed time:       19.574316
+Score R:   2.3960464e-11
+R_k    :   3.6150912e-11   4.9158865e-11   3.5273682e-11   3.0699709e-12
+   5.4368616e-13   1.9565666e-11
+
+in:      0.61315012       1.0000000       1.4769326      0.36923316
+     0.061315015      0.50000000
+(out-in)/in:   3.6150912e-11  -1.4943861e-07  -1.3723694e-07   1.2163658e-07
+  -2.2859409e-06   4.1371311e-06
+calculating initial guess...
+Elapsed time:     0.014760017
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       22.960706
+Score R:   1.1982701e-08
+R_k    :   6.4833083e-10   8.4868451e-09   3.2617697e-08   2.9505939e-09
+   9.2785939e-09   1.7914144e-08
+
+in:      0.61315012       1.0000000       1.4769326      0.36923316
+      0.15328753      0.50000000
+(out-in)/in:  -6.4833083e-10   1.2949207e-06  -1.3919440e-06   6.8446651e-07
+  -1.0915789e-05   3.2924557e-05
+calculating initial guess...
+Elapsed time:     0.014798164
+Minimization...
+Elapsed time:       6.8147399
+Score R:   9.7780191e-11
+R_k    :   5.1476024e-12   1.0790093e-10   2.6719427e-10   1.6470230e-11
+   6.9527047e-11   1.2044107e-10
+
+in:      0.61315012       1.0000000       1.4769326      0.36923316
+      0.30657506      0.50000000
+(out-in)/in:   5.1476024e-12   1.6330218e-07  -1.0727545e-07   1.3942338e-07
+  -3.7518721e-07   1.3888549e-06
+calculating initial guess...
+Elapsed time:     0.014703035
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       28.912078
+Score R:   5.6287647e-05
+R_k    :   6.8847605e-05   7.3692732e-05   2.6495366e-05   2.7839919e-05
+   7.1254978e-05   6.9595284e-05
+
+in:      0.61315012       1.0000000       1.4769326      0.73846631
+     0.061315015      0.50000000
+(out-in)/in:  -6.8847605e-05   0.00084535531   0.00043728822  -0.00020910965
+     0.015466131    0.0038407063
+calculating initial guess...
+Elapsed time:     0.014650822
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       22.867005
+Score R:   1.7925322e-08
+R_k    :   1.5647065e-09   1.2786055e-08   4.6262340e-08   6.6899202e-09
+   2.0371536e-08   1.9877376e-08
+
+in:      0.61315012       1.0000000       1.4769326      0.73846631
+      0.15328753      0.50000000
+(out-in)/in:   1.5647065e-09  -1.4053788e-06   3.9279167e-06  -1.0334916e-06
+   1.1599978e-05  -4.3572060e-05
+calculating initial guess...
+Elapsed time:     0.014636993
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       21.975982
+Score R:   4.7051534e-08
+R_k    :   1.0649151e-08   2.9501373e-08   1.1838450e-07   2.1150922e-08
+   6.0098949e-08   4.2524308e-08
+
+in:      0.61315012       1.0000000       1.4769326      0.73846631
+      0.30657506      0.50000000
+(out-in)/in:   1.0649151e-08  -1.7272708e-06   6.0890203e-06  -2.2800067e-06
+   3.9942984e-06  -3.2144026e-05
+calculating initial guess...
+Elapsed time:     0.014712095
+Minimization...
+Elapsed time:       16.410737
+Score R:   1.3218905e-10
+R_k    :   7.0749521e-11   1.9855007e-10   3.4370134e-10   1.7766777e-11
+   3.9606329e-11   1.2276029e-10
+
+in:      0.61315012       1.0000000       1.4769326      0.14769327
+     0.061315015      0.75000000
+(out-in)/in:  -7.0749521e-11   1.0097869e-07   2.0566413e-09  -1.1654600e-07
+   1.5288413e-06  -2.1457913e-07
+calculating initial guess...
+Elapsed time:     0.014729977
+Minimization...
+Elapsed time:       14.823362
+Score R:   6.0678385e-10
+R_k    :   3.0927260e-11   4.6835006e-10   1.6552819e-09   1.4622426e-10
+   3.7499625e-10   9.6492337e-10
+
+in:      0.61315012       1.0000000       1.4769326      0.14769327
+      0.15328753      0.75000000
+(out-in)/in:   3.0927260e-11   9.8531267e-08  -7.1800606e-08  -4.5792592e-08
+  -6.3235875e-07   2.4764242e-06
+calculating initial guess...
+Elapsed time:     0.015019894
+Minimization...
+Elapsed time:       8.5552120
+Score R:   1.8766176e-10
+R_k    :   8.8551654e-12   1.4379488e-10   5.1524168e-10   4.3529529e-11
+   1.3443203e-10   2.8011728e-10
+
+in:      0.61315012       1.0000000       1.4769326      0.14769327
+      0.30657506      0.75000000
+(out-in)/in:  -8.8551654e-12   1.0793788e-06  -5.9289917e-07   1.6493627e-06
+  -2.7429674e-06   1.0023417e-05
+calculating initial guess...
+Elapsed time:     0.014847040
+Minimization...
+Elapsed time:       11.404196
+Score R:   3.7673985e-11
+R_k    :   4.6312307e-11   8.2603787e-11   7.6474221e-11   3.7285208e-12
+   3.4149559e-12   1.3510116e-11
+
+in:      0.61315012       1.0000000       1.4769326      0.36923316
+     0.061315015      0.75000000
+(out-in)/in:   4.6312307e-11  -5.0066769e-08   5.6056144e-09  -1.7184530e-08
+  -6.1038045e-07  -4.1125310e-07
+calculating initial guess...
+Elapsed time:     0.014796972
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       23.809273
+Score R:   2.6580648e-07
+R_k    :   4.8319844e-08   1.9391123e-07   7.0159405e-07   6.2534270e-08
+   2.2395284e-07   3.6452662e-07
+
+in:      0.61315012       1.0000000       1.4769326      0.36923316
+      0.15328753      0.75000000
+(out-in)/in:   4.8319844e-08  -1.9133559e-05   1.9902482e-05  -1.5053392e-05
+   0.00015866475  -0.00035719893
+calculating initial guess...
+Elapsed time:     0.014812946
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       22.050399
+Score R:   4.3141487e-10
+R_k    :   5.3616075e-10   2.0078403e-10   8.7093227e-10   1.6290089e-10
+   2.1371011e-10   6.0400116e-10
+
+in:      0.61315012       1.0000000       1.4769326      0.36923316
+      0.30657506      0.75000000
+(out-in)/in:  -5.3616075e-10   7.7498546e-07  -8.2887807e-07   1.0653489e-06
+  -1.7962264e-06   5.9569720e-06
+calculating initial guess...
+Elapsed time:     0.014825106
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       27.758436
+Score R:   7.2445140e-06
+R_k    :   1.0599485e-05   3.8889221e-06   1.0207659e-05   5.5275757e-07
+   2.5183591e-06   1.5699901e-05
+
+in:      0.61315012       1.0000000       1.4769326      0.73846631
+     0.061315015      0.75000000
+(out-in)/in:  -1.0599485e-05   -0.0026480278   -0.0029028857   -0.0038432369
+    -0.032172897    -0.016568796
+calculating initial guess...
+Elapsed time:     0.014676094
+Minimization...
+FRPRMN maximum iterations exceeded
+Elapsed time:       24.344532
+Score R:   1.7264703e-06
+R_k    :   5.2692063e-08   1.2920647e-06   4.5230418e-06   5.9903401e-07
+   1.8818069e-06   2.0101821e-06
+
+in:      0.61315012       1.0000000       1.4769326      0.73846631
+      0.15328753      0.75000000
+(out-in)/in:  -5.2692063e-08   7.4180438e-05  -0.00021528128   8.1073065e-05
+  -0.00061021358    0.0017529764
+calculating initial guess...
+Elapsed time:     0.014813900
+Minimization...
+Elapsed time:       12.853032
+Score R:   4.8363553e-11
+R_k    :   1.9667683e-12   2.9375248e-11   1.2344389e-10   2.1211969e-11
+   7.5899049e-11   3.8284389e-11
+
+in:      0.61315012       1.0000000       1.4769326      0.73846631
+      0.30657506      0.75000000
+(out-in)/in:  -1.9667683e-12  -5.3117883e-08  -1.7408715e-08  -2.7765778e-08
+   9.3835994e-08   2.9086928e-09
+
+
+Total elapsed time (whole experiment):       1656.6631
+% Program caused arithmetic error: Floating underflow
+% Program caused arithmetic error: Floating overflow
+% Program caused arithmetic error: Floating illegal operand
