@@ -4,7 +4,7 @@ pro wrapper
 
   ;============================
   ;noise_suffix='sin_ruido'
-   noise_suffix='con_ruido_0.1'
+   noise_suffix='con_ruido_0.05'
   exp_suffix  =''
   ;exp_suffix  ='_exp_B'
   ;===========================

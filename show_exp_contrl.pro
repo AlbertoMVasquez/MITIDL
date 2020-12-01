@@ -16,7 +16,7 @@
 ; show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(SR) G.Conj ftol1e-8 tol=1e-6'
 ; show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-2',suffix_exp='(SR) G.Conj ftol1e-8 tol=1e-2'
 ; show_exp_contrl,dir='exp_contrl_v2_ftol1e-10TOL1e-4',suffix_exp='(SR) G.Conj ftol1e-10 tol=1e-4'
-pro show_exp_contrl,ruido=ruido,dir=dir,file=file,suffix_exp=suffix_exp
+pro show_exp_contrl,ruido=ruido,dir=dir,file=file,suffix_exp=suffix_exp,fnoise_suffix=fnoise_suffix
   common units,ne_unit,te_unit
 
 IF NOT keyword_set(suffix_exp) then suffix_exp=''
@@ -25,6 +25,9 @@ IF NOT keyword_set(suffix_exp) then suffix_exp=''
   if     keyword_set(ruido) then  suffix = 'con_ruido'
   if NOT keyword_set(ruido) then  suffix = 'sin_ruido'
 
+  if     keyword_set(fnoise_suffix) then noise_suffix = suffix+'_'+fnoise_suffix
+  if not keyword_set(fnoise_suffix) then noise_suffix = suffix
+  
   suffix_file = '_'+suffix
   suffix_title =' ('+suffix+')'
 
@@ -68,19 +71,18 @@ IF NOT keyword_set(suffix_exp) then suffix_exp=''
 
   ;p = where(abs(rel_diff_q) gt 0.5)
   ;p2 = where(abs(rel_diff_q) gt 0.5 and abs(q_out) gt 0.95)
-  STOP
 
   ;index = where (scoreR lt 0.05)
   index = where (scoreR gt 0. and Nm_out gt 0.) ; this index select all the experiments
   print,'N=',n_elements(index)
   print
 
-  plot_scatter_and_historatio,nm_in(index),nm_out(index),xsuffix='modeled',ysuffix='reconstructed',filename='Nm_'+suffix,titulo='Nm '+suffix_exp,dir=dir
-  plot_scatter_and_historatio,tm_in(index),tm_out(index),xsuffix='modeled',ysuffix='reconstructed',filename='Tm_'+suffix,titulo='Tm '+suffix_exp,dir=dir
-  plot_scatter_and_historatio,fip_in(index),fip_out(index),xsuffix='modeled',ysuffix='reconstructed',filename='FIP_'+suffix,titulo='FIP '+suffix_exp,dir=dir
-  plot_scatter_and_historatio,sigN_in(index),sigN_out(index),xsuffix='modeled',ysuffix='reconstructed',filename='sigN_'+suffix,titulo='sigN '+suffix_exp,dir=dir
-  plot_scatter_and_historatio,sigT_in(index),sigT_out(index),xsuffix='modeled',ysuffix='reconstructed',filename='sigT_'+suffix,titulo='sigT '+suffix_exp,dir=dir
-  plot_scatter_and_historatio,q_in(index),q_out(index),xsuffix='modeled',ysuffix='reconstructed',filename='q_'+suffix,titulo='q '+suffix_exp,dir=dir
+  plot_scatter_and_historatio,nm_in(index),nm_out(index),xsuffix='modeled',ysuffix='reconstructed',filename='Nm_'+noise_suffix,titulo='Nm '+suffix_exp,dir=dir
+  plot_scatter_and_historatio,tm_in(index),tm_out(index),xsuffix='modeled',ysuffix='reconstructed',filename='Tm_'+noise_suffix,titulo='Tm '+suffix_exp,dir=dir
+  plot_scatter_and_historatio,fip_in(index),fip_out(index),xsuffix='modeled',ysuffix='reconstructed',filename='FIP_'+noise_suffix,titulo='FIP '+suffix_exp,dir=dir
+  plot_scatter_and_historatio,sigN_in(index),sigN_out(index),xsuffix='modeled',ysuffix='reconstructed',filename='sigN_'+noise_suffix,titulo='sigN '+suffix_exp,dir=dir
+  plot_scatter_and_historatio,sigT_in(index),sigT_out(index),xsuffix='modeled',ysuffix='reconstructed',filename='sigT_'+noise_suffix,titulo='sigT '+suffix_exp,dir=dir
+  plot_scatter_and_historatio,q_in(index),q_out(index),xsuffix='modeled',ysuffix='reconstructed',filename='q_'+noise_suffix,titulo='q '+suffix_exp,dir=dir
   ;return
   ;index = where (abs((sigN_in -sigN_out)/sigN_in) gt 0.5)
   ;index = where( abs(sigT_in/Tm_in - sigN_in/Nm_in) lt 1.e-1  )

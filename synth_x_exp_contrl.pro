@@ -2,8 +2,8 @@
 pro wrapper
   common fraction_noise,f,f_suffix
 
-  f_suffix='_0.2'
-  f       =  0.2
+  f_suffix='_0.05'
+  f       =  0.05
   synth_x_exp_contrl,/Riemann,/lnuniform,$
                      NNe_provided=50,NTe_provided=50,$
                      dir = '/data1/tomography/bindata/',$
