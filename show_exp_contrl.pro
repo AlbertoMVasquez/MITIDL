@@ -16,6 +16,14 @@
 ; show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(SR) G.Conj ftol1e-8 tol=1e-6'
 ; show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-2',suffix_exp='(SR) G.Conj ftol1e-8 tol=1e-2'
 ; show_exp_contrl,dir='exp_contrl_v2_ftol1e-10TOL1e-4',suffix_exp='(SR) G.Conj ftol1e-10 tol=1e-4'
+
+pro wrapper
+
+  show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(CR 0.05) G.Conj ftol1e-8 tol=1e-6',file='mit_exp_contrl_con_ruido_0.05.out',fnoise_suffix='0.05',/ruido
+
+  return
+end
+
 pro show_exp_contrl,ruido=ruido,dir=dir,file=file,suffix_exp=suffix_exp,fnoise_suffix=fnoise_suffix
   common units,ne_unit,te_unit
 
