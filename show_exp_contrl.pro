@@ -20,7 +20,8 @@
 pro wrapper
 
   show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(CR 0.05) G.Conj ftol1e-8 tol=1e-6',file='mit_exp_contrl_con_ruido_0.05.out',fnoise_suffix='0.05',/ruido
-
+  show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(CR 0.10) G.Conj ftol1e-8 tol=1e-6',file='mit_exp_contrl_con_ruido_0.1.out',fnoise_suffix='0.1',/ruido
+  show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(CR 0.20) G.Conj ftol1e-8 tol=1e-6',file='mit_exp_contrl_con_ruido_0.2.out',fnoise_suffix='0.2',/ruido
   return
 end
 
