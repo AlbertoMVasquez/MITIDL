@@ -18,7 +18,9 @@
 ; show_exp_contrl,dir='exp_contrl_v2_ftol1e-10TOL1e-4',suffix_exp='(SR) G.Conj ftol1e-10 tol=1e-4'
 
 pro wrapper
-
+  
+  show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(CR 0.1 NG) G.Conj ftol1e-8 tol=1e-6',file='mit_exp_contrl_con_ruido_0.1newguess.out',fnoise_suffix='0.1newguess',/ruido
+  return
   show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(CR 0.05) G.Conj ftol1e-8 tol=1e-6',file='mit_exp_contrl_con_ruido_0.05.out',fnoise_suffix='0.05',/ruido
   show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(CR 0.10) G.Conj ftol1e-8 tol=1e-6',file='mit_exp_contrl_con_ruido_0.1.out',fnoise_suffix='0.1',/ruido
   show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(CR 0.20) G.Conj ftol1e-8 tol=1e-6',file='mit_exp_contrl_con_ruido_0.2.out',fnoise_suffix='0.2',/ruido
