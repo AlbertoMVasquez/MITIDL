@@ -13,12 +13,12 @@ pro wrapper
  ;Suffixs to make the mame of x-tomographic products 
  ;used as input file
   ;noise_suffix = 'sin_ruido'      & flag_noise=0
-  noise_suffix = 'con_ruido_0.2'  & flag_noise=1
+  noise_suffix = 'con_ruido_0.1'  & flag_noise=1
   exp_suffix   = ''               
  ;exp_suffix   = 'exp_B'
 
  ;Name of output file  
-  file_out ='mit_exp_contrl_'+noise_suffix+'.out';'mit_exp_contrl.out'
+  file_out ='mit_exp_contrl_'+noise_suffix+'newguess.out';'mit_exp_contrl.out'
  ;Directory where is writed the output file
   dir_out  ='exp_contrl_v2_ftol1e-8TOL1e-6'
  
