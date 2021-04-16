@@ -18,6 +18,9 @@
 ; show_exp_contrl,dir='exp_contrl_v2_ftol1e-10TOL1e-4',suffix_exp='(SR) G.Conj ftol1e-10 tol=1e-4'
 
 pro wrapper
+  show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(CR 0.1 NGP) G.Conj ftol1e-8 tol=1e-6',file='mit_exp_contrl_con_ruido_0.1newguess_penal.out',$
+                  fnoise_suffix='0.1newguessPenal',/ruido
+  return
   show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(CR 0.1 NG) G.Conj ftol1e-8 tol=1e-6',file='mit_exp_contrl_con_ruido_0.1newguess.out',fnoise_suffix='0.1newguess',/ruido
   return
   show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(CR 0.05) G.Conj ftol1e-8 tol=1e-6',file='mit_exp_contrl_con_ruido_0.05.out',fnoise_suffix='0.05',/ruido
@@ -79,7 +82,7 @@ IF NOT keyword_set(suffix_exp) then suffix_exp=''
   rel_diff_sigT = (sigT_out-sigT_in)/sigT_in
   rel_diff_sigN = (sigN_out-sigN_in)/sigN_in
   rel_diff_q    = (q_out-q_in)/q_in
- 
+  stop
  
   ;p = where(abs(rel_diff_q) gt 0.5)
   ;p2 = where(abs(rel_diff_q) gt 0.5 and abs(q_out) gt 0.95)
