@@ -82,7 +82,7 @@ IF NOT keyword_set(suffix_exp) then suffix_exp=''
   rel_diff_sigT = (sigT_out-sigT_in)/sigT_in
   rel_diff_sigN = (sigN_out-sigN_in)/sigN_in
   rel_diff_q    = (q_out-q_in)/q_in
-  stop
+  
  
   ;p = where(abs(rel_diff_q) gt 0.5)
   ;p2 = where(abs(rel_diff_q) gt 0.5 and abs(q_out) gt 0.95)
