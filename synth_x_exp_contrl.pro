@@ -1,4 +1,5 @@
 
+
 pro wrapper
   common fraction_noise,f,f_suffix
 
@@ -143,18 +144,12 @@ pro synth_x_exp_contrl, Riemann=Riemann,$
                  f_wl = f
                  f_y  = f + fltarr (n_elements(i_mea_vec))
                  y0 = y0 * (1.0+f_wl*randomn(seed,1))(0)
-                 y  = y  * (1.0+f_y *randomn(seed,5)) 
+                 y  = y  * (1.0+f_y *randomn(seed,n_elements(i_mea_vec))) 
               endif
               
 
               par_in(i1,i2,n4*i3+i4,*)= par_orig
               x     (i1,i2,n4*i3+i4,*)= [y0, y]
-              ;x     (i1,i2,n4*i3+i4,0)= y0
-              ;x     (i1,i2,n4*i3+i4,1)= y[0]
-              ;x     (i1,i2,n4*i3+i4,2)= y[1]
-              ;x     (i1,i2,n4*i3+i4,3)= y[2]
-              ;x     (i1,i2,n4*i3+i4,4)= y[3]
-              ;x     (i1,i2,n4*i3+i4,5)= y[4]
            endfor
         endfor
      endfor

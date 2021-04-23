@@ -1,10 +1,74 @@
 
+pro exp_contrl_ldem
+;============================
+  ;noise_suffix='sin_ruido'
+  noise_suffix='con_ruido_0.1'
+  exp_suffix  =''
+  ;exp_suffix  ='_exp_B'
+  ;===========================
+
+  dir_par_input = '/data1/tomography/bindata/'
+  file_par_input= 'param_input_exp_contrl_ldem_'+noise_suffix+exp_suffix+'.out'
+
+  restore,dir_par_input+file_par_input
+  sz = size (par_orig)
+
+
+  Tmin = 0.5                       ; MK
+  Tmax = 3.5                       ; MK
+  L    = 171   &   Lstring='_171'  ; Number of Temp bins
+  nr   = fix(sz(1))                ; Number of tomographic radial bins
+  nth  = fix(sz(2))                ; Number of latitudinal bins
+  np   = fix(sz(3))                ; Number of longitudinal bins
+  npx  = 1024                     ; Number of Image pixels, for DEM.
+  box  = [400,620,240,380]        ; box of pixeles where do DEM  
+
+   bandsindexes = [2,3,4]   &  Expstring='_AIA3_exp_contrl_'+noise_suffix+exp_suffix
+
+   finalname = 'LDEM'+Expstring
+ 
+   dir    = '/data1/tomography/bindata/' ;Tomography directory
+   ;dir    = '~/Downloads/' ;Tomography directory
+
+   parastring='_gauss1'
+
+   datafiles=[ '',$
+               '',$
+               'x.aia171_exp_contrl_ldem_',$
+               'x.aia193_exp_contrl_ldem_',$
+               'x.aia211_exp_contrl_ldem_',$
+               '' ]+noise_suffix+exp_suffix+'.out'   &   CRstring='_ldem'
+   
+; The TRF
+   file_ioneq='chianti.ioneq'
+   file_abund='sun_coronal_1992_feldman_ext.abund'
+   dirqkl='/data1/work/dem/TRF/'
+   qklfiles=dirqkl+['Qkl_094_','Qkl_131_','Qkl_171_','Qkl_193_','Qkl_211_','Qkl_335_']+$
+             file_ioneq+'_'+file_abund+$
+            '.AIA-lastoptimizedWL-photons-Abund-1e-3-ALL-withCONTINUUM_Ne1E08_C71.extended.interpolated.out'
+
+   
+
+   suffix = 'v2'+CRstring+'_'+file_ioneq+'_'+file_abund+Expstring+Lstring
+   
+   binfactor=2
+   fact     =1
+   ldem_mit,Tmin,Tmax,datafiles,qklfiles,bandsindexes,suffix,dir,L,nr,nth,np,npx,binfactor,fact,$
+           /aia,/norm_median,/ldem,/gauss1,/single,/linear,finalname=finalname;,oneheight=6 
+
+
+  
+  return
+end
+
+
+
 pro wrapper
 
 
   ;============================
   ;noise_suffix='sin_ruido'
-   noise_suffix='con_ruido_0.05'
+  noise_suffix='con_ruido_0.05'
   exp_suffix  =''
   ;exp_suffix  ='_exp_B'
   ;===========================

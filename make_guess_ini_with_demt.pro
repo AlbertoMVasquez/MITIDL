@@ -30,11 +30,11 @@ pro make_guess_ini_with_demt,nm_demt,tm_demt,wt_demt,guess_ini,PHIguess
 
   ; range of the variable-grid  
                                          n1=1
-  fip_range         = [0.1, 1.0]       & n2=5 ; 0.5 > 5.
+  fip_range         = [0.1, 1.0]       & n2=10 
                                          n3=1
                                          n4=1
                                          n5=1
-  sigN_range        = [0.01,0.5]*y0    & n5=5
+  sigN_range        = [0.1,0.5]*y0     & n5=10
   q_range           = [0.1, 0.8]       & n6=10
   
 
