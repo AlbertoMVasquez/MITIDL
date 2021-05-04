@@ -18,12 +18,13 @@
 ; show_exp_contrl,dir='exp_contrl_v2_ftol1e-10TOL1e-4',suffix_exp='(SR) G.Conj ftol1e-10 tol=1e-4'
 
 pro wrapper
-  show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(CR 0.1 NGP) G.Conj ftol1e-8 tol=1e-6',file='mit_exp_contrl_con_ruido_0.1newguess_penal.out',$
-                  fnoise_suffix='0.1newguessPenal',/ruido
-  show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(CR 0.1 NG) G.Conj ftol1e-8 tol=1e-6',file='mit_exp_contrl_con_ruido_0.1newguess.out',fnoise_suffix='0.1newguess',/ruido
+  show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(CR 0.01) G.Conj ftol1e-8 tol=1e-6',file='mit_exp_contrl_con_ruido_0.01.out',fnoise_suffix='0.01',/ruido
   show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(CR 0.05) G.Conj ftol1e-8 tol=1e-6',file='mit_exp_contrl_con_ruido_0.05.out',fnoise_suffix='0.05',/ruido
   show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(CR 0.10) G.Conj ftol1e-8 tol=1e-6',file='mit_exp_contrl_con_ruido_0.1.out',fnoise_suffix='0.1',/ruido
-  show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(CR 0.20) G.Conj ftol1e-8 tol=1e-6',file='mit_exp_contrl_con_ruido_0.2.out',fnoise_suffix='0.2',/ruido
+  show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(CR0.20) G.Conj ftol1e-8 tol=1e-6',file='mit_exp_contrl_con_ruido_0.2.out',fnoise_suffix='0.2',/ruido
+  RETURN
+  show_exp_contrl,dir='exp_contrl_v2_ftol1e-8TOL1e-6',suffix_exp='(CR 0.10 q-Penalty) G.Conj ftol1e-8 tol=1e-6',$
+                  file='mit_exp_contrl_con_ruido_0.1_q-penalty.out',fnoise_suffix='0.1_qPenalty',/ruido
   return
 end
 
@@ -122,7 +123,7 @@ IF NOT keyword_set(suffix_exp) then suffix_exp=''
   record_jpg,dir,'q_scatter'+suffix_file+'.jpg'
   skip_scatter_R:
 
-  tablename = 'tabla_'+file
+  tablename = 'tabla_'+'_'++noise_suffix+'.txt'
 
  openw,1,dir+tablename
  printf,1,'======================'

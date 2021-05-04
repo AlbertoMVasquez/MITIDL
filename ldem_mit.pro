@@ -11,7 +11,7 @@ pro exp_contrl_ldem
   file_par_input= 'param_input_exp_contrl_ldem_'+noise_suffix+exp_suffix+'.out'
 
   restore,dir_par_input+file_par_input
-  sz = size (par_orig)
+  sz = size (par_in)
 
 
   Tmin = 0.5                       ; MK
@@ -68,7 +68,7 @@ pro wrapper
 
   ;============================
   ;noise_suffix='sin_ruido'
-  noise_suffix='con_ruido_0.05'
+  noise_suffix='con_ruido_0.01'
   exp_suffix  =''
   ;exp_suffix  ='_exp_B'
   ;===========================
@@ -82,12 +82,12 @@ pro wrapper
 
   Tmin = 0.5                       ; MK
   Tmax = 3.5                       ; MK
-  L    = 171   &   Lstring='_171' ; Number of Temp bins
-  nr   = sz(1)                   ; Number of tomographic radial bins
-  nth  = sz(2)                   ; Number of latitudinal bins
-  np   = sz(3)                  ; Number of longitudinal bins
-  npx  = 1024                     ; Number of Image pixels, for DEM.
-  box  = [400,620,240,380]        ; box of pixeles where do DEM  
+  L    = 171   &   Lstring='_171'  ; Number of Temp bins
+  nr   = fix(sz(1))                   ; Number of tomographic radial bins
+  nth  = fix(sz(2))                   ; Number of latitudinal bins
+  np   = fix(sz(3))                   ; Number of longitudinal bins
+  npx  = 1024                         ; Number of Image pixels, for DEM.
+  box  = [400,620,240,380]            ; box of pixeles where do DEM  
 
    bandsindexes = [2,3,4]   &  Expstring='_AIA3_MIT_exp_contrl_'+noise_suffix+exp_suffix
 

@@ -37,8 +37,8 @@ pro synth_fbes_exp_ldem,noise=noise,exp_suffix=exp_suffix
   
   ; ARRAY WITH THE SYNTH FBEs
   x_fbe     = fltarr(n1,n2,n3,nband)
-  ; ARRAY WITH THE ORIGINAL PARAMETERS
-  par_orig  = fltarr(n1,n2,n3,npar)
+  ; ARRAY WITH THE INPUT PARAMETERS
+  par_in    = fltarr(n1,n2,n3,npar)
 
 
   for i = 0, n1-1 do begin
@@ -62,7 +62,7 @@ pro synth_fbes_exp_ldem,noise=noise,exp_suffix=exp_suffix
            ;   FBE2[iband] = total(reform(Q_k(iband,*))*LDEM *dT)
            ;   FBE3[iband] = INT_TABULATED(T,reform(Q_k(iband,*))*LDEM)
            ;endfor
-           par_orig(i,j,k,*) = [Ne0,Tc,sigT]
+           par_IN  (i,j,k,*) = [Ne0,Tc,sigT]
            x_fbe   (i,j,k,*) = FBE
            ;stop
         endfor
@@ -82,7 +82,7 @@ pro synth_fbes_exp_ldem,noise=noise,exp_suffix=exp_suffix
   endfor
 
   file_par_input = 'param_input'+'_exp_contrl_ldem_'+noise_suffix+exp_suffix+'.out'
-  save,filename=dir+file_par_input,par_orig
+  save,filename=dir+file_par_input,par_IN
 
 
   return

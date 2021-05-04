@@ -2,9 +2,9 @@
 
 pro wrapper
   common fraction_noise,f,f_suffix
-
-  f_suffix='_0.05'
-  f       =  0.05
+  
+  f_suffix='_0.01'
+  f       =  0.01
   synth_x_exp_contrl,/Riemann,/lnuniform,$
                      NNe_provided=50,NTe_provided=50,$
                      dir = '/data1/tomography/bindata/',$
@@ -115,65 +115,65 @@ pro synth_x_exp_contrl, Riemann=Riemann,$
 
 
 
-  for i1=0,n1-1 do begin
-     for i2=0,n2-1 do begin
-        for i3=0,n3-1 do begin
-           for i4=0,n4-1 do begin
+              for i1=0,n1-1 do begin
+                 for i2=0,n2-1 do begin
+                    for i3=0,n3-1 do begin
+                       for i4=0,n4-1 do begin
 
             
          ; Test values for the parameters of the joint bivariate Te-Ne normal distribution:
-              Nem        = Nm_demt             ; cm^-3
-              fip_factor = fip_factor_v (i1)   ; Note that [Fe] = [Fe]_Feldman * fip_factor 
-              Tem        = Tm_demt             ; K
-              SigTe      = factor_sigmaT(i3) * Tem ; K
-              SigNe      = factor_sigmaN(i4) * Nem ; cm^-3
-              q          = q_v          (i2)
+                          Nem        = Nm_demt     ; cm^-3
+                          fip_factor = fip_factor_v (i1) ; Note that [Fe] = [Fe]_Feldman * fip_factor 
+                          Tem        = Tm_demt           ; K
+                          SigTe      = factor_sigmaT(i3) * Tem ; K
+                          SigNe      = factor_sigmaN(i4) * Nem ; cm^-3
+                          q          = q_v          (i2)
   
          ; Parameter vector for both e_function and cost_function:
          ; The order chosen for its elements follows Rich's notes, right after Eq. (2)
-              par_orig= [Nem, fip_factor, Tem, SigTe, SigNe, q]*1.d
+                          par_orig= [Nem, fip_factor, Tem, SigTe, SigNe, q]*1.d
+                          
+                          y0 = Nem
+                          if keyword_set(riemann) then $
+                             y  = synth_y_values_CS(par_orig)
+                          if not keyword_set(riemann) then $
+                             y  = synth_y_values (par_orig)
+
+                          
+                          if keyword_set(noise) then begin
+                             f_wl = f
+                             f_y  = f + fltarr (n_elements(i_mea_vec))
+                             y0 = y0 * (1.0+f_wl*randomn(seed,1))(0)
+                             y  = y  * (1.0+f_y *randomn(seed,n_elements(i_mea_vec))) 
+                          endif
               
-              y0 = Nem
-              if keyword_set(riemann) then $
-                 y  = synth_y_values_CS(par_orig)
-              if not keyword_set(riemann) then $
-                 y  = synth_y_values (par_orig)
 
-               
-              if keyword_set(noise) then begin
-                 f_wl = f
-                 f_y  = f + fltarr (n_elements(i_mea_vec))
-                 y0 = y0 * (1.0+f_wl*randomn(seed,1))(0)
-                 y  = y  * (1.0+f_y *randomn(seed,n_elements(i_mea_vec))) 
-              endif
-              
-
-              par_in(i1,i2,n4*i3+i4,*)= par_orig
-              x     (i1,i2,n4*i3+i4,*)= [y0, y]
-           endfor
-        endfor
-     endfor
-  endfor
+                          par_in(i1,i2,n4*i3+i4,*)= par_orig
+                          x     (i1,i2,n4*i3+i4,*)= [y0, y]
+                       endfor
+                    endfor
+                 endfor
+              endfor
  
-  if not keyword_set(noise) then noise_suffix='sin_ruido' 
-  if     keyword_set(noise) then noise_suffix='con_ruido'+f_suffix 
+              if not keyword_set(noise) then noise_suffix='sin_ruido' 
+              if     keyword_set(noise) then noise_suffix='con_ruido'+f_suffix 
 
 
 
-  if not keyword_set(dir) then dir='~/Downloads/'
-  if not keyword_set(exp_suffix) then exp_suffix=''
+              if not keyword_set(dir) then dir='~/Downloads/'
+              if not keyword_set(exp_suffix) then exp_suffix=''
 
-  datafiles=['xkcor','x.comp1074','x.comp1079','x.aia171','x.aia193','x.aia211']$
-            +'_exp_contrl_'+noise_suffix+exp_suffix+'.out'
-  for i=0,nband-1 do begin
-     openw,1,dir+datafiles(i)
-     tmp = reform(x(*,*,*,i))
-     writeu,1,tmp
-     close,1
-  endfor
+              datafiles=['xkcor','x.comp1074','x.comp1079','x.aia171','x.aia193','x.aia211']$
+                        +'_exp_contrl_'+noise_suffix+exp_suffix+'.out'
+              for i=0,nband-1 do begin
+                 openw,1,dir+datafiles(i)
+                 tmp = reform(x(*,*,*,i))
+                 writeu,1,tmp
+                 close,1
+              endfor
  
-  file_par_input = 'param_input'+'_exp_contrl_'+noise_suffix+exp_suffix+'.out'
-  save,filename=dir+file_par_input,par_in,r0
+              file_par_input = 'param_input'+'_exp_contrl_'+noise_suffix+exp_suffix+'.out'
+              save,filename=dir+file_par_input,par_in,r0
 
-  return
-end
+              return
+           end

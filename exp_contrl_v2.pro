@@ -13,12 +13,12 @@ pro wrapper
  ;Suffixs to make the mame of x-tomographic products 
  ;used as input file
   ;noise_suffix = 'sin_ruido'      & flag_noise=0
-  noise_suffix = 'con_ruido_0.1'  & flag_noise=1
+  noise_suffix = 'con_ruido_0.01'  & flag_noise=1
   exp_suffix   = ''               
  ;exp_suffix   = 'exp_B'
 
  ;Name of output file  
-  file_out ='mit_exp_contrl_'+noise_suffix+'_newguess_penal.out';'mit_exp_contrl.out'
+  file_out ='mit_exp_contrl_'+noise_suffix+exp_suffix+'.out';'mit_exp_contrl.out'
  ;Directory where is writed the output file
   dir_out  ='exp_contrl_v2_ftol1e-8TOL1e-6'
  
@@ -272,7 +272,9 @@ pro exp_contrl_v2,xfiles,min_method=min_method,riemann=riemann,$
    print
    t_elapsed_whole_exp  = systime(/seconds)-tstart_whole_exp
    print,'Total elapsed time (whole experiment):',t_elapsed_whole_exp
-            
+
+   print
+   print,'Results are in: ',dir_root+dir_out+file_out
 
 
    RETURN
