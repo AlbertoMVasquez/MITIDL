@@ -144,7 +144,7 @@ pro synth_x_exp_contrl, Riemann=Riemann,$
                              f_wl = f
                              f_y  = f + fltarr (n_elements(i_mea_vec))
                              y0 = y0 * (1.0+f_wl*randomn(seed,1))(0)
-                             y  = y  * (1.0+f_y *randomn(seed,n_elements(i_mea_vec))) 
+                             y  = y  * (1.0+f_y *randomn(seed,n_elements(i_mea_vec)))
                           endif
               
 
