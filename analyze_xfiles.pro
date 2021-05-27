@@ -6,6 +6,8 @@ pro analyze_xfiles
   dir = '/data1/tomography/bindata/'
   xread,dir=dir,file='x_KCOR.CR2198.13imgs-reduced.bf2.ri1.05.ro2.25_Inst_1.09_2.00_120_90_180_dropneg_r3D_l1e-4',nr=120,nt=90,np=180,map=y0
   xread,dir=dir,file='x.comp1074.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_1.7_IRMIN_1.09',nr=50,nt=90,np=180,map=comp1074
+  xread,dir=dir,file='x.comp1074.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_1.7_IRMIN_1.09_ABBEY',nr=50,nt=90,np=180,map=comp1074_new
+  STOP
   xread,dir=dir,file='x.comp1079.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_L3.0_IRMIN_1.09',nr=50,nt=90,np=180,map=comp1079
   xread,dir=dir,file='x_aia.171.cr2198.26x90_bf4_ri.00_ro1.09_h1_Oldset_r3d_reduced_L0.70',nr=26,nt=90,np=180,map=FBE171
   xread,dir=dir,file='x_aia.193.cr2198.26x90_bf4_ri.00_ro1.09_h1_Oldset_r3d_reduced_L0.90',nr=26,nt=90,np=180,map=FBE193
