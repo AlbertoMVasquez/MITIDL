@@ -1,0 +1,23 @@
+#Variables de "environment" para correr el SSW
+
+setenv SSW      /usr/local/ssw
+#setenv SSW      /data1/ssw
+setenv SSW_INSTR "ontology secchi eit aia sdo vso pfss euvdeconpak"
+
+#setenv ssw_nox 1
+#setenv HESSI_PATH $SSW/hessi
+#setenv SSW_LASCO /usr/local/ssw/soho/lasco
+#setenv NRL_LIB $SSW_LASCO
+
+#setenv STEREO_PATH $SSW/stereo
+
+setenv SECCHI_BKG  "/data2/ssw/stereo/secchi/backgrounds"
+setenv SECCHI_LZ   "/data1/tomography/DATA/SECCHI"
+setenv SECCHI_TEMP "/data1/tomography/DATA/temp"
+
+source $SSW/gen/setup/setup.ssw
+
+setenv IDL_DIR "/usr/local/rsi/idl71"
+
+setenv PATH $SSW/packages/chianti/idl:./:$PATH
+

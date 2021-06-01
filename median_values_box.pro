@@ -3,7 +3,7 @@
 pro wrapper
 
   !PATH = Expand_Path('+/data1/tomography/SolarTom_idl') + ':' + !PATH
-  rad_range=[ 1.1 , 1.12]       ; Rsun
+  rad_range=[ 1.2 , 1.22]       ; Rsun
   lat_range=[- 40 ,   0.]       ; deg
   lon_range=[ 250 , 350.]       ; deg
   file='LDEM.v3_CR2198_l.70.90.90_h1_reduced_Rmin1.00_Rmax1.26_Nr26_InstRmax1.26_bf4_r3d_B_chianti.ioneq_sun_coronal_1992_feldman_ext.abundaia3_171_gauss1_lin_Norm-median_singlStart'
@@ -33,10 +33,11 @@ pro median_values_box,rad_range,lat_range,lon_range,file
   OKvoxel(ZDA) = 0.
   OKvoxel(CNS) = 0.
 
-  index = where (OKvoxel eq 1. and $
-                 radA gt rad_range(0) and radA lt rad_range(1) and $
-                 latA gt lat_range(0) and latA lt lat_range(1) and $
-                 lonA gt lon_range(0) and lonA lt lon_range(1)      )
+
+   index = where (OKvoxel eq 1. and $
+                   radA gt rad_range(0) and radA lt rad_range(1) and $
+                   latA gt lat_range(0) and latA lt lat_range(1) and $
+                   lonA gt lon_range(0) and lonA lt lon_range(1)      )  
 
   print,'median value of Nm in the box: [10^8 cm-3]',median(n_e(index))/1.e8
   print,'median value of Tm in the box: [MK]       ',median(tm (index))/1.e6
@@ -45,6 +46,26 @@ pro median_values_box,rad_range,lat_range,lon_range,file
   print,'median value of FBE 171 A in the box:',median(x171(index))
   print,'median value of FBE 193 A in the box:',median(x193(index))
   print,'median value of FBE 211 A in the box:',median(x211(index))
+  print
+
+  dir = '/data1/tomography/bindata/'
+  xread,dir=dir,file='x.comp1074.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_1.7_IRMIN_1.09',nr=50,nt=90,np=180,map=comp1074
+  ;xread,dir=dir,file='x.comp1074.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_1.7_IRMIN_1.09_ABBEY',nr=50,nt=90,np=180,map=comp1074_new
+  xread,dir=dir,file='x.comp1079.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_L3.0_IRMIN_1.09',nr=50,nt=90,np=180,map=comp1079
+  nr = 50 & nth = 90 & np = 180
+  grilla,nr,nth,np,radA,latA,lonA  
+  index = where (comp1074 gt 0. and $
+                 radA gt rad_range(0) and radA lt rad_range(1) and $
+                 latA gt lat_range(0) and latA lt lat_range(1) and $
+                 lonA gt lon_range(0) and lonA lt lon_range(1)      )
+    print,'median value of CoMP 1074 in the box:',median(comp1074(index))
+    
+    index = where (comp1079 gt 0. and $
+                   radA gt rad_range(0) and radA lt rad_range(1) and $
+                   latA gt lat_range(0) and latA lt lat_range(1) and $
+                   lonA gt lon_range(0) and lonA lt lon_range(1)      )
+    print,'median value of CoMP 1079 in the box:',median(comp1079(index))
+    print
 
   return
 end

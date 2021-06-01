@@ -62,8 +62,8 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   parameters = [Nem, fip_factor, Tem, SigTe, SigNe, q]
   
   ; Test values for Ne and Te at which evaluate several functions:
-  Ne0        = 2.50e8 ; cm^-3
-  Te0        = 1.50e6 ; K
+  ;Ne0        = 2.50e8 ; cm^-3
+  ;Te0        = 1.50e6 ; K
 
 ;----------------------------------------------------------------------------------------------------------------
   set_tomroot
@@ -78,8 +78,8 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   if not keyword_set(fip_factor)       then fip_factor       =     1.0  ; [Fe] = [Fe]_Feldman * fip_factor
   if not keyword_set(instrument_label) then instrument_label =    'aia' ; always use lowercase
   if not keyword_set(band_label)       then band_label       =    '171'
-  if not keyword_set(Ne0)              then Ne0              =  2.50e8  ; cm^-3
-  if not keyword_set(Te0)              then Te0              =  1.50e6  ; K
+  if not keyword_set(Ne0)              then Ne0              =  0.27979984e8;2.50e8  ; cm^-3
+  if not keyword_set(Te0)              then Te0              =  1.5809454e6;1.50e6  ; K
   
   load_g_table,ion_label=ion_label,line_wavelength=line_wavelength,instrument_label=instrument_label,band_label=band_label
 
@@ -90,7 +90,7 @@ pro test,Ne0=Ne0,Te0=Te0,euvband=euvband,emissionline=emissionline,$
   if (size(Te0))(0) eq 1 then NTe = (size(Te0))(1)
   if (size(Ne0))(0) eq 1 then NNe = (size(Ne0))(1)
 
-  goto,ef
+  ;goto,ef
   
   print
   print,'Input values of Ne [cm^-3], Te [K], rad [Rsun], fip_factor:'
