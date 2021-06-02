@@ -10,4 +10,5 @@
  
     ; En realidad, esta es la rutina de procesamiento principal...
     compute_avg_dynamics,data_dir='/data1/tomography/DATA/comp/1074/CR2198/Full_Data/20171203.comp.1074.daily_dynamics/'$
-                          ,file_list='list.txt',window_lapse=2.,init_hour=17.8,/dynamics
+                         ,file_list='list.txt',window_lapse=2.,init_hour=17.8,/dynamics,$
+                         dir_out='/data1/tomography/DATA/comp/1074/CR2198/test/'
