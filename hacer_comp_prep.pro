@@ -7,8 +7,8 @@
 
 pro hacer_comp_prep
   r0=[1.1,1.3]
-  ;comp_line = '1074' 
-  comp_line = '1079' 
+  comp_line = '1074'  &  mini = 0.1 & maxi =20.
+  ;comp_line = '1079'  &  mini = 0.1  & maxi =10.
   year = '2017'
   month= '12'
   day_v = ['03','04','05','07','08','09','10','11','12','13','14','15','16']
@@ -19,8 +19,10 @@ pro hacer_comp_prep
   for i=0,ndays-1 do begin
      day  = day_v[i]
      date      = year+month+day
-     data_dir  = '/data1/tomography/DATA/comp/'+comp_line+'/CR2198/Full_Data/'+date+'.comp.'+comp_line+'.daily_dynamics/'  
-     compute_avg_dynamics,data_dir=data_dir,file_list='list.txt',window_lapse=2.,init_hour=17.8,/dynamics,dir_out=dir_out,r0=r0
+     data_dir  = '/data1/tomography/DATA/comp/'+comp_line+$
+                 '/CR2198/Full_Data/'+date+'.comp.'+comp_line+'.daily_dynamics/'  
+     compute_avg_dynamics,data_dir=data_dir,file_list='list.txt',window_lapse=2.$
+     ,init_hour=17.8,/dynamics,dir_out=dir_out,r0=r0,mini=mini,maxi=maxi
   endfor
   return
  end
