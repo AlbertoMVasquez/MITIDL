@@ -7,9 +7,9 @@ common comunes,tm,wt,nband,demc,PHI,parametrizacion,Tmin,Tmax,nr,nth,np,rad,lat,
   file_in = 'param_input_exp_contrl_ldem_con_ruido_0.1.out'
   restore,dir_in+file_in
   
-  Ne0_in  = par_IN(*,*,*,0)
-  Tc_in   = par_IN(*,*,*,1)
-  sigT_in = par_IN(*,*,*,2)
+  Ne0_in  = par_orig(*,*,*,0)
+  Tc_in   = par_orig(*,*,*,1)
+  sigT_in = par_orig(*,*,*,2)
 
   ;file_out = 'LDEM_AIA3_exp_contrl_sin_ruido'
   file_out = 'LDEM_AIA3_exp_contrl_con_ruido_0.1'

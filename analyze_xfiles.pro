@@ -5,9 +5,8 @@ pro analyze_xfiles
 ; Load tomographies into memory
   dir = '/data1/tomography/bindata/'
   xread,dir=dir,file='x_KCOR.CR2198.13imgs-reduced.bf2.ri1.05.ro2.25_Inst_1.09_2.00_120_90_180_dropneg_r3D_l1e-4',nr=120,nt=90,np=180,map=y0
-  xread,dir=dir,file='x.comp1074.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_1.7_IRMIN_1.09',nr=50,nt=90,np=180,map=comp1074
-  xread,dir=dir,file='x.comp1074.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_1.7_IRMIN_1.09_ABBEY',nr=50,nt=90,np=180,map=comp1074_new
-  STOP
+  xread,dir=dir,file='x.comp1074.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_1.7_IRMIN_1.09',nr=50,nt=90,np=180,map=comp1074_old
+  xread,dir=dir,file='x.comp1074_Rmin1.0_Rmax1.5_IRmin1.09_IRmax1.3_50x90x180_BF2_L1.7',nr=50,nt=90,np=180,map=comp1074_new
   xread,dir=dir,file='x.comp1079.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_L3.0_IRMIN_1.09',nr=50,nt=90,np=180,map=comp1079
   xread,dir=dir,file='x_aia.171.cr2198.26x90_bf4_ri.00_ro1.09_h1_Oldset_r3d_reduced_L0.70',nr=26,nt=90,np=180,map=FBE171
   xread,dir=dir,file='x_aia.193.cr2198.26x90_bf4_ri.00_ro1.09_h1_Oldset_r3d_reduced_L0.90',nr=26,nt=90,np=180,map=FBE193
@@ -34,14 +33,19 @@ pro analyze_xfiles
    win=0
 
 ; CoMP settings:
-   ;file = 'x.comp1074.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_1.7_IRMIN_1.09'
-   file = 'x.comp1074.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_1.7_IRMIN_1.09_ABBEY'
+  
+   file = 'x.comp1074.old'
    Rmin   = 1.0
    Rmax   = 1.5
    Nr     =  50
   instrument = 'COMP'
-  titulo='CR-2198 CoMP 1074'
-   xdisplay,dir=dir,map=comp1074,nr=nr,nt=nt,np=np,rmin=rmin,rmax=rmax,r0A=r0A,units=units,titulo=titulo,$
+  titulo='CoMP 1074 (OLD)'
+   xdisplay,map=comp1074_old,nr=nr,nt=nt,np=np,rmin=rmin,rmax=rmax,r0A=r0A,units=units,titulo=titulo,$
+            rad_range=rad_range,lat_range=lat_range,lon_range=lon_range,file=file
+
+   file = 'x.comp1074.new'
+   titulo='CoMP 1074 (NEW)'
+   xdisplay,map=comp1074_new,nr=nr,nt=nt,np=np,rmin=rmin,rmax=rmax,r0A=r0A,units=units,titulo=titulo,$
             rad_range=rad_range,lat_range=lat_range,lon_range=lon_range,file=file
 
    return
@@ -53,7 +57,7 @@ pro analyze_xfiles
    Nr     =  50
   instrument = 'COMP'
   titulo='CR-2198 CoMP 1079'
-   xdisplay,dir=dir,map=comp1079,nr=nr,nt=nt,np=np,rmin=rmin,rmax=rmax,r0A=r0A,units=units,titulo=titulo,$
+   xdisplay,map=comp1079,nr=nr,nt=nt,np=np,rmin=rmin,rmax=rmax,r0A=r0A,units=units,titulo=titulo,$
             rad_range=rad_range,lat_range=lat_range,lon_range=lon_range,file=file
 
    
