@@ -9,6 +9,9 @@ pro convert_units_comp
 ; Median tomographic values in units of [1.e-6 Bsun*A]
   x_comp_1074 = [3.01564,1.09300]
   x_comp_1079 = [1.05946,1.01825] ; These values will probably be corrected.
+;  x_comp_1074 = [3.01406,1.13503]
+;  x_comp_1079 = [1.52335,0.865927] ; These values will probably be corrected.
+
 
 ; ETR Values for Bsun
   Bsun_1075 = 6.1768E-01 * 1.e+2 ; erg s-1 cm-2 A-1

@@ -7,7 +7,8 @@ pro analyze_xfiles
   xread,dir=dir,file='x_KCOR.CR2198.13imgs-reduced.bf2.ri1.05.ro2.25_Inst_1.09_2.00_120_90_180_dropneg_r3D_l1e-4',nr=120,nt=90,np=180,map=y0
   xread,dir=dir,file='x.comp1074.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_1.7_IRMIN_1.09',nr=50,nt=90,np=180,map=comp1074_old
   xread,dir=dir,file='x.comp1074_Rmin1.0_Rmax1.5_IRmin1.09_IRmax1.3_50x90x180_BF2_L1.7',nr=50,nt=90,np=180,map=comp1074_new
-  xread,dir=dir,file='x.comp1079.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_L3.0_IRMIN_1.09',nr=50,nt=90,np=180,map=comp1079
+  xread,dir=dir,file='x.comp1079.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_L3.0_IRMIN_1.09',nr=50,nt=90,np=180,map=comp1079_old
+  xread,dir=dir,file='x.comp1079_Rmin1.0_Rmax1.5_IRmin1.09_IRmax1.3_50x90x180_BF2_L3.0',nr=50,nt=90,np=180,map=comp1079_new
   xread,dir=dir,file='x_aia.171.cr2198.26x90_bf4_ri.00_ro1.09_h1_Oldset_r3d_reduced_L0.70',nr=26,nt=90,np=180,map=FBE171
   xread,dir=dir,file='x_aia.193.cr2198.26x90_bf4_ri.00_ro1.09_h1_Oldset_r3d_reduced_L0.90',nr=26,nt=90,np=180,map=FBE193
   xread,dir=dir,file='x_aia.211.cr2198.26x90_bf4_ri.00_ro1.09_h1_Oldset_r3d_reduced_L0.90',nr=26,nt=90,np=180,map=FBE211
@@ -41,25 +42,31 @@ pro analyze_xfiles
   instrument = 'COMP'
   titulo='CoMP 1074 (OLD)'
    xdisplay,map=comp1074_old,nr=nr,nt=nt,np=np,rmin=rmin,rmax=rmax,r0A=r0A,units=units,titulo=titulo,$
-            rad_range=rad_range,lat_range=lat_range,lon_range=lon_range,file=file
+            rad_range=rad_range,lat_range=lat_range,lon_range=lon_range,file=file,minS=minS,maxS=maxS
 
    file = 'x.comp1074.new'
    titulo='CoMP 1074 (NEW)'
    xdisplay,map=comp1074_new,nr=nr,nt=nt,np=np,rmin=rmin,rmax=rmax,r0A=r0A,units=units,titulo=titulo,$
-            rad_range=rad_range,lat_range=lat_range,lon_range=lon_range,file=file
-
-   return
-   
-
-   file = 'x.comp1079.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_L3.0_IRMIN_1.09'
+            rad_range=rad_range,lat_range=lat_range,lon_range=lon_range,file=file,minA=minS,maxA=maxS
+  
+   file = 'x.comp1079.old'
    Rmin   = 1.0
    Rmax   = 1.5
    Nr     =  50
   instrument = 'COMP'
-  titulo='CR-2198 CoMP 1079'
-   xdisplay,map=comp1079,nr=nr,nt=nt,np=np,rmin=rmin,rmax=rmax,r0A=r0A,units=units,titulo=titulo,$
-            rad_range=rad_range,lat_range=lat_range,lon_range=lon_range,file=file
+  titulo='CoMP 1079 (OLD)'
+   xdisplay,map=comp1079_old,nr=nr,nt=nt,np=np,rmin=rmin,rmax=rmax,r0A=r0A,units=units,titulo=titulo,$
+            rad_range=rad_range,lat_range=lat_range,lon_range=lon_range,file=file,minA=minS,maxA=maxS
 
+   file = 'x.comp1079.new'
+   titulo='CoMP 1079 (NEW)'
+   xdisplay,map=comp1079_new,nr=nr,nt=nt,np=np,rmin=rmin,rmax=rmax,r0A=r0A,units=units,titulo=titulo,$
+            rad_range=rad_range,lat_range=lat_range,lon_range=lon_range,file=file,minA=minS,maxA=maxS
+
+   return
+   
+
+ 
    
 
    

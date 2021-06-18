@@ -49,9 +49,10 @@ pro median_values_box,rad_range,lat_range,lon_range,file
   print
 
   dir = '/data1/tomography/bindata/'
-  xread,dir=dir,file='x.comp1074.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_1.7_IRMIN_1.09',nr=50,nt=90,np=180,map=comp1074
-  ;xread,dir=dir,file='x.comp1074.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_1.7_IRMIN_1.09_ABBEY',nr=50,nt=90,np=180,map=comp1074_new
-  xread,dir=dir,file='x.comp1079.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_L3.0_IRMIN_1.09',nr=50,nt=90,np=180,map=comp1079
+  ;xread,dir=dir,file='x.comp1074.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_1.7_IRMIN_1.09',nr=50,nt=90,np=180,map=comp1074
+  xread,dir=dir,file='x.comp1074_Rmin1.0_Rmax1.5_IRmin1.09_IRmax1.3_50x90x180_BF2_L1.7',nr=50,nt=90,np=180,map=comp1074
+  ;xread,dir=dir,file='x.comp1079.dynamics.Dt2_CR2198.bf2.ri1.00.ro1.50_50_90_180_r3D_L3.0_IRMIN_1.09',nr=50,nt=90,np=180,map=comp1079
+  xread,dir=dir,file='x.comp1079_Rmin1.0_Rmax1.5_IRmin1.09_IRmax1.3_50x90x180_BF2_L3.0',nr=50,nt=90,np=180,map=comp1079
   nr = 50 & nth = 90 & np = 180
   grilla,nr,nth,np,radA,latA,lonA  
   index = where (comp1074 gt 0. and $
